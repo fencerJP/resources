@@ -65,7 +65,7 @@ mod imp {
     use process_data::{gpu_usage::GpuIdentifier, pci_slot::PciSlot};
 
     #[derive(Debug, CompositeTemplate)]
-    #[template(resource = "/net/nokyan/Resources/ui/window.ui")]
+    #[template(resource = "/org/gnome/Resources/ui/window.ui")]
     pub struct MainWindow {
         #[template_child]
         pub split_view: TemplateChild<adw::OverlaySplitView>,

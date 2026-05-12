@@ -29,10 +29,10 @@
       <li>Batteries</li>
     </ul>
   </description>
-  <url type="homepage">https://apps.gnome.org/app/net.nokyan.Resources/</url>
+  <url type="homepage">https://apps.gnome.org/app/org.gnome.Resources/</url>
   <url type="contribute">https://welcome.gnome.org/app/Resources/</url>
-  <url type="bugtracker">https://github.com/nokyan/resources/issues</url>
-  <url type="vcs-browser">https://github.com/nokyan/resources</url>
+  <url type="bugtracker">https://gitlab.gnome.org/GNOME/Incubator/resources/issues</url>
+  <url type="vcs-browser">https://gitlab.gnome.org/GNOME/Incubator/resources</url>
   <url type="translate">https://l10n.gnome.org/module/resources/</url>
   <url type="donation">https://nokyan.net/donate</url>
   <url type="contact">https://nokyan.net</url>
@@ -49,41 +49,41 @@
   </branding>
   <screenshots>
     <screenshot type="default">
-      <image>https://raw.githubusercontent.com/nokyan/resources/main/data/resources/screenshots/1.png</image>
+      <image>https://gitlab.gnome.org/GNOME/Incubator/resources/-/raw/main/data/resources/screenshots/1.png</image>
       <caption>Apps page in light theme</caption>
     </screenshot>
     <screenshot>
-      <image>https://raw.githubusercontent.com/nokyan/resources/main/data/resources/screenshots/2.png</image>
+      <image>https://gitlab.gnome.org/GNOME/Incubator/resources/-/raw/main/data/resources/screenshots/2.png</image>
       <caption>Processes page in dark theme</caption>
     </screenshot>
     <screenshot>
-      <image>https://raw.githubusercontent.com/nokyan/resources/main/data/resources/screenshots/3.png</image>
+      <image>https://gitlab.gnome.org/GNOME/Incubator/resources/-/raw/main/data/resources/screenshots/3.png</image>
       <caption>Processor page in light theme</caption>
     </screenshot>
     <screenshot>
-      <image>https://raw.githubusercontent.com/nokyan/resources/main/data/resources/screenshots/4.png</image>
+      <image>https://gitlab.gnome.org/GNOME/Incubator/resources/-/raw/main/data/resources/screenshots/4.png</image>
       <caption>Memory page in dark theme</caption>
     </screenshot>
     <screenshot>
-      <image>https://raw.githubusercontent.com/nokyan/resources/main/data/resources/screenshots/5.png</image>
+      <image>https://gitlab.gnome.org/GNOME/Incubator/resources/-/raw/main/data/resources/screenshots/5.png</image>
       <caption>GPU page in light theme</caption>
     </screenshot>
     <screenshot>
-      <image>https://raw.githubusercontent.com/nokyan/resources/main/data/resources/screenshots/6.png</image>
+      <image>https://gitlab.gnome.org/GNOME/Incubator/resources/-/raw/main/data/resources/screenshots/6.png</image>
       <caption>Drive page in dark theme</caption>
     </screenshot>
     <screenshot>
-      <image>https://raw.githubusercontent.com/nokyan/resources/main/data/resources/screenshots/7.png</image>
+      <image>https://gitlab.gnome.org/GNOME/Incubator/resources/-/raw/main/data/resources/screenshots/7.png</image>
       <caption>Network Interface page in light theme</caption>
     </screenshot>
     <screenshot>
-      <image>https://raw.githubusercontent.com/nokyan/resources/main/data/resources/screenshots/8.png</image>
+      <image>https://gitlab.gnome.org/GNOME/Incubator/resources/-/raw/main/data/resources/screenshots/8.png</image>
       <caption>Battery page in dark theme</caption>
     </screenshot>
   </screenshots>
   <releases>
     <release version="1.10.2" date="2026-03-06">
-      <url type="details">https://github.com/nokyan/resources/releases/tag/v1.10.2</url>
+      <url type="details">https://gitlab.gnome.org/GNOME/Incubator/resources/-/releases/v1.10.2</url>
       <description translate="no">
         <p>
           Resources 1.10.2 is here with another small round of bugfixes and improvements:
@@ -96,7 +96,7 @@
       </description>
     </release>
     <release version="1.10.1" date="2026-02-14">
-      <url type="details">https://github.com/nokyan/resources/releases/tag/v1.10.1</url>
+      <url type="details">https://gitlab.gnome.org/GNOME/Incubator/resources/-/releases/v1.10.1</url>
       <description translate="no">
         <p>
           Resources 1.10.1 is here with two bugfixes and an improvement:
@@ -109,7 +109,7 @@
       </description>
     </release>
     <release version="1.10.0" date="2026-02-01">
-      <url type="details">https://github.com/nokyan/resources/releases/tag/v1.10.0</url>
+      <url type="details">https://gitlab.gnome.org/GNOME/Incubator/resources/-/releases/v1.10.0</url>
       <description translate="no">
         <p>
           Today marks the release of Resources 1.10 with support for new hardware, software and improvements all around! Here are some highlights:
@@ -124,7 +124,7 @@
       </description>
     </release>
     <release version="1.9.1" date="2025-11-16">
-      <url type="details">https://github.com/nokyan/resources/releases/tag/v1.9.1</url>
+      <url type="details">https://gitlab.gnome.org/GNOME/Incubator/resources/-/releases/v1.9.1</url>
       <description translate="no">
         <p>
           Resources 1.9.1 is here with a small bugfix:
@@ -135,7 +135,7 @@
       </description>
     </release>
     <release version="1.9.0" date="2025-10-25">
-      <url type="details">https://github.com/nokyan/resources/releases/tag/v1.9.0</url>
+      <url type="details">https://gitlab.gnome.org/GNOME/Incubator/resources/-/releases/v1.9.0</url>
       <description translate="no">
         <p>
           After quite some time since the last update, Resources 1.9 has been released featuring lots of more languages and a bunch of small new features! These are the highlights:
@@ -150,7 +150,7 @@
       </description>
     </release>
     <release version="1.8.0" date="2025-03-29">
-      <url type="details">https://github.com/nokyan/resources/releases/tag/v1.8.0</url>
+      <url type="details">https://gitlab.gnome.org/GNOME/Incubator/resources/-/releases/v1.8.0</url>
       <description translate="no">
         <p>
           Resources 1.8 has landed with new features, quality of life updates and better support for more hardware. Here are the highlights:
@@ -165,7 +165,7 @@
       </description>
     </release>
     <release version="1.7.1" date="2024-12-06">
-      <url type="details">https://github.com/nokyan/resources/releases/tag/v1.7.1</url>
+      <url type="details">https://gitlab.gnome.org/GNOME/Incubator/resources/-/releases/v1.7.1</url>
       <description translate="no">
         <p>
           Resources 1.7.1 has been published including a hotfix for a critical bug and a small improvement for network interface detection:
@@ -177,7 +177,7 @@
       </description>
     </release>
     <release version="1.7.0" date="2024-11-29">
-      <url type="details">https://github.com/nokyan/resources/releases/tag/v1.7.0</url>
+      <url type="details">https://gitlab.gnome.org/GNOME/Incubator/resources/-/releases/v1.7.0</url>
       <description translate="no">
         <p>
           Resources 1.7 has been released with a new supported device category and other improvements. Here are some highlights:
@@ -192,7 +192,7 @@
       </description>
     </release>
     <release version="1.6.0" date="2024-08-23">
-      <url type="details">https://github.com/nokyan/resources/releases/tag/v1.6.0</url>
+      <url type="details">https://gitlab.gnome.org/GNOME/Incubator/resources/-/releases/v1.6.0</url>
       <description translate="no">
         <p>
           Resources 1.6 has landed and contains mainly internal changes and further preparations for GNOME Circle. Here are some highlights:

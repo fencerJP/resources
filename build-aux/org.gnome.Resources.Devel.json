@@ -1,5 +1,5 @@
 {
-    "id": "net.nokyan.Resources.Devel",
+    "id": "org.gnome.Resources.Devel",
     "runtime": "org.gnome.Platform",
     "runtime-version": "50",
     "sdk": "org.gnome.Sdk",

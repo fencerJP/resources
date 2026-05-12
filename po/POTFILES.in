@@ -1,9 +1,9 @@
 # List of source files containing translatable strings.
 # Please keep this file sorted alphabetically.
 
-data/net.nokyan.Resources.desktop.in.in
-data/net.nokyan.Resources.metainfo.xml.in.in
-data/net.nokyan.Resources.policy.in.in
+data/org.gnome.Resources.desktop.in.in
+data/org.gnome.Resources.metainfo.xml.in.in
+data/org.gnome.Resources.policy.in.in
 
 data/resources/ui/dialogs/app_dialog.ui
 data/resources/ui/dialogs/process_dialog.ui

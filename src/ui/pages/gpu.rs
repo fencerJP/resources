@@ -30,7 +30,7 @@ mod imp {
     };
 
     #[derive(CompositeTemplate, Properties)]
-    #[template(resource = "/net/nokyan/Resources/ui/pages/gpu.ui")]
+    #[template(resource = "/org/gnome/Resources/ui/pages/gpu.ui")]
     #[properties(wrapper_type = super::ResGPU)]
     pub struct ResGPU {
         #[template_child]

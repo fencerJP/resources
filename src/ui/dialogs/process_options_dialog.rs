@@ -22,7 +22,7 @@ mod imp {
     use gtk::CompositeTemplate;
 
     #[derive(Debug, CompositeTemplate, Default)]
-    #[template(resource = "/net/nokyan/Resources/ui/dialogs/process_options_dialog.ui")]
+    #[template(resource = "/org/gnome/Resources/ui/dialogs/process_options_dialog.ui")]
     pub struct ResProcessOptionsDialog {
         #[template_child]
         pub name: TemplateChild<gtk::Label>,

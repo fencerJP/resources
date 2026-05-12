@@ -78,7 +78,7 @@ mod imp {
 
     #[derive(CompositeTemplate, Properties)]
     #[properties(wrapper_type = super::ResProcesses)]
-    #[template(resource = "/net/nokyan/Resources/ui/pages/processes.ui")]
+    #[template(resource = "/org/gnome/Resources/ui/pages/processes.ui")]
     pub struct ResProcesses {
         #[template_child]
         pub toast_overlay: TemplateChild<adw::ToastOverlay>,

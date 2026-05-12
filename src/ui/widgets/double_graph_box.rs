@@ -14,7 +14,7 @@ mod imp {
     use gtk::CompositeTemplate;
 
     #[derive(Debug, CompositeTemplate, Default)]
-    #[template(resource = "/net/nokyan/Resources/ui/widgets/double_graph_box.ui")]
+    #[template(resource = "/org/gnome/Resources/ui/widgets/double_graph_box.ui")]
     pub struct ResDoubleGraphBox {
         #[template_child]
         pub start_graph: TemplateChild<ResGraph>,

@@ -83,7 +83,7 @@ impl Application {
         glib::Object::builder::<Self>()
             .property("application-id", Some(APP_ID))
             .property("flags", gio::ApplicationFlags::empty())
-            .property("resource-base-path", Some("/net/nokyan/Resources/"))
+            .property("resource-base-path", Some("/org/gnome/Resources/"))
             .build()
     }
 
@@ -232,7 +232,7 @@ impl Application {
 
     fn setup_css(&self) {
         let provider = gtk::CssProvider::new();
-        provider.load_from_resource("/net/nokyan/Resources/style.css");
+        provider.load_from_resource("/org/gnome/Resources/style.css");
         if let Some(display) = gdk::Display::default() {
             gtk::style_context_add_provider_for_display(
                 &display,
@@ -271,13 +271,13 @@ impl Application {
         let about = adw::AboutDialog::builder()
             .application_name(i18n("Resources"))
             .application_icon(config::APP_ID)
-            .issue_url("https://github.com/nokyan/resources/issues")
-            .developer_name("nokyan")
+            .issue_url("https://gitlab.gnome.org/GNOME/Incubator/resources/issues")
+            .developer_name("The GNOME Project")
             .developers(vec!["nokyan <hello@nokyan.net>"])
             .artists(["Avhiren"])
             .license_type(gtk::License::Gpl30)
             .version(config::VERSION)
-            .website("https://apps.gnome.org/app/net.nokyan.Resources/")
+            .website("https://apps.gnome.org/app/org.gnome.Resources/")
             .build();
 
         // Translator credits. Replace "translator-credits" with your name/username, and optionally an email or URL.

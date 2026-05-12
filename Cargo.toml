@@ -4,7 +4,7 @@ version = "1.10.2"
 authors = ["nokyan <hello@nokyan.net>"]
 edition = "2024"
 rust-version = "1.85.0"
-homepage = "https://apps.gnome.org/app/net.nokyan.Resources/"
+homepage = "https://apps.gnome.org/app/org.gnome.Resources/"
 license = "GPL-3.0-or-later"
 
 [profile.dev]

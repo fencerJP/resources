@@ -14,7 +14,7 @@ mod imp {
     use gtk::CompositeTemplate;
 
     #[derive(Debug, CompositeTemplate, Default)]
-    #[template(resource = "/net/nokyan/Resources/ui/dialogs/settings_dialog.ui")]
+    #[template(resource = "/org/gnome/Resources/ui/dialogs/settings_dialog.ui")]
     pub struct ResSettingsDialog {
         #[template_child]
         pub prefix_combo_row: TemplateChild<adw::ComboRow>,
