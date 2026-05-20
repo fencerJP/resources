@@ -6,8 +6,9 @@ use std::{
 };
 
 use anyhow::{Context, Result, bail};
+use gio_unix::DesktopAppInfo;
 use gtk::{
-    gio::{DesktopAppInfo, Icon, ThemedIcon},
+    gio::{Icon, ThemedIcon},
     glib::GString,
     prelude::AppInfoExt,
 };
