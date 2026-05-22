@@ -2,7 +2,6 @@ cargo_env = environment()
 
 # App specific env vars
 cargo_env.append('APP_ID', application_id)
-cargo_env.append('PKGDATADIR', pkgdatadir)
 cargo_env.append('DEVLOPMENT_BUILD', development_build.to_string())
 cargo_env.append('VERSION', version + version_suffix)
 cargo_env.append('GETTEXT_PACKAGE', gettext_package)

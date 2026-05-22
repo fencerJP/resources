@@ -4,7 +4,7 @@ use adw::{prelude::*, subclass::prelude::*};
 use glib::clone;
 use gtk::{gdk, gio, glib};
 
-use crate::config::{self, APP_ID, DEVLOPMENT_BUILD, PKGDATADIR, VERSION};
+use crate::config::{self, APP_ID, DEVLOPMENT_BUILD, VERSION};
 use crate::i18n::i18n;
 use crate::ui::dialogs::settings_dialog::ResSettingsDialog;
 use crate::ui::window::MainWindow;
@@ -291,7 +291,6 @@ impl Application {
         trace!("Starting the application");
         info!("Resources ({APP_ID})");
         info!("Version: {VERSION} ({DEVLOPMENT_BUILD})");
-        info!("Datadir: `{PKGDATADIR}`");
 
         if log::log_enabled!(log::Level::Debug) {
             let os_info = OsInfo::get();
