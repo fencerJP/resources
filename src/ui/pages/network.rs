@@ -1,6 +1,6 @@
 use std::time::{Duration, SystemTime};
 
-use crate::config::PROFILE;
+use crate::config::DEVLOPMENT_BUILD;
 use crate::i18n::{i18n, i18n_f};
 use crate::ui::set_subtitle_converted_maybe;
 use crate::utils::link::LinkData;
@@ -165,7 +165,7 @@ mod imp {
             let obj = self.obj();
 
             // Devel Profile
-            if PROFILE == "Devel" {
+            if DEVLOPMENT_BUILD {
                 obj.add_css_class("devel");
             }
         }

@@ -16,7 +16,7 @@ use gtk::{
 use process_data::Niceness;
 
 use crate::add_column;
-use crate::config::PROFILE;
+use crate::config::DEVLOPMENT_BUILD;
 use crate::i18n::{i18n, i18n_f, ni18n_f};
 use crate::ui::dialogs::process_dialog::ResProcessDialog;
 use crate::ui::dialogs::process_options_dialog::ResProcessOptionsDialog;
@@ -340,7 +340,7 @@ mod imp {
             let obj = self.obj();
 
             // Devel Profile
-            if PROFILE == "Devel" {
+            if DEVLOPMENT_BUILD {
                 obj.add_css_class("devel");
             }
         }

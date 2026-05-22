@@ -2,7 +2,7 @@ use adw::{prelude::*, subclass::prelude::*};
 use gtk::glib::{self, GString};
 use log::trace;
 
-use crate::config::PROFILE;
+use crate::config::DEVLOPMENT_BUILD;
 use crate::i18n::i18n;
 use crate::ui::pages::processes::process_entry::ProcessEntry;
 use crate::utils::units::{convert_fraction, convert_speed, convert_storage, format_time};
@@ -82,7 +82,7 @@ mod imp {
             let obj = self.obj();
 
             // Devel Profile
-            if PROFILE == "Devel" {
+            if DEVLOPMENT_BUILD {
                 obj.add_css_class("devel");
             }
         }

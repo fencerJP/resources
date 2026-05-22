@@ -1,5 +1,5 @@
 use crate::{
-    config::PROFILE,
+    config::DEVLOPMENT_BUILD,
     i18n::i18n_f,
     ui::{
         pages::{NICE_TO_LABEL, processes::process_entry::ProcessEntry},
@@ -64,7 +64,7 @@ mod imp {
             let obj = self.obj();
 
             // Devel Profile
-            if PROFILE == "Devel" {
+            if DEVLOPMENT_BUILD {
                 obj.add_css_class("devel");
             }
         }

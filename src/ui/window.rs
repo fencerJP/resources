@@ -10,7 +10,7 @@ use gtk::{Widget, gdk, gio, glib};
 use log::{debug, info, trace, warn};
 
 use crate::application::Application;
-use crate::config::PROFILE;
+use crate::config::DEVLOPMENT_BUILD;
 use crate::gui::ARGS;
 use crate::i18n::{i18n, i18n_f, ni18n_f};
 use crate::ui::pages::applications::ResApplications;
@@ -169,7 +169,7 @@ mod imp {
             let obj = self.obj();
 
             // Devel Profile
-            if PROFILE == "Devel" {
+            if DEVLOPMENT_BUILD {
                 obj.add_css_class("devel");
             }
 

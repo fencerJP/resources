@@ -4,7 +4,7 @@ use adw::{prelude::*, subclass::prelude::*};
 use glib::clone;
 use gtk::{gdk, gio, glib};
 
-use crate::config::{self, APP_ID, PKGDATADIR, PROFILE, VERSION};
+use crate::config::{self, APP_ID, DEVLOPMENT_BUILD, PKGDATADIR, VERSION};
 use crate::i18n::i18n;
 use crate::ui::dialogs::settings_dialog::ResSettingsDialog;
 use crate::ui::window::MainWindow;
@@ -290,7 +290,7 @@ impl Application {
     pub fn run(&self) {
         trace!("Starting the application");
         info!("Resources ({APP_ID})");
-        info!("Version: {VERSION} ({PROFILE})");
+        info!("Version: {VERSION} ({DEVLOPMENT_BUILD})");
         info!("Datadir: `{PKGDATADIR}`");
 
         if log::log_enabled!(log::Level::Debug) {
@@ -305,7 +305,7 @@ impl Application {
             );
         }
 
-        if PROFILE == "Devel" {
+        if DEVLOPMENT_BUILD {
             info!(
                 "You are running a development version of Resources, things may be slow or break!"
             );
