@@ -454,6 +454,13 @@ impl MainWindow {
         }
     }
 
+    pub fn toggle_sidebar(&self) {
+        let imp = self.imp();
+
+        imp.split_view
+            .set_show_sidebar(!imp.split_view.shows_sidebar())
+    }
+
     fn init_gpu_pages(self: &MainWindow, gpus: &[Gpu]) {
         let imp = self.imp();
 
