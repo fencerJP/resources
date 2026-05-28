@@ -47,7 +47,6 @@ mod imp {
     };
 
     use crate::{
-        config::VERSION,
         ui::{
             pages::{
                 applications::ResApplications, cpu::ResCPU, memory::ResMemory,
@@ -66,7 +65,7 @@ mod imp {
     use process_data::{gpu_usage::GpuIdentifier, pci_slot::PciSlot};
 
     #[derive(Debug, CompositeTemplate)]
-    #[template(resource = "/net/nokyan/Resources/ui/window.ui")]
+    #[template(resource = "/org/gnome/Resources/ui/window.ui")]
     pub struct MainWindow {
         #[template_child]
         pub split_view: TemplateChild<adw::OverlaySplitView>,
@@ -172,9 +171,6 @@ mod imp {
             // Devel Profile
             if PROFILE == "Devel" {
                 obj.add_css_class("devel");
-                obj.set_title(Some(
-                    format!("{} ({})", obj.title().unwrap_or_default(), VERSION).trim(),
-                ));
             }
 
             // Load latest window state

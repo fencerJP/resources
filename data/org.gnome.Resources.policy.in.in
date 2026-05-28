@@ -4,8 +4,8 @@
  "http://www.freedesktop.org/standards/PolicyKit/1.0/policyconfig.dtd">
 <policyconfig>
   <vendor>nokyan</vendor>
-  <icon_name>net.nokyan.Resources</icon_name>
-  <action id="net.nokyan.Resources.kill">
+  <icon_name>org.gnome.Resources</icon_name>
+  <action id="org.gnome.Resources.kill">
     <description>Control Process</description>
     <message>Authentication is required to control superuser’s or other users’ processes</message>
     <defaults>

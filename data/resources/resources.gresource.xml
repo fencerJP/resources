@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <gresources>
-  <gresource prefix="/net/nokyan/Resources/icons/scalable/actions/">
+  <gresource prefix="/org/gnome/Resources/icons/scalable/actions/">
     <file preprocess="xml-stripblanks" alias="app-symbolic.svg">icons/app-symbolic.svg</file>
     <file preprocess="xml-stripblanks" alias="battery-symbolic.svg">icons/battery-symbolic.svg</file>
     <file preprocess="xml-stripblanks" alias="bluetooth-symbolic.svg">icons/bluetooth-symbolic.svg</file>
@@ -43,7 +43,7 @@
     <file preprocess="xml-stripblanks" alias="zfs-symbolic.svg">icons/zfs-symbolic.svg</file>
     <file preprocess="xml-stripblanks" alias="zram-symbolic.svg">icons/zram-symbolic.svg</file>
   </gresource>
-  <gresource prefix="/net/nokyan/Resources/"><!-- see https://gtk-rs.org/gtk4-rs/git/docs/gtk4/struct.Application.html#automatic-resources -->
+  <gresource prefix="/org/gnome/Resources/"><!-- see https://gtk-rs.org/gtk4-rs/git/docs/gtk4/struct.Application.html#automatic-resources -->
     <file compressed="true">style.css</file>
     <file compressed="true" preprocess="xml-stripblanks">ui/dialogs/app_dialog.ui</file>
     <file compressed="true" preprocess="xml-stripblanks">ui/dialogs/process_dialog.ui</file>
