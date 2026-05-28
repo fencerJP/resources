@@ -1,4 +1,4 @@
-use crate::config::PROFILE;
+use crate::config::DEVLOPMENT_BUILD;
 use crate::i18n::i18n;
 use crate::ui::pages::applications::application_entry::ApplicationEntry;
 use crate::utils::units::{convert_fraction, convert_speed, convert_storage};
@@ -76,7 +76,7 @@ mod imp {
             let obj = self.obj();
 
             // Devel Profile
-            if PROFILE == "Devel" {
+            if DEVLOPMENT_BUILD {
                 obj.add_css_class("devel");
             }
         }

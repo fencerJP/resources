@@ -13,6 +13,7 @@ flatpak@x86_64:
     FLATPAK_MODULE: resources
     APP_ID: org.gnome.Resources.Devel
     BUNDLE: org.gnome.Resources.Devel.flatpak
+    CONFIG_OPTS: "-Ddevelopment_build=true"
 
 flatpak@aarch64:
   extends: .flatpak@aarch64
@@ -22,6 +23,7 @@ flatpak@aarch64:
     FLATPAK_MODULE: resources
     APP_ID: org.gnome.Resources.Devel
     BUNDLE: org.gnome.Resources.Devel.flatpak
+    CONFIG_OPTS: "-Ddevelopment_build=true"
 
 nightly:
   extends: .publish_nightly

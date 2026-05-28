@@ -5,7 +5,7 @@ use gtk::glib;
 use log::trace;
 
 use crate::{
-    config::PROFILE,
+    config::DEVLOPMENT_BUILD,
     i18n::i18n,
     utils::{
         FiniteOr,
@@ -57,7 +57,7 @@ mod imp {
             let obj = self.obj();
 
             // Devel Profile
-            if PROFILE == "Devel" {
+            if DEVLOPMENT_BUILD {
                 obj.add_css_class("devel");
             }
         }

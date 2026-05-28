@@ -5,7 +5,7 @@ use gtk::FlowBoxChild;
 use gtk::glib::{self, DateTime, Priority, clone};
 use log::trace;
 
-use crate::config::PROFILE;
+use crate::config::DEVLOPMENT_BUILD;
 use crate::i18n::{i18n, i18n_f};
 use crate::ui::widgets::graph_box::ResGraphBox;
 use crate::utils::cpu::{CpuData, CpuInfo};
@@ -163,7 +163,7 @@ mod imp {
             let obj = self.obj();
 
             // Devel Profile
-            if PROFILE == "Devel" {
+            if DEVLOPMENT_BUILD {
                 obj.add_css_class("devel");
             }
         }

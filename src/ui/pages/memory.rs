@@ -2,7 +2,7 @@ use adw::{prelude::*, subclass::prelude::*};
 use gtk::glib::{self, clone};
 use log::trace;
 
-use crate::config::PROFILE;
+use crate::config::DEVLOPMENT_BUILD;
 use crate::i18n::{i18n, i18n_f};
 use crate::utils::memory::{MemoryData, MemoryDevice};
 use crate::utils::units::convert_storage;
@@ -135,7 +135,7 @@ mod imp {
             let obj = self.obj();
 
             // Devel Profile
-            if PROFILE == "Devel" {
+            if DEVLOPMENT_BUILD {
                 obj.add_css_class("devel");
             }
         }
