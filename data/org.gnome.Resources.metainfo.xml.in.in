@@ -96,7 +96,7 @@
       </description>
     </release>
     <release version="1.10.1" date="2026-02-14">
-      <url type="details">https://gitlab.gnome.org/GNOME/Incubator/resources/-/releases/v1.10.1</url>
+      <url type="details">https://gitlab.gnome.org/GNOME/Incubator/resources/-/releases/v1.10.1-1</url>
       <description translate="no">
         <p>
           Resources 1.10.1 is here with two bugfixes and an improvement:
