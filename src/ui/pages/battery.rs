@@ -7,7 +7,7 @@ use crate::config::PROFILE;
 use crate::i18n::i18n;
 use crate::ui::set_subtitle_converted_maybe;
 use crate::utils::battery::BatteryData;
-use crate::utils::units::{convert_energy, convert_fraction, convert_power};
+use crate::utils::units::{convert_charge_cycles, convert_energy, convert_fraction, convert_power};
 
 pub const TAB_ID_PREFIX: &str = "battery";
 
@@ -224,7 +224,7 @@ impl ResBattery {
             &battery_data
                 .charge_cycles
                 .as_ref()
-                .map_or_else(|_| i18n("N/A"), std::string::ToString::to_string),
+                .map_or_else(|_| i18n("N/A"), |c| convert_charge_cycles(*c)),
         );
 
         imp.technology.set_subtitle(&battery.technology.to_string());

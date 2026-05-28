@@ -1,7 +1,7 @@
 use strum::IntoEnumIterator;
 use strum_macros::{Display, EnumIter, EnumString};
 
-use crate::i18n::i18n_f;
+use crate::i18n::{i18n, i18n_f};
 
 use super::settings::{Base, SETTINGS, TemperatureUnit};
 
@@ -345,6 +345,14 @@ pub fn convert_energy(watthours: f64, integer: bool) -> String {
 
 pub fn convert_tops(tops: f64) -> String {
     i18n_f("{} TOPs", &[&tops.to_string()])
+}
+
+pub fn convert_charge_cycles(cycles: usize) -> String {
+    if cycles > 0 {
+        cycles.to_string()
+    } else {
+        i18n("N/A")
+    }
 }
 
 #[cfg(test)]
