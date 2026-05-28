@@ -8,7 +8,7 @@ use std::{
 use anyhow::{Context, Result, bail};
 use gio_unix::DesktopAppInfo;
 use gtk::{
-    gio::{Icon, ThemedIcon},
+    gio::{File, FileIcon, Icon, ThemedIcon},
     glib::GString,
     prelude::AppInfoExt,
 };
@@ -20,7 +20,7 @@ use process_data::{
     pci_slot::PciSlot,
 };
 
-use crate::i18n::i18n;
+use crate::{i18n::i18n, utils::read_parsed};
 
 use futures::future::{FutureExt, LocalBoxFuture, Shared};
 
@@ -129,6 +129,45 @@ static KNOWN_EXECUTABLE_NAME_EXCEPTIONS: LazyLock<HashMap<&'static str, &'static
         ])
     });
 
+static MESSAGE_LOCALES: LazyLock<Vec<String>> = LazyLock::new(|| {
+    let envs = ["LC_MESSAGES", "LANGUAGE", "LANG", "LC_ALL"];
+    let mut return_vec: Vec<String> = Vec::new();
+
+    for env in &envs {
+        if let Ok(locales) = std::env::var(env) {
+            // split because LANGUAGE may contain multiple languages
+            for locale in locales.split(':') {
+                let locale = locale.to_string();
+
+                if !return_vec.contains(&locale) {
+                    return_vec.push(locale.clone());
+                }
+
+                if let Some(no_character_encoding) = locale.split_once('.') {
+                    let no_character_encoding = no_character_encoding.0.to_string();
+                    if !return_vec.contains(&no_character_encoding) {
+                        return_vec.push(no_character_encoding);
+                    }
+                }
+
+                if let Some(no_country_code) = locale.split_once('_') {
+                    let no_country_code = no_country_code.0.to_string();
+                    if !return_vec.contains(&no_country_code) {
+                        return_vec.push(no_country_code);
+                    }
+                }
+            }
+        }
+    }
+
+    debug!(
+        "Using the following locales for app names and descriptions: {:?}",
+        &return_vec
+    );
+
+    return_vec
+});
+
 /// Future that resolves to an optional app ID once deferred association completes.
 type DeferredAppFuture = Shared<LocalBoxFuture<'static, Option<String>>>;
 
@@ -161,6 +200,17 @@ pub struct App {
     pub read_bytes_from_dead_processes: u64,
     pub write_bytes_from_dead_processes: u64,
     pub containerization: Containerization,
+}
+
+/// Parsed key-value data from a .desktop file, produced by a parser strategy.
+struct DesktopEntry {
+    id: Option<String>,
+    exec: Option<String>,
+    icon: Option<String>,
+    name: Option<String>,
+    comment: Option<String>,
+    has_snap: bool,
+    has_appimage: bool,
 }
 
 impl App {
@@ -210,7 +260,7 @@ impl App {
         apps
     }
 
-    pub fn from_desktop_file<P: AsRef<Path>>(file_path: P) -> Result<App> {
+    fn from_desktop_file_gio<P: AsRef<Path>>(file_path: P) -> Result<DesktopEntry> {
         let file_path = file_path.as_ref();
 
         let desktop_entry = DesktopAppInfo::from_filename(file_path).with_context(|| {
@@ -221,12 +271,99 @@ impl App {
         })?;
 
         let id = desktop_entry
-            .string("X-Flatpak") // is there a X-Flatpak section?
-            .or_else(|| desktop_entry.string("X-AppImage-Identifier")) // or maybe a X-AppImageIdentifier
-            .map(String::from)
+            .string("X-Flatpak")
+            .or_else(|| desktop_entry.string("X-AppImage-Identifier"))
+            .map(String::from);
+
+        let exec = desktop_entry
+            .string("X-ExecLocation")
+            .or_else(|| desktop_entry.string("Exec"))
+            .map(String::from);
+
+        let icon = desktop_entry.string("Icon").map(String::from);
+
+        let name = desktop_entry.locale_string("Name").map(String::from);
+        let comment = desktop_entry.description().map(String::from);
+
+        let has_snap = desktop_entry.has_key("X-SnapInstanceName");
+        let has_appimage = desktop_entry.has_key("X-AppImage-Identifier");
+
+        Ok(DesktopEntry {
+            id,
+            exec,
+            icon,
+            name,
+            comment,
+            has_snap,
+            has_appimage,
+        })
+    }
+
+    fn from_desktop_file_own_implementation<P: AsRef<Path>>(file_path: P) -> Result<DesktopEntry> {
+        let ini = ini::Ini::load_from_str(&read_parsed::<String>(file_path.as_ref())?)?;
+        let desktop_entry = ini
+            .section(Some("Desktop Entry"))
+            .context("no desktop entry section")?;
+
+        let id = desktop_entry
+            .get("X-Flatpak")
+            .or_else(|| desktop_entry.get("X-AppImage-Identifier"));
+
+        let exec = desktop_entry
+            .get("X-ExecLocation")
+            .or(desktop_entry.get("Exec"));
+
+        let icon = desktop_entry.get("Icon");
+
+        let mut name = desktop_entry.get("Name").map(|s| s.to_string());
+        if name.is_none() {
+            for locale in MESSAGE_LOCALES.iter() {
+                if let Some(n) = desktop_entry.get(format!("Name[{locale}]")) {
+                    name = Some(n.to_string());
+                    break;
+                }
+            }
+        }
+
+        let mut comment = desktop_entry.get("Comment").map(|s| s.to_string());
+        if comment.is_none() {
+            for locale in MESSAGE_LOCALES.iter() {
+                if let Some(c) = desktop_entry.get(format!("Comment[{locale}]")) {
+                    comment = Some(c.to_string());
+                    break;
+                }
+            }
+        }
+
+        let has_snap = desktop_entry.get("X-SnapInstanceName").is_some();
+        let has_appimage = desktop_entry.get("X-AppImage-Identifier").is_some();
+
+        Ok(DesktopEntry {
+            id: id.map(|s| s.to_string()),
+            exec: exec.map(|s| s.to_string()),
+            icon: icon.map(|s| s.to_string()),
+            name,
+            comment,
+            has_snap,
+            has_appimage,
+        })
+    }
+
+    pub fn from_desktop_file<P: AsRef<Path>>(file_path: P) -> Result<App> {
+        let file_path = file_path.as_ref();
+
+        // try gio first for distros with langpacks, fallback to own implementation because gio
+        // doesn't work too well with flatpaks
+        let entry = Self::from_desktop_file_gio(&file_path)
+            .or_else(|_| Self::from_desktop_file_own_implementation(file_path))?;
+
+        let id = entry
+            .id
+            .clone()
             .or_else(|| {
-                // if not, presume that the ID is in the file name
-                Some(file_path.file_stem()?.to_string_lossy().to_string())
+                file_path
+                    .file_stem()
+                    .map(|s| s.to_string_lossy().to_string())
             })
             .context("unable to get ID of desktop file")
             .inspect_err(|_| trace!("Unable to get an ID for this .desktop file"))?;
@@ -236,96 +373,76 @@ impl App {
             bail!("{id} is blocklisted (reason: {reason})")
         }
 
-        let exec = desktop_entry
-            .string("X-ExecLocation") // appimaged adds this entry that points to the original AppImage path
-            .or_else(|| desktop_entry.string("Exec"));
-        let is_flatpak = exec
-            .as_deref()
-            .is_some_and(|exec| exec.starts_with("/usr/bin/flatpak run"));
+        let exec = entry.exec.as_deref();
+        let is_flatpak = exec.is_some_and(|e| e.starts_with("/usr/bin/flatpak run"));
         let commandline = exec
-            .as_deref()
-            .and_then(|exec| {
+            .and_then(|e| {
                 RE_ENV_FILTER
-                    .captures(exec)
-                    .and_then(|captures| captures.get(1))
-                    .map(|capture| capture.as_str())
-                    .or(Some(exec))
+                    .captures(e)
+                    .and_then(|c| c.get(1))
+                    .map(|m| m.as_str())
+                    .or(Some(e))
             })
             .map(str::to_string);
 
         let executable_name = commandline.clone().map(|cmdline| {
-            RE_FLATPAK_FILTER // filter flatpak stuff (e. g. from "/usr/bin/flatpak run … --command=inkscape …" to "inkscape")
+            RE_FLATPAK_FILTER
                 .captures(&cmdline)
-                .and_then(|captures| captures.get(1))
-                .map(|capture| capture.as_str().to_string())
-                .unwrap_or(cmdline) // if there's no flatpak stuff, return the bare cmdline
-                .split(' ') // filter any arguments (e. g. from "/usr/bin/firefox %u" to "/usr/bin/firefox")
+                .and_then(|c| c.get(1))
+                .map(|m| m.as_str().to_string())
+                .unwrap_or(cmdline)
+                .split(' ')
                 .nth(0)
                 .unwrap_or_default()
-                .split('/') // filter the executable path (e. g. from "/usr/bin/firefox" to "firefox")
+                .split('/')
                 .nth_back(0)
                 .unwrap_or_default()
                 .to_string()
         });
 
-        if let Some(executable_name) = &executable_name {
+        if let Some(ref executable_name) = executable_name {
             if DESKTOP_EXEC_BLOCKLIST.contains(&executable_name.as_str()) {
-                debug!("Skipping {id} because its executable {executable_name} blocklisted…");
+                debug!("Skipping {id} because its executable {executable_name} is blocklisted…");
                 bail!("{id}'s executable {executable_name} is blocklisted")
             }
         }
 
-        let icon = desktop_entry
-            .icon()
-            .unwrap_or_else(|| ThemedIcon::new("generic-process").into());
+        let icon = if let Some(ref icon_key) = entry.icon {
+            if Path::new(&format_path(icon_key)).exists() {
+                FileIcon::new(&File::for_path(icon_key)).into()
+            } else {
+                ThemedIcon::new(icon_key).into()
+            }
+        } else {
+            ThemedIcon::new("generic-process").into()
+        };
 
-        // like desktop_entry.name(), but with custom fallback instead of "Unnamed"
-        let display_name = desktop_entry
-            .locale_string("Name")
-            .as_deref()
-            .unwrap_or(&id)
-            .to_string();
-
-        let description = desktop_entry.description().map(String::from);
-
-        let is_snap = desktop_entry.has_key("X-SnapInstanceName");
-        let is_appimage = desktop_entry.has_key("X-AppImage-Identifier");
+        let display_name = entry.name.unwrap_or_else(|| id.clone());
+        let description = entry.comment;
 
         let containerization = if is_flatpak {
-            debug!(
-                "Found Flatpak app \"{display_name}\" (ID: {id:?}) at {} with commandline `{}` (detected executable name: {})",
-                file_path.to_string_lossy(),
-                commandline.as_ref().unwrap_or(&"<None>".into()),
-                executable_name.as_ref().unwrap_or(&"<None>".into()),
-            );
             Containerization::Flatpak
-        } else if is_snap {
-            debug!(
-                "Found Snap app \"{display_name}\" (ID: {id:?}) at {} with commandline `{}` (detected executable name: {})",
-                file_path.to_string_lossy(),
-                commandline.as_ref().unwrap_or(&"<None>".into()),
-                executable_name.as_ref().unwrap_or(&"<None>".into()),
-            );
+        } else if entry.has_snap {
             Containerization::Snap
-        } else if is_appimage {
-            debug!(
-                "Found AppImage app \"{display_name}\" (ID: {id:?}) at {} with commandline `{}` (detected executable name: {})",
-                file_path.to_string_lossy(),
-                commandline.as_ref().unwrap_or(&"<None>".into()),
-                executable_name.as_ref().unwrap_or(&"<None>".into()),
-            );
+        } else if entry.has_appimage {
             Containerization::AppImage
         } else {
-            debug!(
-                "Found native app \"{display_name}\" (ID: {id:?}) at {} with commandline `{}` (detected executable name: {})",
-                file_path.to_string_lossy(),
-                commandline.as_ref().unwrap_or(&"<None>".into()),
-                executable_name.as_ref().unwrap_or(&"<None>".into()),
-            );
             Containerization::None
         };
 
-        let id = Some(id);
+        let kind = match containerization {
+            Containerization::Flatpak => "Flatpak",
+            Containerization::Snap => "Snap",
+            Containerization::AppImage => "AppImage",
+            Containerization::Portable => "portable",
+            Containerization::None => "native",
+        };
+        debug!(
+            "Found {kind} app \"{display_name}\" (ID: {id:?}) at {} with commandline `{}` (detected executable name: {})",
+            file_path.to_string_lossy(),
+            commandline.as_ref().unwrap_or(&"<None>".into()),
+            executable_name.as_ref().unwrap_or(&"<None>".into()),
+        );
 
         Ok(App {
             processes: Vec::new(),
@@ -334,7 +451,7 @@ impl App {
             display_name,
             description,
             icon,
-            id,
+            id: Some(id),
             read_bytes_from_dead_processes: 0,
             write_bytes_from_dead_processes: 0,
             containerization,
