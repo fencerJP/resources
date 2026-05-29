@@ -5,8 +5,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: resources\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/Incubator/resources/-/work_items\n"
-"POT-Creation-Date: 2026-05-28 19:12+0000\n"
-"PO-Revision-Date: 2026-05-28 21:22+0200\n"
+"POT-Creation-Date: 2026-05-29 05:16+0000\n"
+"PO-Revision-Date: 2026-05-29 11:28+0200\n"
 "Last-Translator: Daniel Rusek <mail@asciiwolf.com>\n"
 "Language-Team: \n"
 "Language: cs\n"
@@ -17,7 +17,7 @@ msgstr ""
 "X-Generator: Poedit 3.9\n"
 
 #: data/org.gnome.Resources.desktop.in.in:2 data/org.gnome.Resources.metainfo.xml.in.in:4 data/resources/ui/window.ui:22
-#: src/application.rs:272
+#: src/application.rs:284
 msgid "Resources"
 msgstr "Zdroje"
 
@@ -57,7 +57,7 @@ msgstr "Paměť"
 #: data/org.gnome.Resources.metainfo.xml.in.in:26 data/resources/ui/dialogs/app_dialog.ui:140
 #: data/resources/ui/dialogs/process_dialog.ui:118 data/resources/ui/dialogs/settings_dialog.ui:158
 #: data/resources/ui/dialogs/settings_dialog.ui:250 src/ui/pages/applications/mod.rs:514 src/ui/pages/gpu.rs:121
-#: src/ui/pages/processes/mod.rs:630 src/ui/window.rs:466
+#: src/ui/pages/processes/mod.rs:630 src/ui/window.rs:473
 msgid "GPU"
 msgstr "GPU"
 
@@ -730,42 +730,47 @@ msgctxt "shortcut window"
 msgid "Quit"
 msgstr "Ukončit"
 
-#: data/resources/ui/shortcuts.ui:29
+#: data/resources/ui/shortcuts.ui:27
+msgctxt "shortcut window"
+msgid "Toggle Sidebar"
+msgstr "Přepnout postranní lištu"
+
+#: data/resources/ui/shortcuts.ui:35
 msgctxt "shortcut window"
 msgid "Apps/Processes"
 msgstr "Aplikace/procesy"
 
-#: data/resources/ui/shortcuts.ui:32
+#: data/resources/ui/shortcuts.ui:38
 msgctxt "shortcut window"
 msgid "Toggle Search Field"
 msgstr "Přepnout vyhledávací pole"
 
-#: data/resources/ui/shortcuts.ui:38
+#: data/resources/ui/shortcuts.ui:44
 msgctxt "shortcut window"
 msgid "End App/Process"
 msgstr "Ukončit aplikaci/proces"
 
-#: data/resources/ui/shortcuts.ui:44
+#: data/resources/ui/shortcuts.ui:50
 msgctxt "shortcut window"
 msgid "Kill App/Process"
 msgstr "Vynuceně ukončit aplikaci/proces"
 
-#: data/resources/ui/shortcuts.ui:50
+#: data/resources/ui/shortcuts.ui:56
 msgctxt "shortcut window"
 msgid "Halt App/Process"
 msgstr "Zastavit aplikaci/proces"
 
-#: data/resources/ui/shortcuts.ui:56
+#: data/resources/ui/shortcuts.ui:62
 msgctxt "shortcut window"
 msgid "Continue App/Process"
 msgstr "Obnovit aplikaci/proces"
 
-#: data/resources/ui/shortcuts.ui:62
+#: data/resources/ui/shortcuts.ui:68
 msgctxt "shortcut window"
 msgid "Show Information for App/Process"
 msgstr "Zobrazit informace o aplikaci/procesu"
 
-#: data/resources/ui/shortcuts.ui:68
+#: data/resources/ui/shortcuts.ui:74
 msgctxt "shortcut window"
 msgid "Show Process Options"
 msgstr "Zobrazit možnosti procesu"
@@ -792,7 +797,7 @@ msgstr "Přepnout vyhledávací pole"
 
 #. Translator credits. Replace "translator-credits" with your name/username, and optionally an email or URL.
 #. One name per line, please do not remove previous names.
-#: src/application.rs:285
+#: src/application.rs:297
 msgid "translator-credits"
 msgstr ""
 "lorduskordus <lorduskordus@gmail.com>\n"
@@ -1023,51 +1028,51 @@ msgid "Killing a process can come with serious risks such as losing data and sec
 msgstr ""
 "Vynucené ukončení procesu může mít za následek vážná rizika, jako je ztráta dat a ovlivnění bezpečnosti. Používejte s opatrností."
 
-#: src/ui/window.rs:464
+#: src/ui/window.rs:471
 #, rust-format
 msgid "GPU {}"
 msgstr "GPU {}"
 
-#: src/ui/window.rs:494
+#: src/ui/window.rs:501
 #, rust-format
 msgid "NPU {}"
 msgstr "NPU {}"
 
-#: src/ui/window.rs:496
+#: src/ui/window.rs:503
 msgid "NPU"
 msgstr "NPU"
 
-#: src/ui/window.rs:1198
+#: src/ui/window.rs:1205
 #, rust-format
 msgid "Successfully adjusted {}"
 msgstr "Aplikace {} úspěšně upravena"
 
-#: src/ui/window.rs:1199
+#: src/ui/window.rs:1206
 #, rust-format
 msgid "There was a problem adjusting {}"
 msgstr "Při upravování aplikace {} došlo k chybě"
 
-#: src/ui/window.rs:1281
+#: src/ui/window.rs:1288
 #, rust-format
 msgid "Successfully ended {}"
 msgstr "Aplikace {} úspěšně ukončena"
 
-#: src/ui/window.rs:1282
+#: src/ui/window.rs:1289
 #, rust-format
 msgid "Successfully halted {}"
 msgstr "Aplikace {} úspěšně zastavena"
 
-#: src/ui/window.rs:1283
+#: src/ui/window.rs:1290
 #, rust-format
 msgid "Successfully killed {}"
 msgstr "Aplikace {} úspěšně vynuceně ukončena"
 
-#: src/ui/window.rs:1284
+#: src/ui/window.rs:1291
 #, rust-format
 msgid "Successfully continued {}"
 msgstr "Aplikace {} úspěšně obnovena"
 
-#: src/ui/window.rs:1291
+#: src/ui/window.rs:1298
 #, rust-format
 msgid "Successfully ended the process"
 msgid_plural "Successfully ended {} processes"
@@ -1075,7 +1080,7 @@ msgstr[0] "Proces úspěšně ukončen"
 msgstr[1] "Úspěšně ukončeny {} procesy"
 msgstr[2] "Úspěšně ukončeno {} procesů"
 
-#: src/ui/window.rs:1297
+#: src/ui/window.rs:1304
 #, rust-format
 msgid "Successfully halted the process"
 msgid_plural "Successfully halted {} processes"
@@ -1083,7 +1088,7 @@ msgstr[0] "Proces úspěšně zastaven"
 msgstr[1] "Úspěšně zastaveny {} procesy"
 msgstr[2] "Úspěšně zastaveno {} procesů"
 
-#: src/ui/window.rs:1303
+#: src/ui/window.rs:1310
 #, rust-format
 msgid "Successfully killed the process"
 msgid_plural "Successfully killed {} processes"
@@ -1091,7 +1096,7 @@ msgstr[0] "Proces úspěšně vynuceně ukončen"
 msgstr[1] "Úspěšně vynuceně ukončeny {} procesy"
 msgstr[2] "Úspěšně vynuceně ukončeno {} procesů"
 
-#: src/ui/window.rs:1309
+#: src/ui/window.rs:1316
 #, rust-format
 msgid "Successfully continued the process"
 msgid_plural "Successfully continued {} processes"
@@ -1099,7 +1104,7 @@ msgstr[0] "Proces úspěšně obnoven"
 msgstr[1] "Úspěšně obnoveny {} procesy"
 msgstr[2] "Úspěšně obnoveno {} procesů"
 
-#: src/ui/window.rs:1320
+#: src/ui/window.rs:1327
 #, rust-format
 msgid "There was a problem ending a process"
 msgid_plural "There were problems ending {} processes"
@@ -1107,7 +1112,7 @@ msgstr[0] "Při ukončování procesu došlo k chybě"
 msgstr[1] "Při ukončování {} procesů došlo k chybě"
 msgstr[2] "Při ukončování {} procesů došlo k chybě"
 
-#: src/ui/window.rs:1326
+#: src/ui/window.rs:1333
 #, rust-format
 msgid "There was a problem halting a process"
 msgid_plural "There were problems halting {} processes"
@@ -1115,7 +1120,7 @@ msgstr[0] "Při zastavování procesu došlo k chybě"
 msgstr[1] "Při zastavování {} procesů došlo k chybě"
 msgstr[2] "Při zastavování {} procesů došlo k chybě"
 
-#: src/ui/window.rs:1332
+#: src/ui/window.rs:1339
 #, rust-format
 msgid "There was a problem killing a process"
 msgid_plural "There were problems killing {} processes"
@@ -1123,7 +1128,7 @@ msgstr[0] "Při vynuceném ukončování procesu došlo k chybě"
 msgstr[1] "Při vynuceném ukončování {} procesů došlo k chybě"
 msgstr[2] "Při vynuceném ukončování {} procesů došlo k chybě"
 
-#: src/ui/window.rs:1338
+#: src/ui/window.rs:1345
 #, rust-format
 msgid "There was a problem continuing a process"
 msgid_plural "There were problems continuing {} processes"
@@ -1131,27 +1136,27 @@ msgstr[0] "Při obnovování procesu došlo k chybě"
 msgstr[1] "Při obnovování {} procesů došlo k chybě"
 msgstr[2] "Při obnovování {} procesů došlo k chybě"
 
-#: src/ui/window.rs:1348
+#: src/ui/window.rs:1355
 #, rust-format
 msgid "There was a problem ending {}"
 msgstr "Při ukončování aplikace {} došlo k chybě"
 
-#: src/ui/window.rs:1349
+#: src/ui/window.rs:1356
 #, rust-format
 msgid "There was a problem halting {}"
 msgstr "Při zastavování aplikace {} došlo k chybě"
 
-#: src/ui/window.rs:1350
+#: src/ui/window.rs:1357
 #, rust-format
 msgid "There was a problem killing {}"
 msgstr "Při vynuceném ukončování aplikace {} došlo k chybě"
 
-#: src/ui/window.rs:1351
+#: src/ui/window.rs:1358
 #, rust-format
 msgid "There was a problem continuing {}"
 msgstr "Při obnovování aplikace {} došlo k chybě"
 
-#: src/utils/app.rs:201
+#: src/utils/app.rs:251
 msgid "System Processes"
 msgstr "Systémové procesy"
 
