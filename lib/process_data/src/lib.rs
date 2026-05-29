@@ -377,10 +377,9 @@ impl ProcessData {
 
         let io = read_parsed::<String>(proc_path.join("io")).ok();
 
-        let user = USERS_CACHE
-            .get(&Self::get_uid(&status)?)
-            .cloned()
-            .unwrap_or(String::from("root"));
+        let uid = Self::get_uid(&status)?;
+
+        let user = USERS_CACHE.get(&uid).cloned().unwrap_or(uid.to_string());
         trace!("User of {pid} determined to be {user}");
 
         let stat = stat
