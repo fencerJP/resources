@@ -5,8 +5,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: resources\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/Incubator/resources/-/work_items\n"
-"POT-Creation-Date: 2026-05-29 05:16+0000\n"
-"PO-Revision-Date: 2026-05-29 11:28+0200\n"
+"POT-Creation-Date: 2026-05-30 11:22+0000\n"
+"PO-Revision-Date: 2026-05-30 14:58+0200\n"
 "Last-Translator: Daniel Rusek <mail@asciiwolf.com>\n"
 "Language-Team: \n"
 "Language: cs\n"
@@ -49,7 +49,7 @@ msgstr "CPU"
 
 #: data/org.gnome.Resources.metainfo.xml.in.in:25 data/resources/ui/dialogs/app_dialog.ui:82
 #: data/resources/ui/dialogs/process_dialog.ui:64 data/resources/ui/dialogs/settings_dialog.ui:128
-#: data/resources/ui/dialogs/settings_dialog.ui:220 data/resources/ui/window.ui:176 data/resources/ui/window.ui:183
+#: data/resources/ui/dialogs/settings_dialog.ui:220 data/resources/ui/window.ui:175 data/resources/ui/window.ui:182
 #: src/ui/pages/applications/mod.rs:424 src/ui/pages/memory.rs:105 src/ui/pages/memory.rs:191 src/ui/pages/processes/mod.rs:534
 msgid "Memory"
 msgstr "Paměť"
@@ -125,8 +125,8 @@ msgid "Usage"
 msgstr "Využití"
 
 #: data/resources/ui/dialogs/app_dialog.ui:73 data/resources/ui/dialogs/process_dialog.ui:55
-#: data/resources/ui/dialogs/settings_dialog.ui:133 data/resources/ui/dialogs/settings_dialog.ui:225 data/resources/ui/window.ui:145
-#: data/resources/ui/window.ui:152 src/ui/pages/applications/mod.rs:438 src/ui/pages/cpu.rs:130 src/ui/pages/processes/mod.rs:549
+#: data/resources/ui/dialogs/settings_dialog.ui:133 data/resources/ui/dialogs/settings_dialog.ui:225 data/resources/ui/window.ui:144
+#: data/resources/ui/window.ui:151 src/ui/pages/applications/mod.rs:438 src/ui/pages/cpu.rs:130 src/ui/pages/processes/mod.rs:549
 #: src/ui/window.rs:286
 msgid "Processor"
 msgstr "Procesor"
@@ -415,7 +415,7 @@ msgstr "Normalizovat využití procesoru"
 msgid "If enabled, the total usage of all cores will be divided by the amount of cores"
 msgstr "Pokud je zapnuto, celkové využití všech jader se vydělí množstvím jader"
 
-#: data/resources/ui/dialogs/settings_dialog.ui:122 data/resources/ui/window.ui:65 data/resources/ui/window.ui:72
+#: data/resources/ui/dialogs/settings_dialog.ui:122 data/resources/ui/window.ui:64 data/resources/ui/window.ui:71
 #: src/ui/pages/applications/mod.rs:137
 msgid "Apps"
 msgstr "Aplikace"
@@ -429,7 +429,7 @@ msgstr "Informační sloupce"
 msgid "Combined Memory"
 msgstr "Kombinovaná paměť"
 
-#: data/resources/ui/dialogs/settings_dialog.ui:193 data/resources/ui/window.ui:105 data/resources/ui/window.ui:112
+#: data/resources/ui/dialogs/settings_dialog.ui:193 data/resources/ui/window.ui:104 data/resources/ui/window.ui:111
 #: src/ui/pages/processes/mod.rs:184
 msgid "Processes"
 msgstr "Procesy"
@@ -776,22 +776,26 @@ msgid "Show Process Options"
 msgstr "Zobrazit možnosti procesu"
 
 #: data/resources/ui/window.ui:6
-msgid "Preferences"
-msgstr "Předvolby"
+msgid "_Preferences"
+msgstr "_Předvolby"
 
 #: data/resources/ui/window.ui:10
-msgid "Keyboard Shortcuts"
-msgstr "Klávesové zkratky"
+msgid "_Keyboard Shortcuts"
+msgstr "_Klávesové zkratky"
 
 #: data/resources/ui/window.ui:14
-msgid "About Resources"
-msgstr "O aplikaci Zdroje"
+msgid "_About Resources"
+msgstr "O _aplikaci Zdroje"
 
-#: data/resources/ui/window.ui:88 data/resources/ui/window.ui:128
+#: data/resources/ui/window.ui:44
+msgid "Main Menu"
+msgstr "Hlavní nabídka"
+
+#: data/resources/ui/window.ui:87 data/resources/ui/window.ui:127
 msgid "Search"
 msgstr "Hledat"
 
-#: data/resources/ui/window.ui:90 data/resources/ui/window.ui:130
+#: data/resources/ui/window.ui:89 data/resources/ui/window.ui:129
 msgid "Toggle search field"
 msgstr "Přepnout vyhledávací pole"
 
