@@ -12,6 +12,7 @@ use gtk::{
     glib::GString,
     prelude::AppInfoExt,
 };
+use ini::Properties;
 use lazy_regex::{Lazy, Regex, lazy_regex};
 use log::{debug, info, trace};
 use process_data::{
@@ -130,10 +131,10 @@ static KNOWN_EXECUTABLE_NAME_EXCEPTIONS: LazyLock<HashMap<&'static str, &'static
     });
 
 static MESSAGE_LOCALES: LazyLock<Vec<String>> = LazyLock::new(|| {
-    let envs = ["LC_MESSAGES", "LANGUAGE", "LANG", "LC_ALL"];
+    const LOCALE_ENV_VAR_NAMES: &[&str] = &["LC_MESSAGES", "LANGUAGE", "LANG", "LC_ALL"];
     let mut return_vec: Vec<String> = Vec::new();
 
-    for env in &envs {
+    for env in LOCALE_ENV_VAR_NAMES {
         if let Ok(locales) = std::env::var(env) {
             // split because LANGUAGE may contain multiple languages
             for locale in locales.split(':') {
@@ -315,25 +316,9 @@ impl App {
 
         let icon = desktop_entry.get("Icon");
 
-        let mut name = desktop_entry.get("Name").map(|s| s.to_string());
-        if name.is_none() {
-            for locale in MESSAGE_LOCALES.iter() {
-                if let Some(n) = desktop_entry.get(format!("Name[{locale}]")) {
-                    name = Some(n.to_string());
-                    break;
-                }
-            }
-        }
+        let name = Self::try_get_locale(desktop_entry, "Name");
 
-        let mut comment = desktop_entry.get("Comment").map(|s| s.to_string());
-        if comment.is_none() {
-            for locale in MESSAGE_LOCALES.iter() {
-                if let Some(c) = desktop_entry.get(format!("Comment[{locale}]")) {
-                    comment = Some(c.to_string());
-                    break;
-                }
-            }
-        }
+        let comment = Self::try_get_locale(desktop_entry, "Comment");
 
         let has_snap = desktop_entry.get("X-SnapInstanceName").is_some();
         let has_appimage = desktop_entry.get("X-AppImage-Identifier").is_some();
@@ -347,6 +332,16 @@ impl App {
             has_snap,
             has_appimage,
         })
+    }
+
+    fn try_get_locale<S: AsRef<str>>(properties: &Properties, property: S) -> Option<String> {
+        for locale in MESSAGE_LOCALES.iter() {
+            if let Some(n) = properties.get(format!("{}[{locale}]", property.as_ref())) {
+                return Some(n.to_string());
+            }
+        }
+
+        properties.get(property).map(|s| s.to_string())
     }
 
     pub fn from_desktop_file<P: AsRef<Path>>(file_path: P) -> Result<App> {
