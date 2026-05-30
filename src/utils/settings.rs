@@ -3,7 +3,7 @@ use std::{ops::Deref, str::FromStr, sync::LazyLock};
 use adw::prelude::*;
 
 use gtk::{SortType, gio, glib};
-use log::debug;
+use log::{debug, warn};
 use strum_macros::{Display, EnumString, FromRepr};
 
 use pastey::paste;
@@ -21,8 +21,8 @@ macro_rules! bool_settings {
 
             paste! {
                 pub fn [<set_ $setting_name>](&self, value: bool) -> Result<(), glib::error::BoolError> {
-                    debug!("Setting boolean {} to {value}", stringify!($setting_name).replace("_", "-"));
-                    self.set_boolean(&stringify!($setting_name).replace("_", "-"), value)
+                    debug!("Setting boolean `{}` to {value}", stringify!($setting_name).replace("_", "-"));
+                    self.set_boolean(&stringify!($setting_name).replace("_", "-"), value).inspect_err(|e| warn!("error writing setting `{}` to boolean {value}: {e}", stringify!($setting_name)))
                 }
 
                 pub fn [<connect_ $setting_name>]<F: Fn(bool) + 'static>(&self, f: F) -> glib::SignalHandlerId {
@@ -47,8 +47,8 @@ macro_rules! int_settings {
 
             paste! {
                 pub fn [<set_ $setting_name>](&self, value: i32) -> Result<(), glib::error::BoolError> {
-                    debug!("Setting int {} to {value}", stringify!($setting_name).replace("_", "-"));
-                    self.set_int(&stringify!($setting_name).replace("_", "-"), value)
+                    debug!("Setting int `{}` to {value}", stringify!($setting_name).replace("_", "-"));
+                    self.set_int(&stringify!($setting_name).replace("_", "-"), value).inspect_err(|e| warn!("error writing setting `{}` to int {value}: {e}", stringify!($setting_name)))
                 }
 
                 pub fn [<connect_ $setting_name>]<F: Fn(i32) + 'static>(&self, f: F) -> glib::SignalHandlerId {
@@ -73,8 +73,8 @@ macro_rules! uint_settings {
 
             paste! {
                 pub fn [<set_ $setting_name>](&self, value: u32) -> Result<(), glib::error::BoolError> {
-                    debug!("Setting uint {} to {value}", stringify!($setting_name).replace("_", "-"));
-                    self.set_uint(&stringify!($setting_name).replace("_", "-"), value)
+                    debug!("Setting uint `{}` to {value}", stringify!($setting_name).replace("_", "-"));
+                    self.set_uint(&stringify!($setting_name).replace("_", "-"), value).inspect_err(|e| warn!("error writing setting `{}` to uint {value}: {e}", stringify!($setting_name)))
                 }
 
                 pub fn [<connect_ $setting_name>]<F: Fn(u32) + 'static>(&self, f: F) -> glib::SignalHandlerId {
@@ -159,8 +159,14 @@ impl Settings {
         &self,
         value: TemperatureUnit,
     ) -> Result<(), glib::error::BoolError> {
-        debug!("Setting temperature-unit to {value}");
+        debug!("Setting string `temperature-unit` to \"{value}\"");
         self.set_string("temperature-unit", &value.to_string())
+            .inspect_err(|e| {
+                warn!(
+                    "error writing setting `temperature-unit` to string \"{}\": {e}",
+                    value.to_string()
+                )
+            })
     }
 
     pub fn connect_temperature_unit<F: Fn(TemperatureUnit) + 'static>(
@@ -180,8 +186,14 @@ impl Settings {
     }
 
     pub fn set_base(&self, value: Base) -> Result<(), glib::error::BoolError> {
-        debug!("Setting base to {value}");
+        debug!("Setting string `base` to \"{value}\"");
         self.set_string("base", &value.to_string())
+            .inspect_err(|e| {
+                warn!(
+                    "error writing setting `base` to string \"{}\": {e}",
+                    value.to_string()
+                )
+            })
     }
 
     pub fn connect_base<F: Fn(Base) + 'static>(&self, f: F) -> glib::SignalHandlerId {
@@ -198,8 +210,17 @@ impl Settings {
         &self,
         value: S,
     ) -> Result<(), glib::error::BoolError> {
-        debug!("Setting last-viewed-page to {}", value.as_ref());
+        debug!(
+            "Setting string `last-viewed-page` to \"{}\"",
+            value.as_ref()
+        );
         self.set_string("last-viewed-page", value.as_ref())
+            .inspect_err(|e| {
+                warn!(
+                    "error writing setting `last-viewed-page` to string \"{}\": {e}",
+                    value.as_ref()
+                )
+            })
     }
 
     pub fn connect_last_viewed_page<F: Fn(String) + 'static>(&self, f: F) -> glib::SignalHandlerId {
@@ -213,8 +234,14 @@ impl Settings {
     }
 
     pub fn set_refresh_speed(&self, value: RefreshSpeed) -> Result<(), glib::error::BoolError> {
-        debug!("Setting refresh-speed to {value}");
+        debug!("Setting string `refresh-speed` to \"{value}\"");
         self.set_string("refresh-speed", &value.to_string())
+            .inspect_err(|e| {
+                warn!(
+                    "error writing setting `refresh-speed` to string \"{}\": {e}",
+                    value.to_string()
+                )
+            })
     }
 
     pub fn connect_refresh_speed<F: Fn(RefreshSpeed) + 'static>(
@@ -237,8 +264,14 @@ impl Settings {
         &self,
         value: SidebarMeterType,
     ) -> Result<(), glib::error::BoolError> {
-        debug!("Setting sidebar-meter-type to {value}");
+        debug!("Setting string `sidebar-meter-type` to \"{value}\"");
         self.set_string("sidebar-meter-type", &value.to_string())
+            .inspect_err(|e| {
+                warn!(
+                    "error writing setting `sidebar-meter-type` to string \"{}\": {e}",
+                    value.to_string()
+                )
+            })
     }
 
     pub fn connect_sidebar_meter_type<F: Fn(SidebarMeterType) + 'static>(
@@ -260,8 +293,9 @@ impl Settings {
     }
 
     pub fn set_maximized(&self, value: bool) -> Result<(), glib::error::BoolError> {
-        debug!("Setting boolean is-maximized to {value}");
+        debug!("Setting boolean `is-maximized` to {value}");
         self.set_boolean("is-maximized", value)
+            .inspect_err(|e| warn!("error writing setting `is-maximized` to boolean {value}: {e}",))
     }
 
     pub fn connect_maximized<F: Fn(bool) + 'static>(&self, f: F) -> glib::SignalHandlerId {
@@ -283,8 +317,13 @@ impl Settings {
         value: SortType,
     ) -> Result<(), glib::error::BoolError> {
         let setting = matches!(value, SortType::Ascending);
-        debug!("Setting boolean processes-sort-by-ascending to {setting}");
+        debug!("Setting boolean `processes-sort-by-ascending` to {setting}");
         self.set_boolean("processes-sort-by-ascending", setting)
+            .inspect_err(|e| {
+                warn!(
+                    "error writing setting `processes-sort-by-ascending` to boolean {setting}: {e}",
+                )
+            })
     }
 
     pub fn connect_processes_sort_by_ascending<F: Fn(SortType) + 'static>(
@@ -318,8 +357,11 @@ impl Settings {
         value: SortType,
     ) -> Result<(), glib::error::BoolError> {
         let setting = matches!(value, SortType::Ascending);
-        debug!("Setting boolean apps-sort-by-ascending to {setting}");
+        debug!("Setting boolean `apps-sort-by-ascending` to {setting}");
         self.set_boolean("apps-sort-by-ascending", setting)
+            .inspect_err(|e| {
+                warn!("error writing setting `apps-sort-by-ascending` to boolean {setting}: {e}",)
+            })
     }
 
     pub fn connect_apps_sort_by_ascending<F: Fn(SortType) + 'static>(
