@@ -37,9 +37,9 @@ pub fn format_time(time_in_seconds: f64) -> String {
     let hours = (time_in_seconds / (60.0 * 60.0)) as usize;
 
     if negative {
-        format!("-{hours}∶{minutes:02}∶{seconds:02}.{millis:02}")
+        format!("-{hours}:{minutes:02}:{seconds:02}.{millis:02}")
     } else {
-        format!("{hours}∶{minutes:02}∶{seconds:02}.{millis:02}")
+        format!("{hours}:{minutes:02}:{seconds:02}.{millis:02}")
     }
 }
 
@@ -52,9 +52,9 @@ pub fn format_time_integer(time_in_seconds: isize) -> String {
     let hours = (time_in_seconds / (60 * 60)) as usize;
 
     if negative {
-        format!("-{hours}∶{minutes:02}∶{seconds:02}")
+        format!("-{hours}:{minutes:02}:{seconds:02}")
     } else {
-        format!("{hours}∶{minutes:02}∶{seconds:02}")
+        format!("{hours}:{minutes:02}:{seconds:02}")
     }
 }
 
@@ -369,21 +369,21 @@ mod test {
     fn format_time_negative() {
         let seconds = -3723.13;
         let formatted_time = format_time(seconds);
-        assert_eq!("-1∶02∶03.13", formatted_time)
+        assert_eq!("-1:02:03.13", formatted_time)
     }
 
     #[test]
     fn format_time_zero() {
         let seconds = 0.0;
         let formatted_time = format_time(seconds);
-        assert_eq!("0∶00∶00.00", formatted_time)
+        assert_eq!("0:00:00.00", formatted_time)
     }
 
     #[test]
     fn format_time_positive() {
         let seconds = 3723.13;
         let formatted_time = format_time(seconds);
-        assert_eq!("1∶02∶03.13", formatted_time)
+        assert_eq!("1:02:03.13", formatted_time)
     }
 
     #[test]
