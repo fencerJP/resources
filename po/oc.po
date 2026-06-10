@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: resources main\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/Incubator/resources/-/work_items\n"
-"POT-Creation-Date: 2026-05-29 05:16+0000\n"
-"PO-Revision-Date: 2026-05-29 14:50+0200\n"
+"POT-Creation-Date: 2026-06-03 06:36+0000\n"
+"PO-Revision-Date: 2026-06-10 17:59+0200\n"
 "Last-Translator: Quentin PAGÈS\n"
 "Language-Team: Occitan <Occitan>\n"
 "Language: oc\n"
@@ -49,7 +49,7 @@ msgid "CPU"
 msgstr "CPU"
 
 #: data/org.gnome.Resources.metainfo.xml.in.in:25 data/resources/ui/dialogs/app_dialog.ui:82 data/resources/ui/dialogs/process_dialog.ui:64 data/resources/ui/dialogs/settings_dialog.ui:128
-#: data/resources/ui/dialogs/settings_dialog.ui:220 data/resources/ui/window.ui:176 data/resources/ui/window.ui:183 src/ui/pages/applications/mod.rs:424 src/ui/pages/memory.rs:105 src/ui/pages/memory.rs:191
+#: data/resources/ui/dialogs/settings_dialog.ui:220 data/resources/ui/window.ui:175 data/resources/ui/window.ui:182 src/ui/pages/applications/mod.rs:424 src/ui/pages/memory.rs:105 src/ui/pages/memory.rs:191
 #: src/ui/pages/processes/mod.rs:534
 msgid "Memory"
 msgstr "Memòria"
@@ -121,7 +121,7 @@ msgid "Usage"
 msgstr "Utilizacion"
 
 #: data/resources/ui/dialogs/app_dialog.ui:73 data/resources/ui/dialogs/process_dialog.ui:55 data/resources/ui/dialogs/settings_dialog.ui:133 data/resources/ui/dialogs/settings_dialog.ui:225
-#: data/resources/ui/window.ui:145 data/resources/ui/window.ui:152 src/ui/pages/applications/mod.rs:438 src/ui/pages/cpu.rs:130 src/ui/pages/processes/mod.rs:549 src/ui/window.rs:286
+#: data/resources/ui/window.ui:144 data/resources/ui/window.ui:151 src/ui/pages/applications/mod.rs:438 src/ui/pages/cpu.rs:130 src/ui/pages/processes/mod.rs:549 src/ui/window.rs:286
 msgid "Processor"
 msgstr "Processor"
 
@@ -392,7 +392,7 @@ msgstr "Normalizar l’utilizacion processor"
 msgid "If enabled, the total usage of all cores will be divided by the amount of cores"
 msgstr "Se activat, l’utilizacion totala de totes los còrs serà devesida pel nombre de còrs"
 
-#: data/resources/ui/dialogs/settings_dialog.ui:122 data/resources/ui/window.ui:65 data/resources/ui/window.ui:72 src/ui/pages/applications/mod.rs:137
+#: data/resources/ui/dialogs/settings_dialog.ui:122 data/resources/ui/window.ui:64 data/resources/ui/window.ui:71 src/ui/pages/applications/mod.rs:137
 msgid "Apps"
 msgstr "Aplicacions"
 
@@ -404,7 +404,7 @@ msgstr "Colomnas d’informacion"
 msgid "Combined Memory"
 msgstr "Memòria combinada"
 
-#: data/resources/ui/dialogs/settings_dialog.ui:193 data/resources/ui/window.ui:105 data/resources/ui/window.ui:112 src/ui/pages/processes/mod.rs:184
+#: data/resources/ui/dialogs/settings_dialog.ui:193 data/resources/ui/window.ui:104 data/resources/ui/window.ui:111 src/ui/pages/processes/mod.rs:184
 msgid "Processes"
 msgstr "Procèssus"
 
@@ -747,22 +747,26 @@ msgid "Show Process Options"
 msgstr "Afichar las opcions de l’aplicacion/procèssus"
 
 #: data/resources/ui/window.ui:6
-msgid "Preferences"
-msgstr "Preferéncias"
+msgid "_Preferences"
+msgstr "_Preferéncias"
 
 #: data/resources/ui/window.ui:10
-msgid "Keyboard Shortcuts"
-msgstr "Acorchis de clavièr"
+msgid "_Keyboard Shortcuts"
+msgstr "_Acorchis clavièr"
 
 #: data/resources/ui/window.ui:14
-msgid "About Resources"
-msgstr "A prepaus de Ressorsas"
+msgid "_About Resources"
+msgstr "_A prepaus de Ressorsas"
 
-#: data/resources/ui/window.ui:88 data/resources/ui/window.ui:128
+#: data/resources/ui/window.ui:44
+msgid "Main Menu"
+msgstr "Menú principal"
+
+#: data/resources/ui/window.ui:87 data/resources/ui/window.ui:127
 msgid "Search"
 msgstr "Recercar"
 
-#: data/resources/ui/window.ui:90 data/resources/ui/window.ui:130
+#: data/resources/ui/window.ui:89 data/resources/ui/window.ui:129
 msgid "Toggle search field"
 msgstr "Mostrar/Amagar camp de recèrca"
 
@@ -1105,7 +1109,7 @@ msgstr "I a agut un problèma en tuant {}"
 msgid "There was a problem continuing {}"
 msgstr "I a agut un problèma en reprenent {}"
 
-#: src/utils/app.rs:251
+#: src/utils/app.rs:252
 msgid "System Processes"
 msgstr "Procèssus sistèma"
 
