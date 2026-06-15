@@ -1,14 +1,19 @@
+# Czech translation for resources.
+# Copyright (C) 2024 resources's COPYRIGHT HOLDER
+# This file is distributed under the same license as the resources package.
 #
-#  <>, 2024.
+# lorduskordus <lorduskordus@gmail.com>, 2024.
+# Jonáš Loskot <jonas@jonasloskot.cz>, 2025.
+# Daniel Rusek <mail@asciiwolf.com>, 2026.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: resources\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/Incubator/resources/-/work_items\n"
-"POT-Creation-Date: 2026-05-30 11:22+0000\n"
-"PO-Revision-Date: 2026-05-30 14:58+0200\n"
+"POT-Creation-Date: 2026-06-03 06:36+0000\n"
+"PO-Revision-Date: 2026-06-15 14:32+0200\n"
 "Last-Translator: Daniel Rusek <mail@asciiwolf.com>\n"
-"Language-Team: \n"
+"Language-Team: Czech <Czech>\n"
 "Language: cs\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1160,7 +1165,7 @@ msgstr "Při vynuceném ukončování aplikace {} došlo k chybě"
 msgid "There was a problem continuing {}"
 msgstr "Při obnovování aplikace {} došlo k chybě"
 
-#: src/utils/app.rs:251
+#: src/utils/app.rs:252
 msgid "System Processes"
 msgstr "Systémové procesy"
 
