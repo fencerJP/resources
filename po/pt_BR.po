@@ -5,15 +5,16 @@
 # Juliano de Souza Camargo <julianosc@pm.me>, 2025-2026.
 # Rafael Fontenelle <rafaelff@gnome.org>, 2026.
 # Álvaro Burns <>, 2026.
+# Luiggi R. Cardoso <luiggicardoso@outlook.com>, 2026.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: resources\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/Incubator/resources/-/"
 "work_items\n"
-"POT-Creation-Date: 2026-05-28 20:28+0000\n"
-"PO-Revision-Date: 2026-05-28 20:19-0300\n"
-"Last-Translator: Álvaro Burns <>\n"
+"POT-Creation-Date: 2026-05-30 16:50+0000\n"
+"PO-Revision-Date: 2026-06-01 18:59-0300\n"
+"Last-Translator: Luiggi R. Cardoso <luiggicardoso@outlook.com>\n"
 "Language-Team: Brazilian Portuguese <https://br.gnome.org/traducao/>\n"
 "Language: pt_BR\n"
 "MIME-Version: 1.0\n"
@@ -31,7 +32,7 @@ msgstr ""
 
 #: data/org.gnome.Resources.desktop.in.in:2
 #: data/org.gnome.Resources.metainfo.xml.in.in:4 data/resources/ui/window.ui:22
-#: src/application.rs:272
+#: src/application.rs:284
 msgid "Resources"
 msgstr "Recursos"
 
@@ -70,7 +71,7 @@ msgstr "CPU"
 #: data/resources/ui/dialogs/process_dialog.ui:64
 #: data/resources/ui/dialogs/settings_dialog.ui:128
 #: data/resources/ui/dialogs/settings_dialog.ui:220
-#: data/resources/ui/window.ui:176 data/resources/ui/window.ui:183
+#: data/resources/ui/window.ui:175 data/resources/ui/window.ui:182
 #: src/ui/pages/applications/mod.rs:424 src/ui/pages/memory.rs:105
 #: src/ui/pages/memory.rs:191 src/ui/pages/processes/mod.rs:534
 msgid "Memory"
@@ -82,7 +83,7 @@ msgstr "Memória"
 #: data/resources/ui/dialogs/settings_dialog.ui:158
 #: data/resources/ui/dialogs/settings_dialog.ui:250
 #: src/ui/pages/applications/mod.rs:514 src/ui/pages/gpu.rs:121
-#: src/ui/pages/processes/mod.rs:630 src/ui/window.rs:466
+#: src/ui/pages/processes/mod.rs:630 src/ui/window.rs:473
 msgid "GPU"
 msgstr "GPU"
 
@@ -161,7 +162,7 @@ msgstr "Uso"
 #: data/resources/ui/dialogs/process_dialog.ui:55
 #: data/resources/ui/dialogs/settings_dialog.ui:133
 #: data/resources/ui/dialogs/settings_dialog.ui:225
-#: data/resources/ui/window.ui:145 data/resources/ui/window.ui:152
+#: data/resources/ui/window.ui:144 data/resources/ui/window.ui:151
 #: src/ui/pages/applications/mod.rs:438 src/ui/pages/cpu.rs:130
 #: src/ui/pages/processes/mod.rs:549 src/ui/window.rs:286
 msgid "Processor"
@@ -497,7 +498,7 @@ msgstr ""
 "núcleos"
 
 #: data/resources/ui/dialogs/settings_dialog.ui:122
-#: data/resources/ui/window.ui:65 data/resources/ui/window.ui:72
+#: data/resources/ui/window.ui:64 data/resources/ui/window.ui:71
 #: src/ui/pages/applications/mod.rs:137
 msgid "Apps"
 msgstr "Aplicativos"
@@ -514,7 +515,7 @@ msgid "Combined Memory"
 msgstr "Memória combinada"
 
 #: data/resources/ui/dialogs/settings_dialog.ui:193
-#: data/resources/ui/window.ui:105 data/resources/ui/window.ui:112
+#: data/resources/ui/window.ui:104 data/resources/ui/window.ui:111
 #: src/ui/pages/processes/mod.rs:184
 msgid "Processes"
 msgstr "Processos"
@@ -839,74 +840,84 @@ msgctxt "shortcut window"
 msgid "Quit"
 msgstr "Sair"
 
-#: data/resources/ui/shortcuts.ui:29
+#: data/resources/ui/shortcuts.ui:27
+msgctxt "shortcut window"
+msgid "Toggle Sidebar"
+msgstr "Mostrar/Ocultar Campo de Pesquisa"
+
+#: data/resources/ui/shortcuts.ui:35
 msgctxt "shortcut window"
 msgid "Apps/Processes"
 msgstr "Aplicativos/Processos"
 
-#: data/resources/ui/shortcuts.ui:32
+#: data/resources/ui/shortcuts.ui:38
 msgctxt "shortcut window"
 msgid "Toggle Search Field"
 msgstr "Mostrar/Ocultar Campo de Pesquisa"
 
-#: data/resources/ui/shortcuts.ui:38
+#: data/resources/ui/shortcuts.ui:44
 msgctxt "shortcut window"
 msgid "End App/Process"
 msgstr "Encerrar Aplicativo/Processo"
 
-#: data/resources/ui/shortcuts.ui:44
+#: data/resources/ui/shortcuts.ui:50
 msgctxt "shortcut window"
 msgid "Kill App/Process"
 msgstr "Matar Aplicativo/Processo"
 
-#: data/resources/ui/shortcuts.ui:50
+#: data/resources/ui/shortcuts.ui:56
 msgctxt "shortcut window"
 msgid "Halt App/Process"
 msgstr "Interromper Aplicativo/Processo"
 
-#: data/resources/ui/shortcuts.ui:56
+#: data/resources/ui/shortcuts.ui:62
 msgctxt "shortcut window"
 msgid "Continue App/Process"
 msgstr "Continuar Aplicativo/Processo"
 
-#: data/resources/ui/shortcuts.ui:62
+#: data/resources/ui/shortcuts.ui:68
 msgctxt "shortcut window"
 msgid "Show Information for App/Process"
 msgstr "Mostrar Informações sobre o Aplicativo/Processo"
 
-#: data/resources/ui/shortcuts.ui:68
+#: data/resources/ui/shortcuts.ui:74
 msgctxt "shortcut window"
 msgid "Show Process Options"
 msgstr "Mostrar opções do processo"
 
 #: data/resources/ui/window.ui:6
-msgid "Preferences"
-msgstr "Preferências"
+msgid "_Preferences"
+msgstr "_Preferências"
 
 #: data/resources/ui/window.ui:10
-msgid "Keyboard Shortcuts"
-msgstr "Atalhos de teclado"
+msgid "_Keyboard Shortcuts"
+msgstr "_Atalhos de teclado"
 
 #: data/resources/ui/window.ui:14
-msgid "About Resources"
-msgstr "Sobre o Recursos"
+msgid "_About Resources"
+msgstr "_Sobre o Recursos"
 
-#: data/resources/ui/window.ui:88 data/resources/ui/window.ui:128
+#: data/resources/ui/window.ui:44
+msgid "Main Menu"
+msgstr "Menu Principal"
+
+#: data/resources/ui/window.ui:87 data/resources/ui/window.ui:127
 msgid "Search"
 msgstr "Pesquisar"
 
-#: data/resources/ui/window.ui:90 data/resources/ui/window.ui:130
+#: data/resources/ui/window.ui:89 data/resources/ui/window.ui:129
 msgid "Toggle search field"
 msgstr "Mostrar/Ocultar campo de pesquisa"
 
 #. Translator credits. Replace "translator-credits" with your name/username, and optionally an email or URL.
 #. One name per line, please do not remove previous names.
-#: src/application.rs:285
+#: src/application.rs:297
 msgid "translator-credits"
 msgstr ""
 "Victor L. Pavan <victorpavan001@gmail.com>, 2023-2024.\n"
 "Filipe Motta <luizfilipemotta@gmail.com>, 2024.\n"
-"Juliano de Souza Camargo <julianosc@pm.me>"
+"Juliano de Souza Camargo <julianosc@pm.me>\n"
+"Luiggi R. Cardoso <luiggicardoso@outlook.com>"
 
 #: src/ui/dialogs/app_dialog.rs:155 src/ui/dialogs/process_dialog.rs:133
 #: src/ui/dialogs/process_dialog.rs:137 src/ui/dialogs/process_dialog.rs:146
@@ -1161,127 +1172,127 @@ msgstr ""
 "Matar um aplicativo pode trazer sérios riscos, como perda de dados e "
 "implicações de segurança. Use esta opção com cautela."
 
-#: src/ui/window.rs:464
+#: src/ui/window.rs:471
 #, rust-format
 msgid "GPU {}"
 msgstr "GPU {}"
 
-#: src/ui/window.rs:494
+#: src/ui/window.rs:501
 #, rust-format
 msgid "NPU {}"
 msgstr "NPU {}"
 
-#: src/ui/window.rs:496
+#: src/ui/window.rs:503
 msgid "NPU"
 msgstr "NPU"
 
-#: src/ui/window.rs:1198
+#: src/ui/window.rs:1205
 #, rust-format
 msgid "Successfully adjusted {}"
 msgstr "{} ajustado com sucesso"
 
-#: src/ui/window.rs:1199
+#: src/ui/window.rs:1206
 #, rust-format
 msgid "There was a problem adjusting {}"
 msgstr "Houve um problema ao ajustar {}"
 
-#: src/ui/window.rs:1281
+#: src/ui/window.rs:1288
 #, rust-format
 msgid "Successfully ended {}"
 msgstr "{} encerrado com sucesso"
 
-#: src/ui/window.rs:1282
+#: src/ui/window.rs:1289
 #, rust-format
 msgid "Successfully halted {}"
 msgstr "{} interrompido com sucesso"
 
-#: src/ui/window.rs:1283
+#: src/ui/window.rs:1290
 #, rust-format
 msgid "Successfully killed {}"
 msgstr "{} morto com sucesso"
 
-#: src/ui/window.rs:1284
+#: src/ui/window.rs:1291
 #, rust-format
 msgid "Successfully continued {}"
 msgstr "{} continuado com sucesso"
 
-#: src/ui/window.rs:1291
+#: src/ui/window.rs:1298
 #, rust-format
 msgid "Successfully ended the process"
 msgid_plural "Successfully ended {} processes"
 msgstr[0] "Processo encerrado com sucesso"
 msgstr[1] "{} processos encerrados com sucesso"
 
-#: src/ui/window.rs:1297
+#: src/ui/window.rs:1304
 #, rust-format
 msgid "Successfully halted the process"
 msgid_plural "Successfully halted {} processes"
 msgstr[0] "Processo interrompido com sucesso"
 msgstr[1] "{} processos interrompidos com sucesso"
 
-#: src/ui/window.rs:1303
+#: src/ui/window.rs:1310
 #, rust-format
 msgid "Successfully killed the process"
 msgid_plural "Successfully killed {} processes"
 msgstr[0] "Processo morto com sucesso"
 msgstr[1] "{} processos mortos com sucesso"
 
-#: src/ui/window.rs:1309
+#: src/ui/window.rs:1316
 #, rust-format
 msgid "Successfully continued the process"
 msgid_plural "Successfully continued {} processes"
 msgstr[0] "Processo continuado com sucesso"
 msgstr[1] "{} processos continuados com sucesso"
 
-#: src/ui/window.rs:1320
+#: src/ui/window.rs:1327
 #, rust-format
 msgid "There was a problem ending a process"
 msgid_plural "There were problems ending {} processes"
 msgstr[0] "Houve um problema ao encerrar um processo"
 msgstr[1] "Houve problemas ao encerrar {} processos"
 
-#: src/ui/window.rs:1326
+#: src/ui/window.rs:1333
 #, rust-format
 msgid "There was a problem halting a process"
 msgid_plural "There were problems halting {} processes"
 msgstr[0] "Houve um problema ao interromper um processo"
 msgstr[1] "Houve problemas ao interromper {} processos"
 
-#: src/ui/window.rs:1332
+#: src/ui/window.rs:1339
 #, rust-format
 msgid "There was a problem killing a process"
 msgid_plural "There were problems killing {} processes"
 msgstr[0] "Houve um problema ao matar um processo"
 msgstr[1] "Houve problemas ao matar {} processos"
 
-#: src/ui/window.rs:1338
+#: src/ui/window.rs:1345
 #, rust-format
 msgid "There was a problem continuing a process"
 msgid_plural "There were problems continuing {} processes"
 msgstr[0] "Houve um problema ao continuar um processo"
 msgstr[1] "Houve problemas ao continuar {} processos"
 
-#: src/ui/window.rs:1348
+#: src/ui/window.rs:1355
 #, rust-format
 msgid "There was a problem ending {}"
 msgstr "Houve um problema ao encerrar {}"
 
-#: src/ui/window.rs:1349
+#: src/ui/window.rs:1356
 #, rust-format
 msgid "There was a problem halting {}"
 msgstr "Houve um problema ao interromper {}"
 
-#: src/ui/window.rs:1350
+#: src/ui/window.rs:1357
 #, rust-format
 msgid "There was a problem killing {}"
 msgstr "Houve um problema ao matar {}"
 
-#: src/ui/window.rs:1351
+#: src/ui/window.rs:1358
 #, rust-format
 msgid "There was a problem continuing {}"
 msgstr "Houve um problema ao continuar {}"
 
-#: src/utils/app.rs:251
+#: src/utils/app.rs:252
 msgid "System Processes"
 msgstr "Processos do sistema"
 
