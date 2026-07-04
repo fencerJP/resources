@@ -400,10 +400,7 @@ impl ResNetwork {
 
         self.set_property(
             "usage",
-            f64::max(
-                sent_delta.unwrap_or_default(),
-                sent_delta.unwrap_or_default(),
-            ),
+            received_delta.unwrap_or_default() + sent_delta.unwrap_or_default(),
         );
 
         self.set_property(
