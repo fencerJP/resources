@@ -787,11 +787,11 @@ impl ResApplications {
                         .unwrap()
                         .is_running()
                 {
-                    if let Some((dialog_id, dialog)) = dialog_opt {
-                        if dialog_id.as_deref() == app_id.as_deref() {
-                            AdwDialogExt::close(dialog);
-                            dialog_opt = &None;
-                        }
+                    if let Some((dialog_id, dialog)) = dialog_opt
+                        && dialog_id.as_deref() == app_id.as_deref()
+                    {
+                        AdwDialogExt::close(dialog);
+                        dialog_opt = &None;
                     }
                     *imp.popped_over_app.borrow_mut() = None;
                     ids_to_remove.insert(app_id.clone());
@@ -799,10 +799,10 @@ impl ResApplications {
 
                 if let Some(app) = apps_context.get_app(&app_id) {
                     object.update(app, apps_context);
-                    if let Some((dialog_id, dialog)) = dialog_opt {
-                        if *dialog_id == app_id {
-                            dialog.update(&object);
-                        }
+                    if let Some((dialog_id, dialog)) = dialog_opt
+                        && *dialog_id == app_id
+                    {
+                        dialog.update(&object);
                     }
                     already_existing_ids.insert(app_id);
                 }

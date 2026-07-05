@@ -57,10 +57,9 @@ impl AmdGpu {
         if let Ok(vcn_version) = read_parsed::<isize>(
             gpu.sysfs_path()
                 .join("device/ip_discovery/die/0/UVD/0/major"),
-        ) {
-            if vcn_version >= 4 {
-                gpu.combined_media_engine = true;
-            }
+        ) && vcn_version >= 4
+        {
+            gpu.combined_media_engine = true;
         }
 
         gpu
@@ -137,11 +136,10 @@ impl GpuImpl for AmdGpu {
             .get(&(self.device().map_or(0, pci::Device::pid), revision))
             .cloned()
             .unwrap_or_else(|| {
-                if let Ok(drm_name) = self.drm_name() {
-                    format!("AMD Radeon Graphics ({drm_name})")
-                } else {
-                    "AMD Radeon Graphics".into()
-                }
+                self.drm_name().map_or_else(
+                    |_| "AMD Radeon Graphics".into(),
+                    |drm_name| format!("AMD Radeon Graphics ({drm_name})"),
+                )
             }))
     }
 

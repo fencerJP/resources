@@ -126,20 +126,20 @@ impl Display for DriveType {
             f,
             "{}",
             match self {
-                DriveType::CdDvdBluray => i18n("CD/DVD/Blu-ray Drive"),
-                DriveType::Emmc => i18n("eMMC Storage"),
-                DriveType::Flash => i18n("Flash Storage"),
-                DriveType::Floppy => i18n("Floppy Drive"),
-                DriveType::Hdd => i18n("Hard Disk Drive"),
-                DriveType::LoopDevice => i18n("Loop Device"),
-                DriveType::MappedDevice => i18n("Mapped Device"),
-                DriveType::Nvme => i18n("NVMe Drive"),
-                DriveType::Unknown => i18n("N/A"),
-                DriveType::Raid => i18n("Software Raid"),
-                DriveType::RamDisk => i18n("RAM Disk"),
-                DriveType::Ssd => i18n("Solid State Drive"),
-                DriveType::ZfsVolume => i18n("ZFS Volume"),
-                DriveType::Zram => i18n("Compressed RAM Disk (zram)"),
+                Self::CdDvdBluray => i18n("CD/DVD/Blu-ray Drive"),
+                Self::Emmc => i18n("eMMC Storage"),
+                Self::Flash => i18n("Flash Storage"),
+                Self::Floppy => i18n("Floppy Drive"),
+                Self::Hdd => i18n("Hard Disk Drive"),
+                Self::LoopDevice => i18n("Loop Device"),
+                Self::MappedDevice => i18n("Mapped Device"),
+                Self::Nvme => i18n("NVMe Drive"),
+                Self::Unknown => i18n("N/A"),
+                Self::Raid => i18n("Software Raid"),
+                Self::RamDisk => i18n("RAM Disk"),
+                Self::Ssd => i18n("Solid State Drive"),
+                Self::ZfsVolume => i18n("ZFS Volume"),
+                Self::Zram => i18n("Compressed RAM Disk (zram)"),
             }
         )
     }
@@ -158,7 +158,7 @@ impl Drive {
     ///
     /// Will return `Err` if the are errors during
     /// reading or parsing
-    pub fn from_sysfs<P: AsRef<Path>>(sysfs_path: P) -> Drive {
+    pub fn from_sysfs<P: AsRef<Path>>(sysfs_path: P) -> Self {
         let path = sysfs_path.as_ref().to_path_buf();
 
         trace!("Creating Drive object of {path:?}");

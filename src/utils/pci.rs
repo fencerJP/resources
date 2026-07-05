@@ -63,7 +63,7 @@ impl Device {
         &self.name
     }
 
-    pub fn pid(&self) -> u16 {
+    pub const fn pid(&self) -> u16 {
         self.id
     }
 }
@@ -78,7 +78,7 @@ impl std::fmt::Debug for Vendor {
 }
 
 impl Vendor {
-    pub fn from_vid(vid: u16) -> Option<&'static Vendor> {
+    pub fn from_vid(vid: u16) -> Option<&'static Self> {
         VENDORS.get(&vid)
     }
 

@@ -83,7 +83,7 @@ static COMPANION_PROCESS: LazyLock<Mutex<(ChildStdin, ChildStdout)>> = LazyLock:
 });
 
 /// Represents a process that can be found within procfs.
-#[derive(Debug, Clone, PartialEq)]
+#[derive(Debug, Clone, PartialEq, Eq)]
 pub struct Process {
     pub data: ProcessData,
     pub executable_path: String,
@@ -396,7 +396,7 @@ impl Process {
             MemoryMetric::Pss | MemoryMetric::ApproximatePss => self
                 .data
                 .pss
-                .unwrap_or(self.data.rss.saturating_sub(self.data.rss_shmem)),
+                .unwrap_or_else(|| self.data.rss.saturating_sub(self.data.rss_shmem)),
         }
     }
 

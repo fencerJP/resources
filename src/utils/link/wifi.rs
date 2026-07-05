@@ -65,11 +65,11 @@ impl Display for WifiGeneration {
             f,
             "{}",
             match self {
-                WifiGeneration::Wifi4 => "Wi-Fi 4 (802.11n)",
-                WifiGeneration::Wifi5 => "Wi-Fi 5 (802.11ac)",
-                WifiGeneration::Wifi6 => "Wi-Fi 6 (802.11ax)",
-                WifiGeneration::Wifi6e => "Wi-Fi 6E (802.11ax)",
-                WifiGeneration::Wifi7 => "Wi-Fi 7 (802.11be)",
+                Self::Wifi4 => "Wi-Fi 4 (802.11n)",
+                Self::Wifi5 => "Wi-Fi 5 (802.11ac)",
+                Self::Wifi6 => "Wi-Fi 6 (802.11ax)",
+                Self::Wifi6e => "Wi-Fi 6E (802.11ax)",
+                Self::Wifi7 => "Wi-Fi 7 (802.11be)",
             }
         )
     }
@@ -93,11 +93,8 @@ impl LinkData<WifiLinkData> {
             .context("Could not get interfaces")?;
         let wifi_interface = interfaces.iter().find(|x| {
             x.name.is_some() && {
-                if let Ok(c_name) = CString::from_vec_with_nul(x.name.clone().unwrap()) {
-                    c_name.to_string_lossy() == name
-                } else {
-                    false
-                }
+                CString::from_vec_with_nul(x.name.clone().unwrap())
+                    .map_or(false, |c_name| c_name.to_string_lossy() == name)
             }
         });
 
@@ -113,6 +110,7 @@ impl LinkData<WifiLinkData> {
                 .index
                 .context("Could not get index of wifi_interface")?;
             let stations = socket.get_station_info(index)?;
+            drop(socket);
             trace!("Stations found: {}", stations.len());
             if let Some(station_info) = stations.first() {
                 trace!("Found station: {station_info:?}");
@@ -120,7 +118,7 @@ impl LinkData<WifiLinkData> {
                 let wifi_generation = WifiGeneration::get_wifi_generation(station_info, mhz);
                 let rx = station_info.rx_bitrate.unwrap_or(0).saturating_mul(100_000) as usize;
                 let tx = station_info.tx_bitrate.unwrap_or(0).saturating_mul(100_000) as usize;
-                return Ok(LinkData {
+                return Ok(Self {
                     current: WifiLinkData {
                         generation: wifi_generation,
                         rx_bps: rx,
@@ -165,11 +163,8 @@ impl Display for WifiLinkData {
         write!(
             f,
             "{} · {}",
-            if let Some(generation) = self.generation {
-                generation.to_string()
-            } else {
-                i18n("N/A")
-            },
+            self.generation
+                .map_or_else(|| i18n("N/A"), |generation| generation.to_string()),
             self.frequency_display(),
         )
     }

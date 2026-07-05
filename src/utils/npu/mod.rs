@@ -199,9 +199,9 @@ impl std::ops::Deref for Npu {
 
     fn deref(&self) -> &Self::Target {
         match self {
-            Npu::Amd(npu) => npu,
-            Npu::Intel(npu) => npu,
-            Npu::Other(npu) => npu,
+            Self::Amd(npu) => npu,
+            Self::Intel(npu) => npu,
+            Self::Other(npu) => npu,
         }
     }
 }
@@ -213,10 +213,10 @@ impl Npu {
     ///
     /// Will return `Err` if there are problems detecting
     /// the NPUs in the system
-    pub fn get_npus() -> Result<Vec<Npu>> {
+    pub fn get_npus() -> Result<Vec<Self>> {
         debug!("Searching for NPUs…");
 
-        let mut npu_vec: Vec<Npu> = Vec::new();
+        let mut npu_vec: Vec<Self> = Vec::new();
         for entry in glob("/sys/class/accel/accel?")?.flatten() {
             if let Ok(npu) = Self::from_sysfs_path(entry) {
                 npu_vec.push(npu);
@@ -228,7 +228,7 @@ impl Npu {
         Ok(npu_vec)
     }
 
-    fn from_sysfs_path<P: AsRef<Path>>(path: P) -> Result<Npu> {
+    fn from_sysfs_path<P: AsRef<Path>>(path: P) -> Result<Self> {
         let path = path.as_ref();
 
         trace!("Creating NPU object of {path:?}…");
@@ -236,14 +236,14 @@ impl Npu {
         let sysfs_device_path = path.join("device");
         let uevent_contents = read_uevent(sysfs_device_path.join("uevent"))?;
 
-        let (device, vid, pid) = if let Some(pci_line) = uevent_contents.get("PCI_ID") {
-            let (vid_str, pid_str) = pci_line.split_once(':').unwrap_or(("0", "0"));
-            let vid = u16::from_str_radix(vid_str, 16).unwrap_or_default();
-            let pid = u16::from_str_radix(pid_str, 16).unwrap_or_default();
-            (Device::from_vid_pid(vid, pid), vid, pid)
-        } else {
-            (None, 0, 0)
-        };
+        let (device, vid, pid) = uevent_contents
+            .get("PCI_ID")
+            .map_or((None, 0, 0), |pci_line| {
+                let (vid_str, pid_str) = pci_line.split_once(':').unwrap_or(("0", "0"));
+                let vid = u16::from_str_radix(vid_str, 16).unwrap_or_default();
+                let pid = u16::from_str_radix(pid_str, 16).unwrap_or_default();
+                (Device::from_vid_pid(vid, pid), vid, pid)
+            });
 
         let mut hwmon_vec: Vec<PathBuf> = Vec::new();
         for hwmon in glob(&format!(
@@ -275,7 +275,7 @@ impl Npu {
 
         let (npu, npu_category) = if vid == VID_INTEL || driver == "intel_vpu" {
             (
-                Npu::Intel(IntelNpu::new(
+                Self::Intel(IntelNpu::new(
                     device,
                     pci_slot,
                     driver,
@@ -286,7 +286,7 @@ impl Npu {
             )
         } else if vid == VID_AMD || driver == "amdxdna" {
             (
-                Npu::Amd(AmdNpu::new(
+                Self::Amd(AmdNpu::new(
                     device,
                     pci_slot,
                     driver,
@@ -297,7 +297,7 @@ impl Npu {
             )
         } else {
             (
-                Npu::Other(OtherNpu::new(
+                Self::Other(OtherNpu::new(
                     device,
                     pci_slot,
                     driver,

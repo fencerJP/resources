@@ -125,7 +125,7 @@ pub enum Gpu {
 
 impl Default for Gpu {
     fn default() -> Self {
-        Gpu::Other(OtherGpu::default())
+        Self::Other(OtherGpu::default())
     }
 }
 
@@ -208,11 +208,11 @@ impl std::ops::Deref for Gpu {
 
     fn deref(&self) -> &Self::Target {
         match self {
-            Gpu::Amd(gpu) => gpu,
-            Gpu::Intel(gpu) => gpu,
-            Gpu::Nvidia(gpu) => gpu,
-            Gpu::V3d(gpu) => gpu,
-            Gpu::Other(gpu) => gpu,
+            Self::Amd(gpu) => gpu,
+            Self::Intel(gpu) => gpu,
+            Self::Nvidia(gpu) => gpu,
+            Self::V3d(gpu) => gpu,
+            Self::Other(gpu) => gpu,
         }
     }
 }
@@ -224,10 +224,10 @@ impl Gpu {
     ///
     /// Will return `Err` if there are problems detecting
     /// the GPUs in the system
-    pub fn get_gpus() -> Result<Vec<Gpu>> {
+    pub fn get_gpus() -> Result<Vec<Self>> {
         debug!("Searching for GPUs…");
 
-        let mut gpu_vec: Vec<Gpu> = Vec::new();
+        let mut gpu_vec: Vec<Self> = Vec::new();
         for (i, entry) in glob("/sys/class/drm/card?")?.flatten().enumerate() {
             if let Ok(gpu) = Self::from_sysfs_path(entry, i) {
                 gpu_vec.push(gpu);
@@ -239,7 +239,7 @@ impl Gpu {
         Ok(gpu_vec)
     }
 
-    fn from_sysfs_path<P: AsRef<Path>>(path: P, i: usize) -> Result<Gpu> {
+    fn from_sysfs_path<P: AsRef<Path>>(path: P, i: usize) -> Result<Self> {
         let path = path.as_ref().to_path_buf();
 
         trace!("Creating GPU object of {path:?}…");
@@ -253,14 +253,14 @@ impl Gpu {
         let sysfs_device_path = path.join("device");
         let uevent_contents = read_uevent(sysfs_device_path.join("uevent"))?;
 
-        let (device, vid, pid) = if let Some(pci_line) = uevent_contents.get("PCI_ID") {
-            let (vid_str, pid_str) = pci_line.split_once(':').unwrap_or(("0", "0"));
-            let vid = u16::from_str_radix(vid_str, 16).unwrap_or_default();
-            let pid = u16::from_str_radix(pid_str, 16).unwrap_or_default();
-            (Device::from_vid_pid(vid, pid), vid, pid)
-        } else {
-            (None, 0, 0)
-        };
+        let (device, vid, pid) = uevent_contents
+            .get("PCI_ID")
+            .map_or((None, 0, 0), |pci_line| {
+                let (vid_str, pid_str) = pci_line.split_once(':').unwrap_or(("0", "0"));
+                let vid = u16::from_str_radix(vid_str, 16).unwrap_or_default();
+                let pid = u16::from_str_radix(pid_str, 16).unwrap_or_default();
+                (Device::from_vid_pid(vid, pid), vid, pid)
+            });
 
         let mut hwmon_vec: Vec<PathBuf> = Vec::new();
         for hwmon in glob(&format!(
@@ -280,11 +280,9 @@ impl Gpu {
         )
         .context("can't turn PCI string to struct");
 
-        let gpu_identifier = if let Ok(pci_slot) = pci_slot {
+        let gpu_identifier = pci_slot.map_or(GpuIdentifier::Enumerator(enumarator), |pci_slot| {
             GpuIdentifier::PciSlot(pci_slot)
-        } else {
-            GpuIdentifier::Enumerator(enumarator)
-        };
+        });
 
         let driver = uevent_contents
             .get("DRIVER")
@@ -296,7 +294,7 @@ impl Gpu {
 
         let (gpu, gpu_category) = if vid == VID_AMD || driver == "amdgpu" {
             (
-                Gpu::Amd(AmdGpu::new(
+                Self::Amd(AmdGpu::new(
                     device,
                     gpu_identifier,
                     driver,
@@ -307,7 +305,7 @@ impl Gpu {
             )
         } else if vid == VID_INTEL || intel::DRIVER_NAMES.contains(&driver.as_str()) {
             (
-                Gpu::Intel(IntelGpu::new(
+                Self::Intel(IntelGpu::new(
                     device,
                     gpu_identifier,
                     driver,
@@ -318,7 +316,7 @@ impl Gpu {
             )
         } else if vid == VID_NVIDIA || driver == "nvidia" {
             (
-                Gpu::Nvidia(NvidiaGpu::new(
+                Self::Nvidia(NvidiaGpu::new(
                     device,
                     gpu_identifier,
                     driver,
@@ -329,7 +327,7 @@ impl Gpu {
             )
         } else if driver == "v3d" {
             (
-                Gpu::V3d(V3dGpu::new(
+                Self::V3d(V3dGpu::new(
                     device,
                     gpu_identifier,
                     driver,
@@ -340,7 +338,7 @@ impl Gpu {
             )
         } else {
             (
-                Gpu::Other(OtherGpu::new(
+                Self::Other(OtherGpu::new(
                     device,
                     gpu_identifier,
                     driver,
