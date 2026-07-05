@@ -32,7 +32,7 @@ where
     T: Display + PartialEq,
 {
     fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
-        let has_different_max = self.max.as_ref().map_or(false, |max| self.current != *max);
+        let has_different_max = self.max.as_ref().is_ok_and(|max| self.current != *max);
         if has_different_max {
             write!(f, "{} / {}", self.current, self.max.as_ref().unwrap())
         } else {

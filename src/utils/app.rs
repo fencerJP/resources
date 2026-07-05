@@ -330,7 +330,6 @@ impl App {
         let has_appimage = desktop_entry.get("X-AppImage-Identifier").is_some();
 
         let steam_appid = exec
-            .as_deref()
             .and_then(|e| RE_STEAM_APPID.captures(e))
             .and_then(|c| c.get(1))
             .map(|m| m.as_str().to_string());
