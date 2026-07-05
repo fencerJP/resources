@@ -54,11 +54,11 @@ struct DrmVersion {
 #[repr(C)]
 #[derive(Default)]
 struct AmdxdnaDrmGetResourceInfo {
-    npu_clk_max: u64,
-    npu_tops_max: u64,
-    npu_task_max: u64,
-    npu_tops_curr: u64,
-    npu_task_curr: u64,
+    clk_max: u64,
+    tops_max: u64,
+    task_max: u64,
+    tops_curr: u64,
+    task_curr: u64,
 }
 
 #[repr(C)]
@@ -344,12 +344,12 @@ impl NpuImpl for AmdNpu {
 
     fn tops(&self) -> Result<u64> {
         let resource_info = self.query_resource_info()?;
-        Ok(resource_info.npu_tops_curr)
+        Ok(resource_info.tops_curr)
     }
 
     fn max_tops(&self) -> Result<u64> {
         let resource_info = self.query_resource_info()?;
-        Ok(resource_info.npu_tops_max)
+        Ok(resource_info.tops_max)
     }
 
     fn power_cap(&self) -> Result<f64> {
