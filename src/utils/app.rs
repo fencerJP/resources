@@ -489,7 +489,7 @@ impl App {
     #[must_use]
     pub fn memory_usage(&self, apps: &AppsContext) -> usize {
         self.processes_iter(apps)
-            .map(|process| process.data.memory_usage)
+            .map(|process| process.mem_usage())
             .sum()
     }
 

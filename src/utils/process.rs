@@ -22,7 +22,10 @@ use gtk::{
     glib::GString,
 };
 
-use crate::config;
+use crate::{
+    config,
+    gui::{ARGS, MemoryMetric},
+};
 
 use super::{
     FLATPAK_APP_PATH, FLATPAK_SPAWN, FiniteOr, IS_FLATPAK, NUM_CPUS, TICK_RATE, boot_time,
@@ -38,18 +41,34 @@ static COMPANION_PROCESS: LazyLock<Mutex<(ChildStdin, ChildStdout)>> = LazyLock:
         format!("{LIBEXECDIR}/resources-processes")
     };
 
+    let mut additional_args: Vec<&str> = Vec::new();
+
+    match ARGS.memory_metric {
+        MemoryMetric::ApproximatePss => additional_args.extend(&["--pss", "approximate"]),
+        MemoryMetric::Pss => additional_args.extend(&["--pss", "exact"]),
+        _ => {}
+    }
+
     let child = if *IS_FLATPAK {
-        debug!("Spawning resources-processes in Flatpak mode ({proxy_path})");
+        debug!(
+            "Spawning resources-processes in Flatpak mode ({proxy_path} {})",
+            additional_args.join(" ")
+        );
         Command::new(FLATPAK_SPAWN)
             .args(["--host", proxy_path.as_str()])
+            .args(additional_args)
             .stdin(Stdio::piped())
             .stdout(Stdio::piped())
             .stderr(Stdio::piped())
             .spawn()
             .unwrap()
     } else {
-        debug!("Spawning resources-processes in native mode ({proxy_path})");
+        debug!(
+            "Spawning resources-processes in native mode ({proxy_path} {})",
+            additional_args.join(" ")
+        );
         Command::new(proxy_path)
+            .args(additional_args)
             .stdin(Stdio::piped())
             .stdout(Stdio::piped())
             .stderr(Stdio::piped())
@@ -364,6 +383,20 @@ impl Process {
                     .saturating_mul(*TICK_RATE as u64)
                     .saturating_mul(*NUM_CPUS as u64)) as f32)
                 .finite_or_default()
+        }
+    }
+
+    #[must_use]
+    pub fn mem_usage(&self) -> usize {
+        match ARGS.memory_metric {
+            MemoryMetric::Rss => self.data.rss,
+            MemoryMetric::RssNoSharedMemory => self.data.rss.saturating_sub(self.data.rss_shmem),
+            MemoryMetric::RssAnonymous => self.data.rss_anon,
+            MemoryMetric::VmSize => self.data.vm_size,
+            MemoryMetric::Pss | MemoryMetric::ApproximatePss => self
+                .data
+                .pss
+                .unwrap_or(self.data.rss.saturating_sub(self.data.rss_shmem)),
         }
     }
 
