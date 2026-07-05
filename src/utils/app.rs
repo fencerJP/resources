@@ -31,10 +31,6 @@ use super::{
     snapd,
 };
 
-/// This contains the cgroups of desktop environments. If a process has this as its cgroup, its parent's cgroup will be
-/// considered instead to enhance app detection
-const DESKTOP_ENVIRONMENT_CGROUPS: &[&str] = &["org.gnome.Shell"];
-
 // This contains executable names that are blocklisted from being recognized as applications
 const DESKTOP_EXEC_BLOCKLIST: &[&str] = &["bash", "zsh", "fish", "sh", "ksh", "flatpak"];
 
@@ -88,6 +84,8 @@ static APP_ID_BLOCKLIST: LazyLock<HashMap<&'static str, &'static str>> = LazyLoc
 static RE_ENV_FILTER: Lazy<Regex> = lazy_regex!(r"env\s*\S*=\S*\s*(.*)");
 
 static RE_FLATPAK_FILTER: Lazy<Regex> = lazy_regex!(r"flatpak run .* --command=(\S*)");
+
+static RE_STEAM_APPID: Lazy<Regex> = lazy_regex!(r"steam://rungameid/(\d+)");
 
 fn format_path(path: &str) -> String {
     if path.starts_with("~/") {
@@ -212,6 +210,7 @@ struct DesktopEntry {
     comment: Option<String>,
     has_snap: bool,
     has_appimage: bool,
+    steam_appid: Option<String>,
 }
 
 impl App {
@@ -289,6 +288,12 @@ impl App {
         let has_snap = desktop_entry.has_key("X-SnapInstanceName");
         let has_appimage = desktop_entry.has_key("X-AppImage-Identifier");
 
+        let steam_appid = exec
+            .as_deref()
+            .and_then(|e| RE_STEAM_APPID.captures(e))
+            .and_then(|c| c.get(1))
+            .map(|m| m.as_str().to_string());
+
         Ok(DesktopEntry {
             id,
             exec,
@@ -297,6 +302,7 @@ impl App {
             comment,
             has_snap,
             has_appimage,
+            steam_appid,
         })
     }
 
@@ -323,6 +329,12 @@ impl App {
         let has_snap = desktop_entry.get("X-SnapInstanceName").is_some();
         let has_appimage = desktop_entry.get("X-AppImage-Identifier").is_some();
 
+        let steam_appid = exec
+            .as_deref()
+            .and_then(|e| RE_STEAM_APPID.captures(e))
+            .and_then(|c| c.get(1))
+            .map(|m| m.as_str().to_string());
+
         Ok(DesktopEntry {
             id: id.map(std::string::ToString::to_string),
             exec: exec.map(std::string::ToString::to_string),
@@ -331,6 +343,7 @@ impl App {
             comment,
             has_snap,
             has_appimage,
+            steam_appid,
         })
     }
 
@@ -396,6 +409,12 @@ impl App {
                 .unwrap_or_default()
                 .to_string()
         });
+
+        let executable_name = if let Some(ref steam_appid) = entry.steam_appid {
+            Some(format!("steam_{steam_appid}"))
+        } else {
+            executable_name
+        };
 
         if let Some(ref executable_name) = executable_name
             && DESKTOP_EXEC_BLOCKLIST.contains(&executable_name.as_str())
@@ -756,149 +775,157 @@ impl AppsContext {
     }
 
     fn app_associated_with_process(&self, process: &Process) -> AppAssociation {
-        // TODO: tidy this up
-
-        // ↓ look for whether we can associate this process with an AppImage
-        if let Some(appimage_path) = &process.data.appimage_path
-            && let Some(parent) = self.apps.values().find(|app| {
-                app.containerization == Containerization::AppImage
-                    && app
-                        .commandline
-                        .as_ref()
-                        .is_some_and(|exe_name| exe_name == appimage_path)
-            })
-        {
-            return AppAssociation::Resolved(parent.id.clone());
+        if let Some(assoc) = self.try_steam_appid_match(process) {
+            return assoc;
+        }
+        if let Some(assoc) = self.try_cgroup_match(process) {
+            return assoc;
+        }
+        if let Some(assoc) = self.try_appimage_match(process) {
+            return assoc;
+        }
+        if let Some(assoc) = self.try_snap_match(process) {
+            return assoc;
+        }
+        if let Some(app) = self.exact_executable_match(process) {
+            debug!(
+                "Associating process {} with app {:?} via exact executable match",
+                process.data.pid,
+                app.id.as_deref().unwrap_or("N/A")
+            );
+            return AppAssociation::Resolved(app.id.clone());
+        }
+        if let Some(app) = self.parent_app_match(process) {
+            debug!(
+                "Associating process {} with app {:?} via parent process {}",
+                process.data.pid,
+                app.id.as_deref().unwrap_or("N/A"),
+                process.data.parent_pid,
+            );
+            return AppAssociation::Resolved(app.id.clone());
         }
 
-        // ↓ look for whether we can find an ID in the cgroup
-        if DESKTOP_ENVIRONMENT_CGROUPS.contains(&process.data.cgroup.as_deref().unwrap_or_default())
-            && let Some(parent) = self
-                .apps
-                .values()
-                .find(|app| app.processes.contains(&process.data.parent_pid))
-        {
-            return AppAssociation::Resolved(parent.id.clone());
+        AppAssociation::Resolved(self.fallback_commandline_match(process))
+    }
+
+    fn try_steam_appid_match(&self, process: &Process) -> Option<AppAssociation> {
+        let steam_appid = process.data.steam_appid.as_ref()?;
+        let app = self
+            .apps
+            .values()
+            .find(|app| app.executable_name.as_deref() == Some(&format!("steam_{steam_appid}")))?;
+
+        debug!(
+            "Associating process {} with Steam game {:?} via Steam App ID {}",
+            process.data.pid,
+            app.id.as_deref().unwrap_or("N/A"),
+            steam_appid
+        );
+        Some(AppAssociation::Resolved(app.id.clone()))
+    }
+
+    fn try_cgroup_match(&self, process: &Process) -> Option<AppAssociation> {
+        let cgroup_app = self
+            .apps
+            .get(&Some(process.data.cgroup.clone().unwrap_or_default()))?;
+
+        // skip cgroup match for Steam processes that have a SteamAppId
+        // (should be matched by AppId above, not by Steam's own cgroup)
+        if process.data.steam_appid.is_some() && cgroup_app.id.as_deref() == Some("steam") {
+            return None;
         }
 
-        // ↓ look for whether we can associate this process with a snap
-        if process.data.containerization == Containerization::Snap
-            && let Some((snap_name, snap_app)) = process
-                .data
-                .cgroup
-                .as_deref()
-                .and_then(|c| c.split_once('.'))
-        {
-            let fut = snapd::get_desktop_id(snap_name, snap_app);
-            match fut.clone().now_or_never() {
-                None => {
-                    debug!(
-                        "Deferring association of snap process {} with app until async query completes",
-                        process.data.pid
-                    );
-                    return AppAssociation::Pending(fut);
-                }
-                Some(Some(id)) if self.apps.contains_key(&Some(id.clone())) => {
-                    debug!(
-                        "Associating snap process {} ({snap_name}.{snap_app}) with app {id:?} via snapd query",
-                        process.data.pid
-                    );
-                    return AppAssociation::Resolved(Some(id));
-                }
-                Some(None) => {
-                    let id = format!("{snap_name}_{snap_app}");
-                    if self.apps.contains_key(&Some(id.clone())) {
-                        debug!(
-                            "Associating snap process {} ({snap_name}.{snap_app}) with app {id:?} via cgroup fallback",
-                            process.data.pid
-                        );
-                        return AppAssociation::Resolved(Some(id));
-                    }
-                }
-                Some(_) => {}
+        debug!(
+            "Associating process {} with app {:?} via cgroup match",
+            process.data.pid,
+            cgroup_app.id.as_deref().unwrap_or("N/A")
+        );
+        Some(AppAssociation::Resolved(cgroup_app.id.clone()))
+    }
+
+    fn try_appimage_match(&self, process: &Process) -> Option<AppAssociation> {
+        let appimage_path = process.data.appimage_path.as_ref()?;
+        let app = self.apps.values().find(|app| {
+            app.containerization == Containerization::AppImage
+                && app
+                    .commandline
+                    .as_ref()
+                    .is_some_and(|exe| exe == appimage_path)
+        })?;
+
+        Some(AppAssociation::Resolved(app.id.clone()))
+    }
+
+    fn try_snap_match(&self, process: &Process) -> Option<AppAssociation> {
+        if process.data.containerization != Containerization::Snap {
+            return None;
+        }
+        let (snap_name, snap_app) = process
+            .data
+            .cgroup
+            .as_deref()
+            .and_then(|c| c.split_once('.'))?;
+
+        let fut = snapd::get_desktop_id(snap_name, snap_app);
+        match fut.clone().now_or_never() {
+            None => {
+                debug!(
+                    "Deferring association of snap process {} until async query completes",
+                    process.data.pid
+                );
+                Some(AppAssociation::Pending(fut))
             }
+            Some(Some(id)) if self.apps.contains_key(&Some(id.clone())) => {
+                debug!(
+                    "Associating snap process {} with app {id:?} via snapd query",
+                    process.data.pid
+                );
+                Some(AppAssociation::Resolved(Some(id)))
+            }
+            Some(None) => {
+                let id = format!("{snap_name}_{snap_app}");
+                self.apps.contains_key(&Some(id.clone())).then(|| {
+                    debug!(
+                        "Associating snap process {} with app {id:?} via cgroup fallback",
+                        process.data.pid
+                    );
+                    AppAssociation::Resolved(Some(id))
+                })
+            }
+            Some(_) => None,
         }
+    }
 
-        AppAssociation::Resolved(
-            if let Some(app) = self
-                .apps
-                .get(&Some(process.data.cgroup.clone().unwrap_or_default()))
-            {
-                debug!(
-                    "Associating process {} with app {:?} (ID: {:?}) based on process cgroup matching with app ID",
-                    process.data.pid,
-                    app.display_name,
-                    app.id.as_deref().unwrap_or("N/A")
-                );
-                app.id.clone()
-            } else if let Some(app) = self.apps.get(&Some(process.executable_path.clone())) {
-                // ↑ look for whether we can find an ID in the executable path of the process
-                debug!(
-                    "Associating process {} with app {:?} (ID: {:?}) based on process executable path matching with app ID",
-                    process.data.pid,
-                    app.display_name,
-                    app.id.as_deref().unwrap_or("N/A")
-                );
-                app.id.clone()
-            } else if let Some(app) = self.apps.get(&Some(process.executable_name.clone())) {
-                // ↑ look for whether we can find an ID in the executable name of the process
-                debug!(
-                    "Associating process {} with app {:?} (ID: {:?}) based on process executable name matching with app ID",
-                    process.data.pid,
-                    app.display_name,
-                    app.id.as_deref().unwrap_or("N/A")
-                );
-                app.id.clone()
-            } else {
-                self.apps
-                .values()
-                .find(|app| {
-                    // ↓ probably most expensive lookup, therefore only last resort: look if the process' commandline
-                    //   can be found in the app's commandline
-                    if app
-                        .commandline
-                        .as_ref()
-                        .is_some_and(|commandline| commandline == &process.executable_path)
-                    {
-                        debug!(
-                            "Associating process {} with app {:?} (ID: {:?}) based on process executable path matching with app commandline ({})",
-                            process.data.pid, app.display_name, app.id.as_deref().unwrap_or("N/A"), process.executable_path
-                        );
-                        true
-                    } else if app
+    fn exact_executable_match(&self, process: &Process) -> Option<&App> {
+        self.apps
+            .get(&Some(process.executable_path.clone()))
+            .or_else(|| self.apps.get(&Some(process.executable_name.clone())))
+    }
+
+    fn parent_app_match(&self, process: &Process) -> Option<&App> {
+        self.apps
+            .values()
+            .find(|app| app.id.is_some() && app.processes.contains(&process.data.parent_pid))
+    }
+
+    fn fallback_commandline_match(&self, process: &Process) -> Option<String> {
+        self.apps
+            .values()
+            .find(|app| {
+                app.commandline
+                    .as_ref()
+                    .is_some_and(|c| c == &process.executable_path)
+                    || app
                         .executable_name
                         .as_ref()
-                        .is_some_and(|executable_name| executable_name == &process.executable_name)
-                    {
-                        debug!(
-                            "Associating process {} with app {:?} (ID: {:?}) based on process executable name matching with app executable name ({})",
-                            process.data.pid, app.display_name, app.id.as_deref().unwrap_or("N/A"), process.executable_name
-                        );
-                        true
-                    } else if app
-                        .executable_name
-                        .as_ref()
-                        .and_then(|executable_name| {
+                        .and_then(|name| {
                             KNOWN_EXECUTABLE_NAME_EXCEPTIONS
                                 .get(process.executable_name.as_str())
-                                .map(|substituted_executable_name| {
-                                    substituted_executable_name == executable_name
-                                })
+                                .map(|sub| sub == name)
                         })
                         .unwrap_or(false)
-                    {
-                        debug!(
-                            "Associating process {} with app {:?} (ID: {:?}) based on match in KNOWN_EXECUTABLE_NAME_EXCEPTIONS",
-                            process.data.pid, app.display_name, app.id.as_deref().unwrap_or("N/A")
-                        );
-                        true
-                    } else {
-                        false
-                    }
-                })
-                .and_then(|app| app.id.clone())
-            },
-        )
+            })
+            .and_then(|app| app.id.clone())
     }
 
     pub fn get_process(&self, pid: i32) -> Option<&Process> {

@@ -273,6 +273,7 @@ pub struct ProcessData {
     pub gpu_usage_stats: BTreeMap<GpuIdentifier, GpuUsageStats>,
     pub npu_usage_stats: BTreeMap<PciSlot, NpuUsageStats>,
     pub appimage_path: Option<String>,
+    pub steam_appid: Option<u32>,
 }
 
 impl ProcessData {
@@ -573,6 +574,8 @@ impl ProcessData {
 
         let appimage_path = environ.get("APPIMAGE").map(std::borrow::ToOwned::to_owned);
 
+        let steam_appid = environ.get("SteamAppId").and_then(|s| s.parse().ok());
+
         let containerization = if commandline.starts_with("/snap/") || launcher == "snap" {
             Containerization::Snap
         } else if proc_path
@@ -649,6 +652,7 @@ impl ProcessData {
             gpu_usage_stats,
             npu_usage_stats,
             appimage_path,
+            steam_appid,
         })
     }
 
