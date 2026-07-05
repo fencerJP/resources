@@ -147,6 +147,24 @@ pub enum SidebarMeterType {
     Graph,
 }
 
+#[repr(u8)]
+#[derive(Debug, Clone, Copy, Default, PartialEq, Eq, EnumString, Display, Hash, FromRepr)]
+pub enum MemoryMetric {
+    /// Virtual memory allocated by the process (but not necessarily actually used)
+    VmSize,
+    /// Physical memory currently used by this process, including shared libraries
+    Rss,
+    /// Physical memory used exclusively by this process, excluding shared libraries
+    #[default]
+    RssNoSharedMemory,
+    /// Physical memory used for the process's heap and stack, excluding files and shared libraries
+    RssAnon,
+    /// Physical memory used by the process with shared libraries accounted for approximately proportionally (if available, otherwise rss-no-shared-memory). Very accurate but also more CPU-intensive
+    ApproximatePss,
+    /// Physical memory used by the process with shared libraries accounted for proportionally (if available, otherwise rss-no-shared-memory). Most accurate but also most CPU-intensive.
+    Pss,
+}
+
 #[derive(Clone, Debug, Hash)]
 pub struct Settings(gio::Settings);
 
@@ -176,6 +194,33 @@ impl Settings {
         self.connect_changed(Some("temperature-unit"), move |settings, _key| {
             f(
                 TemperatureUnit::from_str(settings.string("temperature-unit").as_str())
+                    .unwrap_or_default(),
+            );
+        })
+    }
+
+    pub fn memory_metric(&self) -> MemoryMetric {
+        MemoryMetric::from_str(self.string("memory-metric").as_str()).unwrap_or_default()
+    }
+
+    pub fn set_memory_metric(&self, value: MemoryMetric) -> Result<(), glib::error::BoolError> {
+        debug!("Setting string `memory-metric` to \"{value}\"");
+        self.set_string("memory-metric", &value.to_string())
+            .inspect_err(|e| {
+                warn!(
+                    "error writing setting `memory-metric` to string \"{}\": {e}",
+                    value.to_string()
+                );
+            })
+    }
+
+    pub fn connect_memory_metric<F: Fn(MemoryMetric) + 'static>(
+        &self,
+        f: F,
+    ) -> glib::SignalHandlerId {
+        self.connect_changed(Some("memory-metric"), move |settings, _key| {
+            f(
+                MemoryMetric::from_str(settings.string("memory-metric").as_str())
                     .unwrap_or_default(),
             );
         })

@@ -24,7 +24,7 @@ use gtk::{
 
 use crate::{
     config,
-    gui::{ARGS, MemoryMetric},
+    utils::settings::{MemoryMetric, SETTINGS},
 };
 
 use super::{
@@ -43,7 +43,7 @@ static COMPANION_PROCESS: LazyLock<Mutex<(ChildStdin, ChildStdout)>> = LazyLock:
 
     let mut additional_args: Vec<&str> = Vec::new();
 
-    match ARGS.memory_metric {
+    match SETTINGS.memory_metric() {
         MemoryMetric::ApproximatePss => additional_args.extend(&["--pss", "approximate"]),
         MemoryMetric::Pss => additional_args.extend(&["--pss", "exact"]),
         _ => {}
@@ -388,10 +388,10 @@ impl Process {
 
     #[must_use]
     pub fn mem_usage(&self) -> usize {
-        match ARGS.memory_metric {
+        match SETTINGS.memory_metric() {
             MemoryMetric::Rss => self.data.rss,
             MemoryMetric::RssNoSharedMemory => self.data.rss.saturating_sub(self.data.rss_shmem),
-            MemoryMetric::RssAnonymous => self.data.rss_anon,
+            MemoryMetric::RssAnon => self.data.rss_anon,
             MemoryMetric::VmSize => self.data.vm_size,
             MemoryMetric::Pss | MemoryMetric::ApproximatePss => self
                 .data
