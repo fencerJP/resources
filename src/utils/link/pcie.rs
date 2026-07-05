@@ -108,14 +108,14 @@ impl FromStr for PcieSpeed {
     /// https://en.wikipedia.org/wiki/PCI_Express#Comparison_table
     fn from_str(s: &str) -> std::result::Result<Self, Self::Err> {
         match s {
-            "2.5 GT/s PCIe" => Ok(Self::Pcie10),
-            "5.0 GT/s PCIe" => Ok(Self::Pcie20),
-            "8.0 GT/s PCIe" => Ok(Self::Pcie30),
-            "16.0 GT/s PCIe" => Ok(Self::Pcie40),
-            "32.0 GT/s PCIe" => Ok(Self::Pcie50),
-            "64.0 GT/s PCIe" => Ok(Self::Pcie60),
-            "128.0 GT/s PCIe" => Ok(Self::Pcie70),
-            "256.0 GT/s PCIe" => Ok(Self::Pcie80),
+            "2.5 GT/s PCIe" => Ok(Self::Pcie10),
+            "5.0 GT/s PCIe" => Ok(Self::Pcie20),
+            "8.0 GT/s PCIe" => Ok(Self::Pcie30),
+            "16.0 GT/s PCIe" => Ok(Self::Pcie40),
+            "32.0 GT/s PCIe" => Ok(Self::Pcie50),
+            "64.0 GT/s PCIe" => Ok(Self::Pcie60),
+            "128.0 GT/s PCIe" => Ok(Self::Pcie70),
+            "256.0 GT/s PCIe" => Ok(Self::Pcie80),
             _ => Err(anyhow!("Could not parse PCIe speed: '{s}'")),
         }
     }
@@ -131,14 +131,14 @@ mod test {
     #[test]
     fn parse_pcie_link_speeds() {
         let map = HashMap::from([
-            ("2.5 GT/s PCIe", PcieSpeed::Pcie10),
-            ("5.0 GT/s PCIe", PcieSpeed::Pcie20),
-            ("8.0 GT/s PCIe", PcieSpeed::Pcie30),
-            ("16.0 GT/s PCIe", PcieSpeed::Pcie40),
-            ("32.0 GT/s PCIe", PcieSpeed::Pcie50),
-            ("64.0 GT/s PCIe", PcieSpeed::Pcie60),
-            ("128.0 GT/s PCIe", PcieSpeed::Pcie70),
-            ("256.0 GT/s PCIe", PcieSpeed::Pcie80),
+            ("2.5 GT/s PCIe", PcieSpeed::Pcie10),
+            ("5.0 GT/s PCIe", PcieSpeed::Pcie20),
+            ("8.0 GT/s PCIe", PcieSpeed::Pcie30),
+            ("16.0 GT/s PCIe", PcieSpeed::Pcie40),
+            ("32.0 GT/s PCIe", PcieSpeed::Pcie50),
+            ("64.0 GT/s PCIe", PcieSpeed::Pcie60),
+            ("128.0 GT/s PCIe", PcieSpeed::Pcie70),
+            ("256.0 GT/s PCIe", PcieSpeed::Pcie80),
         ]);
 
         for input in map.keys() {
@@ -151,7 +151,7 @@ mod test {
 
     #[test]
     fn parse_pcie_link_speeds_failure() {
-        let invalid = vec!["999.0 GT/s PCIe", "SOMETHING_ELSE", ""];
+        let invalid = vec!["999.0 GT/s PCIe", "SOMETHING_ELSE", ""];
 
         for input in invalid {
             let result = PcieSpeed::from_str(input);
