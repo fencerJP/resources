@@ -36,24 +36,24 @@ pub enum WifiGeneration {
 }
 
 impl WifiGeneration {
-    pub fn get_wifi_generation(station: &Station, frequency_mhz: u32) -> Option<WifiGeneration> {
-        let mut wifi_generation: Option<WifiGeneration> = None;
+    pub fn get_wifi_generation(station: &Station, frequency_mhz: u32) -> Option<Self> {
+        let mut wifi_generation: Option<Self> = None;
 
         if station.ht_mcs.is_some() {
-            wifi_generation = Some(WifiGeneration::Wifi4);
+            wifi_generation = Some(Self::Wifi4);
         }
         if station.vht_mcs.is_some() {
-            wifi_generation = Some(WifiGeneration::Wifi5);
+            wifi_generation = Some(Self::Wifi5);
         }
         if station.he_mcs.is_some() {
             if (5925..=7125).contains(&frequency_mhz) {
-                wifi_generation = Some(WifiGeneration::Wifi6e);
+                wifi_generation = Some(Self::Wifi6e);
             } else {
-                wifi_generation = Some(WifiGeneration::Wifi6);
+                wifi_generation = Some(Self::Wifi6);
             }
         }
         if station.eht_mcs.is_some() {
-            wifi_generation = Some(WifiGeneration::Wifi7);
+            wifi_generation = Some(Self::Wifi7);
         }
         wifi_generation
     }
@@ -94,7 +94,7 @@ impl LinkData<WifiLinkData> {
         let wifi_interface = interfaces.iter().find(|x| {
             x.name.is_some() && {
                 CString::from_vec_with_nul(x.name.clone().unwrap())
-                    .map_or(false, |c_name| c_name.to_string_lossy() == name)
+                    .is_ok_and(|c_name| c_name.to_string_lossy() == name)
             }
         });
 
