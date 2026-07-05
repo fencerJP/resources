@@ -90,6 +90,41 @@ macro_rules! uint_settings {
     };
 }
 
+macro_rules! enum_settings {
+    ($($setting_name:ident: $enum_type:ty),* $(,)?) => {
+        $(
+            pub fn $setting_name(&self) -> $enum_type {
+                <$enum_type>::from_str(self.string(&stringify!($setting_name).replace("_", "-")).as_str())
+                    .unwrap_or_default()
+            }
+
+            paste! {
+                pub fn [<set_ $setting_name>](&self, value: $enum_type) -> Result<(), glib::error::BoolError> {
+                    debug!("Setting string `{}` to \"{value}\"", stringify!($setting_name).replace("_", "-"));
+                    self.set_string(&stringify!($setting_name).replace("_", "-"), &value.to_string())
+                        .inspect_err(|e| {
+                            warn!(
+                                "error writing setting `{}` to string \"{value}\": {e}",
+                                stringify!($setting_name).replace("_", "-")
+                            );
+                        })
+                }
+
+                pub fn [<connect_ $setting_name>]<F: Fn($enum_type) + 'static>(&self, f: F) -> glib::SignalHandlerId {
+                    self.connect_changed(
+                        Some(&stringify!($setting_name).replace("_", "-")),
+                        move |settings, _key| {
+                            f(<$enum_type>::from_str(
+                                settings.string(&stringify!($setting_name).replace("_", "-")).as_str(),
+                            ).unwrap_or_default());
+                        },
+                    )
+                }
+            }
+        )*
+    };
+}
+
 #[repr(u8)]
 #[derive(Debug, Clone, Copy, Default, EnumString, Display, Hash, FromRepr)]
 pub enum Base {
@@ -169,84 +204,6 @@ pub enum MemoryMetric {
 pub struct Settings(gio::Settings);
 
 impl Settings {
-    pub fn temperature_unit(&self) -> TemperatureUnit {
-        TemperatureUnit::from_str(self.string("temperature-unit").as_str()).unwrap_or_default()
-    }
-
-    pub fn set_temperature_unit(
-        &self,
-        value: TemperatureUnit,
-    ) -> Result<(), glib::error::BoolError> {
-        debug!("Setting string `temperature-unit` to \"{value}\"");
-        self.set_string("temperature-unit", &value.to_string())
-            .inspect_err(|e| {
-                warn!(
-                    "error writing setting `temperature-unit` to string \"{}\": {e}",
-                    value.to_string()
-                );
-            })
-    }
-
-    pub fn connect_temperature_unit<F: Fn(TemperatureUnit) + 'static>(
-        &self,
-        f: F,
-    ) -> glib::SignalHandlerId {
-        self.connect_changed(Some("temperature-unit"), move |settings, _key| {
-            f(
-                TemperatureUnit::from_str(settings.string("temperature-unit").as_str())
-                    .unwrap_or_default(),
-            );
-        })
-    }
-
-    pub fn memory_metric(&self) -> MemoryMetric {
-        MemoryMetric::from_str(self.string("memory-metric").as_str()).unwrap_or_default()
-    }
-
-    pub fn set_memory_metric(&self, value: MemoryMetric) -> Result<(), glib::error::BoolError> {
-        debug!("Setting string `memory-metric` to \"{value}\"");
-        self.set_string("memory-metric", &value.to_string())
-            .inspect_err(|e| {
-                warn!(
-                    "error writing setting `memory-metric` to string \"{}\": {e}",
-                    value.to_string()
-                );
-            })
-    }
-
-    pub fn connect_memory_metric<F: Fn(MemoryMetric) + 'static>(
-        &self,
-        f: F,
-    ) -> glib::SignalHandlerId {
-        self.connect_changed(Some("memory-metric"), move |settings, _key| {
-            f(
-                MemoryMetric::from_str(settings.string("memory-metric").as_str())
-                    .unwrap_or_default(),
-            );
-        })
-    }
-
-    pub fn base(&self) -> Base {
-        Base::from_str(self.string("base").as_str()).unwrap_or_default()
-    }
-
-    pub fn set_base(&self, value: Base) -> Result<(), glib::error::BoolError> {
-        debug!("Setting string `base` to \"{value}\"");
-        self.set_string("base", &value.to_string())
-            .inspect_err(|e| {
-                warn!(
-                    "error writing setting `base` to string \"{}\": {e}",
-                    value.to_string()
-                );
-            })
-    }
-
-    pub fn connect_base<F: Fn(Base) + 'static>(&self, f: F) -> glib::SignalHandlerId {
-        self.connect_changed(Some("base"), move |settings, _key| {
-            f(Base::from_str(settings.string("base").as_str()).unwrap_or_default());
-        })
-    }
-
     pub fn last_viewed_page(&self) -> String {
         self.string("last-viewed-page").to_string()
     }
@@ -271,63 +228,6 @@ impl Settings {
     pub fn connect_last_viewed_page<F: Fn(String) + 'static>(&self, f: F) -> glib::SignalHandlerId {
         self.connect_changed(Some("last-viewed-page"), move |settings, _key| {
             f(settings.string("last-viewed-page").to_string());
-        })
-    }
-
-    pub fn refresh_speed(&self) -> RefreshSpeed {
-        RefreshSpeed::from_str(self.string("refresh-speed").as_str()).unwrap_or_default()
-    }
-
-    pub fn set_refresh_speed(&self, value: RefreshSpeed) -> Result<(), glib::error::BoolError> {
-        debug!("Setting string `refresh-speed` to \"{value}\"");
-        self.set_string("refresh-speed", &value.to_string())
-            .inspect_err(|e| {
-                warn!(
-                    "error writing setting `refresh-speed` to string \"{}\": {e}",
-                    value.to_string()
-                );
-            })
-    }
-
-    pub fn connect_refresh_speed<F: Fn(RefreshSpeed) + 'static>(
-        &self,
-        f: F,
-    ) -> glib::SignalHandlerId {
-        self.connect_changed(Some("refresh-speed"), move |settings, _key| {
-            f(
-                RefreshSpeed::from_str(settings.string("refresh-speed").as_str())
-                    .unwrap_or_default(),
-            );
-        })
-    }
-
-    pub fn sidebar_meter_type(&self) -> SidebarMeterType {
-        SidebarMeterType::from_str(self.string("sidebar-meter-type").as_str()).unwrap_or_default()
-    }
-
-    pub fn set_sidebar_meter_type(
-        &self,
-        value: SidebarMeterType,
-    ) -> Result<(), glib::error::BoolError> {
-        debug!("Setting string `sidebar-meter-type` to \"{value}\"");
-        self.set_string("sidebar-meter-type", &value.to_string())
-            .inspect_err(|e| {
-                warn!(
-                    "error writing setting `sidebar-meter-type` to string \"{}\": {e}",
-                    value.to_string()
-                );
-            })
-    }
-
-    pub fn connect_sidebar_meter_type<F: Fn(SidebarMeterType) + 'static>(
-        &self,
-        f: F,
-    ) -> glib::SignalHandlerId {
-        self.connect_changed(Some("sidebar-meter-type"), move |settings, _key| {
-            f(
-                SidebarMeterType::from_str(settings.string("sidebar-meter-type").as_str())
-                    .unwrap_or_default(),
-            );
         })
     }
 
@@ -469,6 +369,14 @@ impl Settings {
         show_graph_grids,
         normalize_cpu_usage,
         detailed_priority
+    );
+
+    enum_settings!(
+        temperature_unit: TemperatureUnit,
+        memory_metric: MemoryMetric,
+        base: Base,
+        refresh_speed: RefreshSpeed,
+        sidebar_meter_type: SidebarMeterType,
     );
 }
 
