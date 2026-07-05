@@ -49,19 +49,19 @@ fn search_for_cpu_temp<S: AsRef<str>>(base_path: S) -> Option<PathBuf> {
     // First, try to find a sensor labeled as a CPU core (e.g. ibmpowernv
     // exposes "Chip N Core M" alongside DIMM and VRM sensors)
     for label_path in glob(&format!("{base}/temp*_label")).unwrap().flatten() {
-        if let Ok(label) = read_parsed::<String>(&label_path) {
-            if label.to_lowercase().contains("core") {
-                let input_path = label_path.with_file_name(
-                    label_path
-                        .file_name()
-                        .unwrap()
-                        .to_string_lossy()
-                        .replace("_label", "_input"),
-                );
-                if input_path.exists() {
-                    trace!("Preferring labeled CPU core sensor: {input_path:?} ({label})");
-                    return Some(input_path);
-                }
+        if let Ok(label) = read_parsed::<String>(&label_path)
+            && label.to_lowercase().contains("core")
+        {
+            let input_path = label_path.with_file_name(
+                label_path
+                    .file_name()
+                    .unwrap()
+                    .to_string_lossy()
+                    .replace("_label", "_input"),
+            );
+            if input_path.exists() {
+                trace!("Preferring labeled CPU core sensor: {input_path:?} ({label})");
+                return Some(input_path);
             }
         }
     }

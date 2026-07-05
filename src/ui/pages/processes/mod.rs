@@ -1065,25 +1065,25 @@ impl ResProcesses {
             let item_pid = object.pid();
             if let Some(process) = apps_context.get_process(item_pid) {
                 object.update(process);
-                if let Some((dialog_pid, dialog)) = &*info_dialog_opt {
-                    if *dialog_pid == item_pid {
-                        dialog.update(&object);
-                    }
+                if let Some((dialog_pid, dialog)) = &*info_dialog_opt
+                    && *dialog_pid == item_pid
+                {
+                    dialog.update(&object);
                 }
                 already_existing_pids.insert(item_pid);
             } else {
                 // filter out processes that have existed before but don't anymore
-                if let Some((dialog_pid, dialog)) = &*info_dialog_opt {
-                    if *dialog_pid == item_pid {
-                        AdwDialogExt::close(dialog);
-                        *info_dialog_opt = None;
-                    }
+                if let Some((dialog_pid, dialog)) = &*info_dialog_opt
+                    && *dialog_pid == item_pid
+                {
+                    AdwDialogExt::close(dialog);
+                    *info_dialog_opt = None;
                 }
-                if let Some((dialog_pid, dialog)) = &*options_dialog_opt {
-                    if *dialog_pid == item_pid {
-                        AdwDialogExt::close(dialog);
-                        *options_dialog_opt = None;
-                    }
+                if let Some((dialog_pid, dialog)) = &*options_dialog_opt
+                    && *dialog_pid == item_pid
+                {
+                    AdwDialogExt::close(dialog);
+                    *options_dialog_opt = None;
                 }
                 *imp.popped_over_process.borrow_mut() = None;
                 imp.popover_menu.set_visible(false);

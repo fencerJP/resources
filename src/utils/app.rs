@@ -215,7 +215,7 @@ struct DesktopEntry {
 }
 
 impl App {
-    pub fn all() -> Vec<App> {
+    pub fn all() -> Vec<Self> {
         debug!("Detecting installed apps");
 
         let start = Instant::now();
@@ -225,7 +225,7 @@ impl App {
             .map(|path| path.join("applications"))
             .collect();
 
-        debug!("Using the following directories for app detection: {applications_dir:?}",);
+        debug!("Using the following directories for app detection: {applications_dir:?}");
 
         let mut apps: Vec<_> = applications_dir
             .iter()
@@ -245,7 +245,7 @@ impl App {
 
         info!("Detected {} apps within {elapsed:.2?}", apps.len());
 
-        apps.push(App {
+        apps.push(Self {
             processes: Vec::new(),
             commandline: None,
             executable_name: None,
@@ -312,7 +312,7 @@ impl App {
 
         let exec = desktop_entry
             .get("X-ExecLocation")
-            .or(desktop_entry.get("Exec"));
+            .or_else(|| desktop_entry.get("Exec"));
 
         let icon = desktop_entry.get("Icon");
 
@@ -324,9 +324,9 @@ impl App {
         let has_appimage = desktop_entry.get("X-AppImage-Identifier").is_some();
 
         Ok(DesktopEntry {
-            id: id.map(|s| s.to_string()),
-            exec: exec.map(|s| s.to_string()),
-            icon: icon.map(|s| s.to_string()),
+            id: id.map(std::string::ToString::to_string),
+            exec: exec.map(std::string::ToString::to_string),
+            icon: icon.map(std::string::ToString::to_string),
             name,
             comment,
             has_snap,
@@ -341,15 +341,17 @@ impl App {
             }
         }
 
-        properties.get(property).map(|s| s.to_string())
+        properties
+            .get(property)
+            .map(std::string::ToString::to_string)
     }
 
-    pub fn from_desktop_file<P: AsRef<Path>>(file_path: P) -> Result<App> {
+    pub fn from_desktop_file<P: AsRef<Path>>(file_path: P) -> Result<Self> {
         let file_path = file_path.as_ref();
 
         // try gio first for distros with langpacks, fallback to own implementation because gio
         // doesn't work too well with flatpaks
-        let entry = Self::from_desktop_file_gio(&file_path)
+        let entry = Self::from_desktop_file_gio(file_path)
             .or_else(|_| Self::from_desktop_file_own_implementation(file_path))?;
 
         let id = entry
@@ -395,22 +397,23 @@ impl App {
                 .to_string()
         });
 
-        if let Some(ref executable_name) = executable_name {
-            if DESKTOP_EXEC_BLOCKLIST.contains(&executable_name.as_str()) {
-                debug!("Skipping {id} because its executable {executable_name} is blocklisted…");
-                bail!("{id}'s executable {executable_name} is blocklisted")
-            }
+        if let Some(ref executable_name) = executable_name
+            && DESKTOP_EXEC_BLOCKLIST.contains(&executable_name.as_str())
+        {
+            debug!("Skipping {id} because its executable {executable_name} is blocklisted…");
+            bail!("{id}'s executable {executable_name} is blocklisted")
         }
 
-        let icon = if let Some(ref icon_key) = entry.icon {
-            if Path::new(&format_path(icon_key)).exists() {
-                FileIcon::new(&File::for_path(icon_key)).into()
-            } else {
-                ThemedIcon::new(icon_key).into()
-            }
-        } else {
-            ThemedIcon::new("generic-process").into()
-        };
+        let icon = entry.icon.as_ref().map_or_else(
+            || ThemedIcon::new("generic-process").into(),
+            |icon_key| {
+                if Path::new(&format_path(icon_key)).exists() {
+                    FileIcon::new(&File::for_path(icon_key)).into()
+                } else {
+                    ThemedIcon::new(icon_key).into()
+                }
+            },
+        );
 
         let display_name = entry.name.unwrap_or_else(|| id.clone());
         let description = entry.comment;
@@ -439,7 +442,7 @@ impl App {
             executable_name.as_ref().unwrap_or(&"<None>".into()),
         );
 
-        Ok(App {
+        Ok(Self {
             processes: Vec::new(),
             commandline,
             executable_name,
@@ -466,7 +469,7 @@ impl App {
     }
 
     #[must_use]
-    pub fn is_running(&self) -> bool {
+    pub const fn is_running(&self) -> bool {
         !self.processes.is_empty()
     }
 
@@ -489,7 +492,7 @@ impl App {
     #[must_use]
     pub fn memory_usage(&self, apps: &AppsContext) -> usize {
         self.processes_iter(apps)
-            .map(|process| process.data.memory_usage)
+            .map(|process| process.mem_usage())
             .sum()
     }
 
@@ -585,7 +588,7 @@ impl App {
             .and_then(|time| time.format("%c").context("unable to format running_since"))
     }
 
-    pub fn running_processes(&self) -> usize {
+    pub const fn running_processes(&self) -> usize {
         self.processes.len()
     }
 }
@@ -594,13 +597,13 @@ impl AppsContext {
     /// Creates a new `AppsContext` object, this operation is quite expensive
     /// so try to do it only one time during the lifetime of the program.
     /// Please call `refresh()` immediately after this function.
-    pub fn new(gpus_with_combined_media_engine: Vec<GpuIdentifier>) -> AppsContext {
+    pub fn new(gpus_with_combined_media_engine: Vec<GpuIdentifier>) -> Self {
         let apps: HashMap<Option<String>, App> = App::all()
             .into_iter()
             .map(|app| (app.id.clone(), app))
             .collect();
 
-        AppsContext {
+        Self {
             apps,
             processes: HashMap::new(),
             gpus_with_combined_media_engine,
@@ -756,66 +759,63 @@ impl AppsContext {
         // TODO: tidy this up
 
         // ↓ look for whether we can associate this process with an AppImage
-        if let Some(appimage_path) = &process.data.appimage_path {
-            if let Some(parent) = self.apps.values().find(|app| {
+        if let Some(appimage_path) = &process.data.appimage_path
+            && let Some(parent) = self.apps.values().find(|app| {
                 app.containerization == Containerization::AppImage
                     && app
                         .commandline
                         .as_ref()
                         .is_some_and(|exe_name| exe_name == appimage_path)
-            }) {
-                return AppAssociation::Resolved(parent.id.clone());
-            }
+            })
+        {
+            return AppAssociation::Resolved(parent.id.clone());
         }
 
         // ↓ look for whether we can find an ID in the cgroup
         if DESKTOP_ENVIRONMENT_CGROUPS.contains(&process.data.cgroup.as_deref().unwrap_or_default())
-        {
-            if let Some(parent) = self
+            && let Some(parent) = self
                 .apps
                 .values()
                 .find(|app| app.processes.contains(&process.data.parent_pid))
-            {
-                return AppAssociation::Resolved(parent.id.clone());
-            }
+        {
+            return AppAssociation::Resolved(parent.id.clone());
         }
 
         // ↓ look for whether we can associate this process with a snap
-        if process.data.containerization == Containerization::Snap {
-            if let Some((snap_name, snap_app)) = process
+        if process.data.containerization == Containerization::Snap
+            && let Some((snap_name, snap_app)) = process
                 .data
                 .cgroup
                 .as_deref()
                 .and_then(|c| c.split_once('.'))
-            {
-                let fut = snapd::get_desktop_id(snap_name, snap_app);
-                match fut.clone().now_or_never() {
-                    None => {
+        {
+            let fut = snapd::get_desktop_id(snap_name, snap_app);
+            match fut.clone().now_or_never() {
+                None => {
+                    debug!(
+                        "Deferring association of snap process {} with app until async query completes",
+                        process.data.pid
+                    );
+                    return AppAssociation::Pending(fut);
+                }
+                Some(Some(id)) if self.apps.contains_key(&Some(id.clone())) => {
+                    debug!(
+                        "Associating snap process {} ({snap_name}.{snap_app}) with app {id:?} via snapd query",
+                        process.data.pid
+                    );
+                    return AppAssociation::Resolved(Some(id));
+                }
+                Some(None) => {
+                    let id = format!("{snap_name}_{snap_app}");
+                    if self.apps.contains_key(&Some(id.clone())) {
                         debug!(
-                            "Deferring association of snap process {} with app until async query completes",
-                            process.data.pid
-                        );
-                        return AppAssociation::Pending(fut);
-                    }
-                    Some(Some(id)) if self.apps.contains_key(&Some(id.clone())) => {
-                        debug!(
-                            "Associating snap process {} ({snap_name}.{snap_app}) with app {id:?} via snapd query",
+                            "Associating snap process {} ({snap_name}.{snap_app}) with app {id:?} via cgroup fallback",
                             process.data.pid
                         );
                         return AppAssociation::Resolved(Some(id));
                     }
-                    Some(None) => {
-                        let id = format!("{snap_name}_{snap_app}");
-                        if self.apps.contains_key(&Some(id.clone())) {
-                            debug!(
-                                "Associating snap process {} ({snap_name}.{snap_app}) with app {id:?} via cgroup fallback",
-                                process.data.pid
-                            );
-                            return AppAssociation::Resolved(Some(id));
-                        }
-                    }
-                    Some(_) => {}
                 }
+                Some(_) => {}
             }
         }
 

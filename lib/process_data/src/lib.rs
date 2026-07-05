@@ -71,7 +71,17 @@ static RE_SNAP_CGROUP: Lazy<Regex> = lazy_regex!(
 
 static RE_AFFINITY: Lazy<Regex> = lazy_regex!(r"Cpus_allowed:\s*([0-9A-Fa-f]+)");
 
-static RE_MEMORY_USAGE: Lazy<Regex> = lazy_regex!(r"VmRSS:\s*([0-9]+)\s*kB");
+static RE_PSS: Lazy<Regex> = lazy_regex!(r"Pss:\s*([0-9]+)\s*kB");
+
+static RE_RSS_ANON: Lazy<Regex> = lazy_regex!(r"RssAnon:\s*([0-9]+)\s*kB");
+
+static RE_RSS_SHMEM: Lazy<Regex> = lazy_regex!(r"RssShmem:\s*([0-9]+)\s*kB");
+
+static RE_RSS_FILE: Lazy<Regex> = lazy_regex!(r"RssFile:\s*([0-9]+)\s*kB");
+
+static RE_VM_RSS: Lazy<Regex> = lazy_regex!(r"VmRSS:\s*([0-9]+)\s*kB");
+
+static RE_VM_SIZE: Lazy<Regex> = lazy_regex!(r"VmSize:\s*([0-9]+)\s*kB");
 
 static RE_SWAP_USAGE: Lazy<Regex> = lazy_regex!(r"VmSwap:\s*([0-9]+)\s*kB");
 
@@ -205,12 +215,33 @@ pub enum Containerization {
     AppImage,
 }
 
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "cli", derive(clap::ValueEnum))]
+pub enum PssMode {
+    /// Don't read any PSS as all
+    Disabled,
+    /// Approximate PSS (more expensive, more accurate)
+    Approximate,
+    /// Use exact PSS provided by the kernel (most expensive, most accurate)
+    Exact,
+}
+
 #[derive(Debug, Clone)]
 struct Fdinfo {
     pub pid: libc::pid_t,
     pub fdinfo_num: usize,
     pub content: HashMap<String, String>,
 }
+
+#[derive(Debug, Clone, PartialEq, Eq, Hash)]
+pub struct MappingKey {
+    dev: u32, // packed major<<16 | minor
+    inode: u64,
+}
+
+type FileMappings = HashMap<MappingKey, u64>; // key -> resident bytes in this process
+type PidMappings = HashMap<libc::pid_t, FileMappings>;
+type SharerCounts = HashMap<MappingKey, usize>;
 
 /// Data that could be transferred using `resources-processes`, separated from
 /// `Process` mainly due to `Icon` not being able to derive `Serialize` and
@@ -226,7 +257,12 @@ pub struct ProcessData {
     pub system_cpu_time: u64,
     pub niceness: Niceness,
     pub affinity: Vec<bool>,
-    pub memory_usage: usize,
+    pub rss: usize,
+    pub rss_shmem: usize,
+    pub rss_anon: usize,
+    pub rss_file: usize,
+    pub vm_size: usize,
+    pub pss: Option<usize>,
     pub swap_usage: usize,
     pub starttime: u64, // in clock ticks, see man proc(5)!
     pub cgroup: Option<String>,
@@ -328,22 +364,54 @@ impl ProcessData {
         non_gpu_fdinfos: &mut HashSet<(libc::pid_t, usize)>,
         non_npu_fdinfos: &mut HashSet<(libc::pid_t, usize)>,
         symlink_cache: &mut HashMap<(libc::pid_t, usize), PathBuf>,
+        pss_mode: PssMode,
     ) -> Result<Vec<Self>> {
         Self::update_nvidia_stats();
 
         let mut process_data = vec![];
         for entry in std::fs::read_dir("/proc")?.flatten() {
-            // if name contains pid
             if entry.file_name().to_string_lossy().parse::<u32>().is_ok() {
                 let data = ProcessData::try_from_path(
                     entry.path(),
                     non_gpu_fdinfos,
                     non_npu_fdinfos,
                     symlink_cache,
+                    pss_mode == PssMode::Exact,
                 );
 
                 if let Ok(data) = data {
                     process_data.push(data);
+                }
+            }
+        }
+
+        // second pass to approximate PSS for processes where PSS could not be determined (or exact
+        // PSS is disabled), this is the basic algorithm:
+        // - parse /proc/<pid>/maps
+        // - count how many processes map each file
+        // - scale each process's RssFile by a VSZ-weighted average of 1/sharer_count across its
+        //   mappings
+        // - approximated PSS = RssAnon + ScaledRssFile + RssShmem
+        // this is a bit more CPU-intensive than just reading e.g. RssAnon, but way less than
+        // reading PSS while being pretty accurate for most cases
+        if pss_mode != PssMode::Disabled {
+            let pids_with_file_rss: Vec<libc::pid_t> = process_data
+                .iter()
+                .filter(|d| d.rss_file > 0)
+                .map(|d| d.pid)
+                .collect();
+
+            let (all_mappings, sharer_counts) = Self::collect_file_mappings(&pids_with_file_rss);
+            for data in &mut process_data {
+                if data.pss.is_none() {
+                    data.pss = Self::approx_pss(
+                        data.pid,
+                        data.rss_anon,
+                        data.rss_file,
+                        data.rss_shmem,
+                        all_mappings.get(&data.pid),
+                        &sharer_counts,
+                    );
                 }
             }
         }
@@ -356,6 +424,7 @@ impl ProcessData {
         non_gpu_fdinfos: &mut HashSet<(libc::pid_t, usize)>,
         non_npu_fdinfos: &mut HashSet<(libc::pid_t, usize)>,
         symlink_cache: &mut HashMap<(libc::pid_t, usize), PathBuf>,
+        pss_enabled: bool,
     ) -> Result<Self> {
         let proc_path = proc_path.as_ref();
         let pid = proc_path
@@ -430,10 +499,7 @@ impl ProcessData {
         trace!("Starttime of {pid} determined to be {starttime}");
 
         let mut affinity = Vec::with_capacity(*NUM_CPUS);
-        RE_AFFINITY
-            .captures(&status)
-            .and_then(|captures| captures.get(1))
-            .map(|capture| capture.as_str())
+        extract_from_regex::<String, _>(&RE_AFFINITY, &status)
             .unwrap_or_default()
             .chars()
             .map(|c| c.to_digit(16).unwrap_or_default())
@@ -449,25 +515,47 @@ impl ProcessData {
             });
         trace!("Affinity of {pid} determined to be {affinity:?}");
 
-        let swap_usage = RE_SWAP_USAGE
-            .captures(&status)
-            .and_then(|captures| captures.get(1))
-            .map(|capture| capture.as_str())
-            .unwrap_or_default()
-            .parse::<usize>()
+        let swap_usage = extract_from_regex::<usize, _>(&RE_SWAP_USAGE, &status)
             .unwrap_or_default()
             .saturating_mul(1024);
         trace!("Swap usage of {pid} determined to be {swap_usage}");
 
-        let memory_usage = RE_MEMORY_USAGE
-            .captures(&status)
-            .and_then(|captures| captures.get(1))
-            .map(|capture| capture.as_str())
-            .unwrap_or_default()
-            .parse::<usize>()
+        let rss = extract_from_regex::<usize, _>(&RE_VM_RSS, &status)
             .unwrap_or_default()
             .saturating_mul(1024);
-        trace!("Memory usage of {pid} determined to be {memory_usage}");
+        trace!("VmRSS of {pid} determined to be {rss}");
+
+        let rss_anon = extract_from_regex::<usize, _>(&RE_RSS_ANON, &status)
+            .unwrap_or_default()
+            .saturating_mul(1024);
+        trace!("RssAnon of {pid} determined to be {rss_anon}");
+
+        let rss_shmem = extract_from_regex::<usize, _>(&RE_RSS_SHMEM, &status)
+            .unwrap_or_default()
+            .saturating_mul(1024);
+        trace!("RssShmem of {pid} determined to be {rss_shmem}");
+
+        let rss_file = extract_from_regex::<usize, _>(&RE_RSS_FILE, &status)
+            .unwrap_or_default()
+            .saturating_mul(1024);
+        trace!("RssFile of {pid} determined to be {rss_file}");
+
+        let vm_size = extract_from_regex::<usize, _>(&RE_VM_SIZE, &status)
+            .unwrap_or_default()
+            .saturating_mul(1024);
+        trace!("VmRSS of {pid} determined to be {vm_size}");
+
+        let pss = if pss_enabled {
+            read_parsed::<String>(proc_path.join("smaps_rollup"))
+                .ok()
+                .map(|smaps_rollup| {
+                    extract_from_regex::<usize, _>(&RE_PSS, smaps_rollup)
+                        .unwrap_or_default()
+                        .saturating_mul(1024)
+                })
+        } else {
+            None
+        };
 
         let (launcher, cgroup) = read_parsed::<String>(proc_path.join("cgroup"))
             .map(Self::sanitize_cgroup)
@@ -545,7 +633,12 @@ impl ProcessData {
             system_cpu_time,
             niceness: nice,
             affinity,
-            memory_usage,
+            pss,
+            rss,
+            rss_anon,
+            rss_file,
+            rss_shmem,
+            vm_size,
             swap_usage,
             starttime,
             cgroup,
@@ -557,6 +650,136 @@ impl ProcessData {
             npu_usage_stats,
             appimage_path,
         })
+    }
+
+    fn file_mappings_for_pid(pid: libc::pid_t) -> FileMappings {
+        let mut mappings = HashMap::default();
+
+        let Ok(content) = read_parsed::<String>(format!("/proc/{pid}/maps")) else {
+            return mappings;
+        };
+
+        for line in content.lines() {
+            let mut fields = line.split_whitespace();
+
+            let Some(addr) = fields.next() else { continue };
+            let _perms = fields.next();
+            let _offset = fields.next();
+            let Some(dev) = fields.next() else { continue };
+            let Some(inode_str) = fields.next() else {
+                continue;
+            };
+
+            let Ok(inode) = inode_str.parse::<u64>() else {
+                continue;
+            };
+            if inode == 0 {
+                continue;
+            }
+
+            let Some((start_str, end_str)) = addr.split_once('-') else {
+                continue;
+            };
+            let (Ok(start), Ok(end)) = (
+                u64::from_str_radix(start_str, 16),
+                u64::from_str_radix(end_str, 16),
+            ) else {
+                continue;
+            };
+
+            let Some(packed_dev) = Self::parse_dev(dev) else {
+                continue;
+            };
+
+            let key = MappingKey {
+                dev: packed_dev,
+                inode,
+            };
+            *mappings.entry(key).or_insert(0u64) += end.saturating_sub(start);
+        }
+
+        trace!("Found {} file mappings for {pid}", mappings.len());
+        mappings
+    }
+
+    fn parse_dev(s: &str) -> Option<u32> {
+        let (maj, min) = s.split_once(':')?;
+        let maj: u32 = maj.parse().ok()?;
+        let min: u32 = min.parse().ok()?;
+        Some((maj << 16) | (min & 0xFFFF))
+    }
+
+    fn collect_file_mappings(pids_with_file_rss: &[libc::pid_t]) -> (PidMappings, SharerCounts) {
+        trace!(
+            "Collecting file mappings for {} processes",
+            pids_with_file_rss.len()
+        );
+        let mut all_mappings: PidMappings = HashMap::default();
+        let mut sharer_counts: SharerCounts = HashMap::default();
+
+        for &pid in pids_with_file_rss {
+            let mappings = Self::file_mappings_for_pid(pid);
+            if mappings.is_empty() {
+                continue;
+            }
+
+            for key in mappings.keys() {
+                *sharer_counts.entry(key.clone()).or_insert(0) += 1;
+            }
+
+            all_mappings.insert(pid, mappings);
+        }
+
+        (all_mappings, sharer_counts)
+    }
+
+    fn approx_pss(
+        pid: libc::pid_t,
+        rss_anon: usize,
+        rss_file: usize,
+        rss_shmem: usize,
+        mappings: Option<&FileMappings>,
+        sharer_counts: &SharerCounts,
+    ) -> Option<usize> {
+        let Some(mappings) = mappings.filter(|_| rss_file > 0) else {
+            // no file mappings for this process => nothing to weight
+            trace!("No file mappings (or rss_file == 0) for {pid}, falling back to RSS sum");
+            return Some(rss_anon + rss_file + rss_shmem);
+        };
+
+        let total_vsz = mappings.values().sum::<u64>() as f64;
+        if total_vsz == 0.0 {
+            trace!("Total VSZ of file mappings for is 0 for {pid}, falling back to RSS sum");
+            return Some(rss_anon + rss_file + rss_shmem);
+        }
+
+        // does a single mapping dominate this process's file-VSZ?
+        let max_single_weight = mappings
+            .values()
+            .map(|&size| size as f64 / total_vsz)
+            .fold(0.0, f64::max);
+        trace!("Max single mapping VSZ weight for {pid} determined to be {max_single_weight:.3}");
+
+        if max_single_weight > 0.5 {
+            // one mapping >50% of VSZ => weighting is unreliable, bail
+            trace!(
+                "Single mapping dominates VSZ for {pid} (weight {max_single_weight:.3}), approx PSS unreliable, bailing out"
+            );
+            return None;
+        }
+
+        let mut weighted_share = 0.0f64;
+        for (key, size) in mappings {
+            let n_sharers = *sharer_counts.get(key).unwrap_or(&1) as f64;
+            let weight = *size as f64 / total_vsz;
+            weighted_share += weight / n_sharers;
+        }
+        trace!("Weighted sharing factor for {pid} determined to be {weighted_share:.3}");
+
+        let approx_pss = rss_anon + (rss_file as f64 * weighted_share).round() as usize + rss_shmem;
+        trace!("Approx PSS of {pid} determined to be {approx_pss}");
+
+        Some(approx_pss)
     }
 
     fn collect_fdinfos(
@@ -950,6 +1173,19 @@ impl ProcessData {
 
         return_map
     }
+}
+
+fn extract_from_regex<U: std::str::FromStr + Default, S: AsRef<str>>(
+    regex: &Regex,
+    string: S,
+) -> Option<U> {
+    regex
+        .captures(string.as_ref())
+        .and_then(|captures| captures.get(1))
+        .map(|capture| capture.as_str())
+        .unwrap_or_default()
+        .parse::<U>()
+        .ok()
 }
 
 pub fn unix_as_millis() -> u64 {

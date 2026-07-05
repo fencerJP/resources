@@ -74,7 +74,7 @@ impl NetworkData {
     }
 }
 
-#[derive(Debug, Clone, Copy, Default, PartialEq)]
+#[derive(Debug, Clone, Copy, Default, PartialEq, Eq)]
 pub enum InterfaceType {
     Bluetooth,
     Bridge,
@@ -128,23 +128,23 @@ impl Display for InterfaceType {
             f,
             "{}",
             match self {
-                InterfaceType::Bluetooth => i18n("Bluetooth Tether"),
-                InterfaceType::Bridge => i18n("Network Bridge"),
-                InterfaceType::Ethernet => i18n("Ethernet Connection"),
-                InterfaceType::Docker => i18n("Docker Bridge"),
-                InterfaceType::InfiniBand => i18n("InfiniBand Connection"),
-                InterfaceType::IncusBridge => i18n("Incus Bridge"),
-                InterfaceType::LXCBridge => i18n("LXC Bridge"),
-                InterfaceType::LXDBridge => i18n("LXD Bridge"),
-                InterfaceType::Slip => i18n("Serial Line IP Connection"),
-                InterfaceType::Vm => i18n("VM Network Interface"),
-                InterfaceType::VirtualEthernet => i18n("Virtual Ethernet Device"),
-                InterfaceType::VmBridge => i18n("VM Network Bridge"),
-                InterfaceType::Vpn => i18n("VPN Tunnel"),
-                InterfaceType::Wireguard => i18n("VPN Tunnel (WireGuard)"),
-                InterfaceType::Wlan => i18n("Wi-Fi Connection"),
-                InterfaceType::Wwan => i18n("WWAN Connection"),
-                InterfaceType::Unknown => i18n("Network Interface"),
+                Self::Bluetooth => i18n("Bluetooth Tether"),
+                Self::Bridge => i18n("Network Bridge"),
+                Self::Ethernet => i18n("Ethernet Connection"),
+                Self::Docker => i18n("Docker Bridge"),
+                Self::InfiniBand => i18n("InfiniBand Connection"),
+                Self::IncusBridge => i18n("Incus Bridge"),
+                Self::LXCBridge => i18n("LXC Bridge"),
+                Self::LXDBridge => i18n("LXD Bridge"),
+                Self::Slip => i18n("Serial Line IP Connection"),
+                Self::Vm => i18n("VM Network Interface"),
+                Self::VirtualEthernet => i18n("Virtual Ethernet Device"),
+                Self::VmBridge => i18n("VM Network Bridge"),
+                Self::Vpn => i18n("VPN Tunnel"),
+                Self::Wireguard => i18n("VPN Tunnel (WireGuard)"),
+                Self::Wlan => i18n("Wi-Fi Connection"),
+                Self::Wwan => i18n("WWAN Connection"),
+                Self::Unknown => i18n("Network Interface"),
             }
         )
     }
@@ -186,7 +186,7 @@ impl NetworkInterface {
     /// Will return `Err` if an invalid sysfs Path has
     /// been passed or if there has been problems parsing
     /// information
-    pub fn from_sysfs(sysfs_path: &Path) -> NetworkInterface {
+    pub fn from_sysfs(sysfs_path: &Path) -> Self {
         trace!("Creating NetworkInterface object of {sysfs_path:?}…");
 
         let dev_uevent = read_uevent(sysfs_path.join("device/uevent")).unwrap_or_default();
@@ -196,14 +196,12 @@ impl NetworkInterface {
             .expect("invalid sysfs path")
             .to_owned();
 
-        let device = if let Some(pci_line) = dev_uevent.get("PCI_ID") {
+        let device = dev_uevent.get("PCI_ID").and_then(|pci_line| {
             let (vid_str, pid_str) = pci_line.split_once(':').unwrap_or(("0", "0"));
             let vid = u16::from_str_radix(vid_str, 16).unwrap_or_default();
             let pid = u16::from_str_radix(pid_str, 16).unwrap_or_default();
             Device::from_vid_pid(vid, pid)
-        } else {
-            None
-        };
+        });
 
         let sysfs_path_clone = sysfs_path.to_owned();
         let speed = read_parsed(sysfs_path_clone.join("speed")).ok();
@@ -218,8 +216,8 @@ impl NetworkInterface {
 
         let driver = dev_uevent.get("DRIVER");
 
-        let network_interface = NetworkInterface {
-            interface_name: interface_name.clone(),
+        let network_interface = Self {
+            interface_name,
             driver_name: driver.cloned(),
             interface_type,
             speed,
@@ -281,13 +279,13 @@ impl NetworkInterface {
     pub fn icon(&self) -> Icon {
         match self.interface_type {
             InterfaceType::Bluetooth => ThemedIcon::new("bluetooth-symbolic").into(),
-            InterfaceType::Bridge => ThemedIcon::new("bridge-symbolic").into(),
+            InterfaceType::Bridge
+            | InterfaceType::IncusBridge
+            | InterfaceType::LXCBridge
+            | InterfaceType::LXDBridge => ThemedIcon::new("bridge-symbolic").into(),
             InterfaceType::Docker => ThemedIcon::new("docker-bridge-symbolic").into(),
             InterfaceType::Ethernet => ThemedIcon::new("ethernet-symbolic").into(),
             InterfaceType::InfiniBand => ThemedIcon::new("infiniband-symbolic").into(),
-            InterfaceType::IncusBridge => ThemedIcon::new("bridge-symbolic").into(),
-            InterfaceType::LXCBridge => ThemedIcon::new("bridge-symbolic").into(),
-            InterfaceType::LXDBridge => ThemedIcon::new("bridge-symbolic").into(),
             InterfaceType::Slip => ThemedIcon::new("slip-symbolic").into(),
             InterfaceType::VirtualEthernet => ThemedIcon::new("virtual-ethernet").into(),
             InterfaceType::Vm => ThemedIcon::new("virtual-ethernet-symbolic").into(),
@@ -299,7 +297,7 @@ impl NetworkInterface {
         }
     }
 
-    pub fn is_virtual(&self) -> bool {
+    pub const fn is_virtual(&self) -> bool {
         matches!(
             self.interface_type,
             InterfaceType::Bridge

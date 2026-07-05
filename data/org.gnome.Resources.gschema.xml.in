@@ -25,6 +25,10 @@
       <default>&quot;Normal&quot;</default>
       <summary>Refresh Speed</summary>
     </key>
+    <key name="memory-metric" type="s">
+      <default>&quot;RssNoSharedMemory&quot;</default>
+      <summary>Metric for per-process memory usage</summary>
+    </key>
     <key name="show-virtual-drives" type="b">
       <default>false</default>
       <summary>Show virtual block devices such as LVM containers</summary>

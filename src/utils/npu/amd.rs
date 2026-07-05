@@ -108,7 +108,7 @@ pub struct AmdNpu {
 }
 
 impl AmdNpu {
-    pub fn new(
+    pub const fn new(
         device: Option<&'static Device>,
         pci_slot: PciSlot,
         driver: String,
@@ -140,7 +140,7 @@ impl AmdNpu {
         let mut get_info = AmdxdnaDrmGetInfo {
             param: DRM_AMDXDNA_QUERY_CLOCK_METADATA,
             buffer_size: std::mem::size_of::<AmdxdnaDrmQueryClockMetadata>() as u32,
-            buffer: &mut clock_metadata as *mut _ as u64,
+            buffer: &raw mut clock_metadata as u64,
         };
 
         let ioctl_cmd =
@@ -212,7 +212,7 @@ impl AmdNpu {
         let mut get_info = AmdxdnaDrmGetInfo {
             param: DRM_AMDXDNA_QUERY_RESOURCE_INFO,
             buffer_size: std::mem::size_of::<AmdxdnaDrmGetResourceInfo>() as u32,
-            buffer: &mut resource_info as *mut _ as u64,
+            buffer: &raw mut resource_info as u64,
         };
 
         let ioctl_cmd =

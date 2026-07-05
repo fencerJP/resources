@@ -73,11 +73,11 @@ impl str::FromStr for State {
 
     fn from_str(s: &str) -> Result<Self, Self::Err> {
         let state = match s.to_ascii_lowercase().as_str() {
-            "charging" => State::Charging,
-            "discharging" => State::Discharging,
-            "empty" => State::Empty,
-            "full" => State::Full,
-            _ => State::Unknown,
+            "charging" => Self::Charging,
+            "discharging" => Self::Discharging,
+            "empty" => Self::Empty,
+            "full" => Self::Full,
+            _ => Self::Unknown,
         };
 
         Ok(state)
@@ -90,11 +90,11 @@ impl Display for State {
             f,
             "{}",
             match self {
-                State::Charging => i18n("Charging"),
-                State::Discharging => i18n("Discharging"),
-                State::Empty => i18n("Empty"),
-                State::Full => i18n("Full"),
-                State::Unknown => i18n("Unknown"),
+                Self::Charging => i18n("Charging"),
+                Self::Discharging => i18n("Discharging"),
+                Self::Empty => i18n("Empty"),
+                Self::Full => i18n("Full"),
+                Self::Unknown => i18n("Unknown"),
             }
         )
     }
@@ -119,15 +119,15 @@ impl str::FromStr for Technology {
 
     fn from_str(s: &str) -> Result<Self, Self::Err> {
         let tech = match s.to_ascii_lowercase().as_str() {
-            "nimh" => Technology::NickelMetalHydride,
-            "nicd" => Technology::NickelCadmium,
-            "nizn" => Technology::NickelZinc,
-            "pb" | "pbac" => Technology::LeadAcid,
-            "li-i" | "li-ion" | "lion" => Technology::LithiumIon,
-            "life" => Technology::LithiumIronPhosphate,
-            "lip" | "lipo" | "li-poly" => Technology::LithiumPolymer,
-            "ram" => Technology::RechargeableAlkalineManganese,
-            _ => Technology::Unknown,
+            "nimh" => Self::NickelMetalHydride,
+            "nicd" => Self::NickelCadmium,
+            "nizn" => Self::NickelZinc,
+            "pb" | "pbac" => Self::LeadAcid,
+            "li-i" | "li-ion" | "lion" => Self::LithiumIon,
+            "life" => Self::LithiumIronPhosphate,
+            "lip" | "lipo" | "li-poly" => Self::LithiumPolymer,
+            "ram" => Self::RechargeableAlkalineManganese,
+            _ => Self::Unknown,
         };
 
         Ok(tech)
@@ -140,16 +140,15 @@ impl Display for Technology {
             f,
             "{}",
             match self {
-                Technology::NickelMetalHydride => i18n("Nickel-Metal Hydride"),
-                Technology::NickelCadmium => i18n("Nickel-Cadmium"),
-                Technology::NickelZinc => i18n("Nickel-Zinc"),
-                Technology::LeadAcid => i18n("Lead-Acid"),
-                Technology::LithiumIon => i18n("Lithium-Ion"),
-                Technology::LithiumIronPhosphate => i18n("Lithium Iron Phosphate"),
-                Technology::LithiumPolymer => i18n("Lithium Polymer"),
-                Technology::RechargeableAlkalineManganese =>
-                    i18n("Rechargeable Alkaline Managanese"),
-                Technology::Unknown => i18n("N/A"),
+                Self::NickelMetalHydride => i18n("Nickel-Metal Hydride"),
+                Self::NickelCadmium => i18n("Nickel-Cadmium"),
+                Self::NickelZinc => i18n("Nickel-Zinc"),
+                Self::LeadAcid => i18n("Lead-Acid"),
+                Self::LithiumIon => i18n("Lithium-Ion"),
+                Self::LithiumIronPhosphate => i18n("Lithium Iron Phosphate"),
+                Self::LithiumPolymer => i18n("Lithium Polymer"),
+                Self::RechargeableAlkalineManganese => i18n("Rechargeable Alkaline Managanese"),
+                Self::Unknown => i18n("N/A"),
             }
         )
     }
@@ -189,13 +188,12 @@ impl Battery {
             .is_ok_and(|ps_type| ps_type.trim() == "Battery");
 
         let power_supply_scope_is_not_device = read_parsed::<String>(path.join("scope"))
-            .map(|ps_scope| ps_scope.trim() != "Device")
-            .unwrap_or(true);
+            .map_or(true, |ps_scope| ps_scope.trim() != "Device");
 
         power_supply_type_is_battery && power_supply_scope_is_not_device
     }
 
-    pub fn from_sysfs<P: AsRef<Path>>(sysfs_path: P) -> Battery {
+    pub fn from_sysfs<P: AsRef<Path>>(sysfs_path: P) -> Self {
         let sysfs_path = sysfs_path.as_ref().to_path_buf();
 
         trace!("Creating Battery object of {sysfs_path:?}…");
@@ -220,7 +218,7 @@ impl Battery {
             .map(|capacity| capacity / 1_000_000.0)
             .ok();
 
-        let battery = Battery {
+        let battery = Self {
             sysfs_path: sysfs_path.clone(),
             manufacturer,
             model_name,
@@ -251,12 +249,13 @@ impl Battery {
     }
 
     pub fn display_name(&self) -> String {
-        if let Some(design_capacity) = self.design_capacity {
-            let converted_energy = convert_energy(design_capacity, true);
-            i18n_f("{} Battery", &[&converted_energy])
-        } else {
-            i18n("Battery")
-        }
+        self.design_capacity.map_or_else(
+            || i18n("Battery"),
+            |design_capacity| {
+                let converted_energy = convert_energy(design_capacity, true);
+                i18n_f("{} Battery", &[&converted_energy])
+            },
+        )
     }
 
     pub fn charge(&self) -> Result<f64> {

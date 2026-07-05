@@ -1318,6 +1318,7 @@ name = "process-data"
 version = "1.10.2"
 dependencies = [
  "anyhow",
+ "clap",
  "lazy-regex",
  "libc",
  "log",

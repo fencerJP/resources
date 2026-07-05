@@ -140,7 +140,7 @@ impl MemoryData {
     }
 }
 
-#[derive(Debug, Clone, Default, PartialEq)]
+#[derive(Debug, Clone, Default, PartialEq, Eq)]
 pub struct MemoryDevice {
     pub speed_mts: Option<u32>,
     pub form_factor: Option<String>,
@@ -300,7 +300,7 @@ impl MemoryDevice {
         devices
     }
 
-    pub fn get() -> Result<Vec<MemoryDevice>> {
+    pub fn get() -> Result<Vec<Self>> {
         let virtual_dmi = Self::virtual_dmi();
         if virtual_dmi.is_empty() {
             let output = Command::new("dmidecode")
@@ -318,7 +318,7 @@ impl MemoryDevice {
         }
     }
 
-    pub fn pkexec_dmidecode() -> Result<Vec<MemoryDevice>> {
+    pub fn pkexec_dmidecode() -> Result<Vec<Self>> {
         debug!("Using pkexec to get memory information (dmidecode)…");
         let output = if *IS_FLATPAK {
             Command::new(FLATPAK_SPAWN)

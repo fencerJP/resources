@@ -101,8 +101,8 @@ pub enum Base {
 impl Base {
     pub const fn base(&self) -> f64 {
         match self {
-            Base::Decimal => 1000.0,
-            Base::Binary => 1024.0,
+            Self::Decimal => 1000.0,
+            Self::Binary => 1024.0,
         }
     }
 }
@@ -130,21 +130,39 @@ pub enum RefreshSpeed {
 impl RefreshSpeed {
     pub const fn ui_refresh_interval(&self) -> f32 {
         match self {
-            RefreshSpeed::VerySlow => 3.0,
-            RefreshSpeed::Slow => 2.0,
-            RefreshSpeed::Normal => 1.0,
-            RefreshSpeed::Fast => 0.5,
-            RefreshSpeed::VeryFast => 0.25,
+            Self::VerySlow => 3.0,
+            Self::Slow => 2.0,
+            Self::Normal => 1.0,
+            Self::Fast => 0.5,
+            Self::VeryFast => 0.25,
         }
     }
 }
 
 #[repr(u8)]
-#[derive(Debug, Clone, Copy, Default, PartialEq, EnumString, Display, Hash, FromRepr)]
+#[derive(Debug, Clone, Copy, Default, PartialEq, Eq, EnumString, Display, Hash, FromRepr)]
 pub enum SidebarMeterType {
     #[default]
     ProgressBar,
     Graph,
+}
+
+#[repr(u8)]
+#[derive(Debug, Clone, Copy, Default, PartialEq, Eq, EnumString, Display, Hash, FromRepr)]
+pub enum MemoryMetric {
+    /// Virtual memory allocated by the process (but not necessarily actually used)
+    VmSize,
+    /// Physical memory currently used by this process, including shared libraries
+    Rss,
+    /// Physical memory used exclusively by this process, excluding shared libraries
+    #[default]
+    RssNoSharedMemory,
+    /// Physical memory used for the process's heap and stack, excluding files and shared libraries
+    RssAnon,
+    /// Physical memory used by the process with shared libraries accounted for approximately proportionally (if available, otherwise rss-no-shared-memory). Very accurate but also more CPU-intensive
+    ApproximatePss,
+    /// Physical memory used by the process with shared libraries accounted for proportionally (if available, otherwise rss-no-shared-memory). Most accurate but also most CPU-intensive.
+    Pss,
 }
 
 #[derive(Clone, Debug, Hash)]
@@ -165,7 +183,7 @@ impl Settings {
                 warn!(
                     "error writing setting `temperature-unit` to string \"{}\": {e}",
                     value.to_string()
-                )
+                );
             })
     }
 
@@ -176,6 +194,33 @@ impl Settings {
         self.connect_changed(Some("temperature-unit"), move |settings, _key| {
             f(
                 TemperatureUnit::from_str(settings.string("temperature-unit").as_str())
+                    .unwrap_or_default(),
+            );
+        })
+    }
+
+    pub fn memory_metric(&self) -> MemoryMetric {
+        MemoryMetric::from_str(self.string("memory-metric").as_str()).unwrap_or_default()
+    }
+
+    pub fn set_memory_metric(&self, value: MemoryMetric) -> Result<(), glib::error::BoolError> {
+        debug!("Setting string `memory-metric` to \"{value}\"");
+        self.set_string("memory-metric", &value.to_string())
+            .inspect_err(|e| {
+                warn!(
+                    "error writing setting `memory-metric` to string \"{}\": {e}",
+                    value.to_string()
+                );
+            })
+    }
+
+    pub fn connect_memory_metric<F: Fn(MemoryMetric) + 'static>(
+        &self,
+        f: F,
+    ) -> glib::SignalHandlerId {
+        self.connect_changed(Some("memory-metric"), move |settings, _key| {
+            f(
+                MemoryMetric::from_str(settings.string("memory-metric").as_str())
                     .unwrap_or_default(),
             );
         })
@@ -192,7 +237,7 @@ impl Settings {
                 warn!(
                     "error writing setting `base` to string \"{}\": {e}",
                     value.to_string()
-                )
+                );
             })
     }
 
@@ -219,7 +264,7 @@ impl Settings {
                 warn!(
                     "error writing setting `last-viewed-page` to string \"{}\": {e}",
                     value.as_ref()
-                )
+                );
             })
     }
 
@@ -240,7 +285,7 @@ impl Settings {
                 warn!(
                     "error writing setting `refresh-speed` to string \"{}\": {e}",
                     value.to_string()
-                )
+                );
             })
     }
 
@@ -270,7 +315,7 @@ impl Settings {
                 warn!(
                     "error writing setting `sidebar-meter-type` to string \"{}\": {e}",
                     value.to_string()
-                )
+                );
             })
     }
 
@@ -295,7 +340,7 @@ impl Settings {
     pub fn set_maximized(&self, value: bool) -> Result<(), glib::error::BoolError> {
         debug!("Setting boolean `is-maximized` to {value}");
         self.set_boolean("is-maximized", value)
-            .inspect_err(|e| warn!("error writing setting `is-maximized` to boolean {value}: {e}",))
+            .inspect_err(|e| warn!("error writing setting `is-maximized` to boolean {value}: {e}"))
     }
 
     pub fn connect_maximized<F: Fn(bool) + 'static>(&self, f: F) -> glib::SignalHandlerId {
@@ -322,7 +367,7 @@ impl Settings {
             .inspect_err(|e| {
                 warn!(
                     "error writing setting `processes-sort-by-ascending` to boolean {setting}: {e}",
-                )
+                );
             })
     }
 
@@ -360,7 +405,7 @@ impl Settings {
         debug!("Setting boolean `apps-sort-by-ascending` to {setting}");
         self.set_boolean("apps-sort-by-ascending", setting)
             .inspect_err(|e| {
-                warn!("error writing setting `apps-sort-by-ascending` to boolean {setting}: {e}",)
+                warn!("error writing setting `apps-sort-by-ascending` to boolean {setting}: {e}");
             })
     }
 

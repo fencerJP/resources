@@ -29,17 +29,10 @@ pub struct LinkData<T> {
 
 impl<T> Display for LinkData<T>
 where
-    T: Display,
-    T: PartialEq,
+    T: Display + PartialEq,
 {
     fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
-        let has_different_max = {
-            if let Ok(max) = self.max.as_ref() {
-                self.current != *max
-            } else {
-                false
-            }
-        };
+        let has_different_max = self.max.as_ref().map_or(false, |max| self.current != *max);
         if has_different_max {
             write!(f, "{} / {}", self.current, self.max.as_ref().unwrap())
         } else {
@@ -54,11 +47,11 @@ impl Display for Link {
             f,
             "{}",
             match self {
-                Link::Pcie(data) => data.to_string(),
-                Link::Sata(data) => data.to_string(),
-                Link::Usb(data) => data.to_string(),
-                Link::Wifi(data) => data.to_string(),
-                Link::Unknown => i18n("N/A"),
+                Self::Pcie(data) => data.to_string(),
+                Self::Sata(data) => data.to_string(),
+                Self::Usb(data) => data.to_string(),
+                Self::Wifi(data) => data.to_string(),
+                Self::Unknown => i18n("N/A"),
             }
         )
     }

@@ -90,14 +90,14 @@ impl Display for PcieSpeed {
             f,
             "{}",
             match self {
-                PcieSpeed::Pcie10 => "PCIe 1.0",
-                PcieSpeed::Pcie20 => "PCIe 2.0",
-                PcieSpeed::Pcie30 => "PCIe 3.0",
-                PcieSpeed::Pcie40 => "PCIe 4.0",
-                PcieSpeed::Pcie50 => "PCIe 5.0",
-                PcieSpeed::Pcie60 => "PCIe 6.0",
-                PcieSpeed::Pcie70 => "PCIe 7.0",
-                PcieSpeed::Pcie80 => "PCIe 8.0",
+                Self::Pcie10 => "PCIe 1.0",
+                Self::Pcie20 => "PCIe 2.0",
+                Self::Pcie30 => "PCIe 3.0",
+                Self::Pcie40 => "PCIe 4.0",
+                Self::Pcie50 => "PCIe 5.0",
+                Self::Pcie60 => "PCIe 6.0",
+                Self::Pcie70 => "PCIe 7.0",
+                Self::Pcie80 => "PCIe 8.0",
             }
         )
     }
@@ -108,14 +108,14 @@ impl FromStr for PcieSpeed {
     /// https://en.wikipedia.org/wiki/PCI_Express#Comparison_table
     fn from_str(s: &str) -> std::result::Result<Self, Self::Err> {
         match s {
-            "2.5 GT/s PCIe" => Ok(PcieSpeed::Pcie10),
-            "5.0 GT/s PCIe" => Ok(PcieSpeed::Pcie20),
-            "8.0 GT/s PCIe" => Ok(PcieSpeed::Pcie30),
-            "16.0 GT/s PCIe" => Ok(PcieSpeed::Pcie40),
-            "32.0 GT/s PCIe" => Ok(PcieSpeed::Pcie50),
-            "64.0 GT/s PCIe" => Ok(PcieSpeed::Pcie60),
-            "128.0 GT/s PCIe" => Ok(PcieSpeed::Pcie70),
-            "256.0 GT/s PCIe" => Ok(PcieSpeed::Pcie80),
+            "2.5 GT/s PCIe" => Ok(Self::Pcie10),
+            "5.0 GT/s PCIe" => Ok(Self::Pcie20),
+            "8.0 GT/s PCIe" => Ok(Self::Pcie30),
+            "16.0 GT/s PCIe" => Ok(Self::Pcie40),
+            "32.0 GT/s PCIe" => Ok(Self::Pcie50),
+            "64.0 GT/s PCIe" => Ok(Self::Pcie60),
+            "128.0 GT/s PCIe" => Ok(Self::Pcie70),
+            "256.0 GT/s PCIe" => Ok(Self::Pcie80),
             _ => Err(anyhow!("Could not parse PCIe speed: '{s}'")),
         }
     }

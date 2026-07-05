@@ -18,7 +18,7 @@ pub struct OtherGpu {
 }
 
 impl OtherGpu {
-    pub fn new(
+    pub const fn new(
         device: Option<&'static Device>,
         gpu_identifier: GpuIdentifier,
         driver: String,

@@ -56,24 +56,24 @@ impl Display for UsbSpeed {
             "{} ({})",
             // https://en.wikipedia.org/wiki/USB#Release_versions
             match self {
-                UsbSpeed::Usb1_0 => "USB 1.0",
-                UsbSpeed::Usb1_1(_) => "USB 1.1",
-                UsbSpeed::Usb2_0(_) => "USB 2.0",
-                UsbSpeed::Usb3_0(_) => "USB 3.0",
-                UsbSpeed::Usb3_1(_) => "USB 3.1",
-                UsbSpeed::Usb3_2(_) => "USB 3.2",
-                UsbSpeed::Usb4(_) => "USB4",
-                UsbSpeed::Usb4_2_0(_) => "USB4 2.0",
+                Self::Usb1_0 => "USB 1.0",
+                Self::Usb1_1(_) => "USB 1.1",
+                Self::Usb2_0(_) => "USB 2.0",
+                Self::Usb3_0(_) => "USB 3.0",
+                Self::Usb3_1(_) => "USB 3.1",
+                Self::Usb3_2(_) => "USB 3.2",
+                Self::Usb4(_) => "USB4",
+                Self::Usb4_2_0(_) => "USB4 2.0",
             },
             match self {
-                UsbSpeed::Usb1_0 => convert_speed_bits_decimal_with_places(1.5 * 1_000_000.0, 1),
-                UsbSpeed::Usb1_1(mbit)
-                | UsbSpeed::Usb2_0(mbit)
-                | UsbSpeed::Usb3_0(mbit)
-                | UsbSpeed::Usb3_1(mbit)
-                | UsbSpeed::Usb3_2(mbit)
-                | UsbSpeed::Usb4(mbit)
-                | UsbSpeed::Usb4_2_0(mbit) =>
+                Self::Usb1_0 => convert_speed_bits_decimal_with_places(1.5 * 1_000_000.0, 1),
+                Self::Usb1_1(mbit)
+                | Self::Usb2_0(mbit)
+                | Self::Usb3_0(mbit)
+                | Self::Usb3_1(mbit)
+                | Self::Usb3_2(mbit)
+                | Self::Usb4(mbit)
+                | Self::Usb4_2_0(mbit) =>
                     convert_speed_bits_decimal_with_places(*mbit as f64 * 1_000_000.0, 0),
             }
         )
@@ -86,15 +86,15 @@ impl FromStr for UsbSpeed {
         match s {
             // https://en.wikipedia.org/wiki/USB#Release_versions
             //https://www.kernel.org/doc/Documentation/ABI/stable/sysfs-bus-usb
-            "1.5" => Ok(UsbSpeed::Usb1_0),
-            "12" => Ok(UsbSpeed::Usb1_1(12)),
-            "480" => Ok(UsbSpeed::Usb2_0(480)),
-            "5000" => Ok(UsbSpeed::Usb3_0(5_000)),
-            "10000" => Ok(UsbSpeed::Usb3_1(10_000)),
-            "20000" => Ok(UsbSpeed::Usb3_2(20_000)),
-            "40000" => Ok(UsbSpeed::Usb4(40_000)),
-            "80000" => Ok(UsbSpeed::Usb4_2_0(80_000)),
-            "120000" => Ok(UsbSpeed::Usb4_2_0(120_000)),
+            "1.5" => Ok(Self::Usb1_0),
+            "12" => Ok(Self::Usb1_1(12)),
+            "480" => Ok(Self::Usb2_0(480)),
+            "5000" => Ok(Self::Usb3_0(5_000)),
+            "10000" => Ok(Self::Usb3_1(10_000)),
+            "20000" => Ok(Self::Usb3_2(20_000)),
+            "40000" => Ok(Self::Usb4(40_000)),
+            "80000" => Ok(Self::Usb4_2_0(80_000)),
+            "120000" => Ok(Self::Usb4_2_0(120_000)),
             _ => Err(anyhow!("Could not parse USB speed: '{s}'")),
         }
     }

@@ -245,10 +245,10 @@ impl ResStackSidebar {
 
             row.set_focus_on_click(false);
 
-            if let Some(visible_page) = imp.stack.borrow().visible_child() {
-                if visible_page == page.child() {
-                    imp.list_box.select_row(Some(&row));
-                }
+            if let Some(visible_page) = imp.stack.borrow().visible_child()
+                && visible_page == page.child()
+            {
+                imp.list_box.select_row(Some(&row));
             }
 
             imp.rows.borrow_mut().insert(row, page);
@@ -306,19 +306,19 @@ impl ResStackSidebar {
             self,
             move |list_box| {
                 let imp = this.imp();
-                if let Some(selected) = list_box.selected_row() {
-                    if !imp.populating.get() {
-                        let child = imp.rows.borrow().get(&selected).unwrap().child();
+                if let Some(selected) = list_box.selected_row()
+                    && !imp.populating.get()
+                {
+                    let child = imp.rows.borrow().get(&selected).unwrap().child();
 
-                        imp.stack.borrow().set_visible_child(&child);
+                    imp.stack.borrow().set_visible_child(&child);
 
-                        if let Some(page) = child
-                            .downcast_ref::<adw::ToolbarView>()
-                            .and_then(adw::ToolbarView::content)
-                        {
-                            let _ = SETTINGS
-                                .set_last_viewed_page(page.property::<GString>("tab-id").as_str());
-                        }
+                    if let Some(page) = child
+                        .downcast_ref::<adw::ToolbarView>()
+                        .and_then(adw::ToolbarView::content)
+                    {
+                        let _ = SETTINGS
+                            .set_last_viewed_page(page.property::<GString>("tab-id").as_str());
                     }
                 }
             }

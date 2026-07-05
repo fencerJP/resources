@@ -18,6 +18,7 @@ opt-level = 3
 
 [dependencies]
 anyhow = "1.0.102"
+clap = { version = "4", features = ["derive"], optional = true }
 lazy-regex = "3.6.0"
 libc = "0.2.182"
 log = "0.4.29"
@@ -31,3 +32,6 @@ uzers = "0.12.2"
 
 [dev-dependencies]
 pretty_assertions = "1.4.1"
+
+[features]
+cli = ["dep:clap"]
