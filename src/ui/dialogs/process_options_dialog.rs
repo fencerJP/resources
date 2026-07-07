@@ -1,11 +1,10 @@
 use crate::{
     config::DEVLOPMENT_BUILD,
-    i18n::i18n_f,
     ui::{
         pages::{NICE_TO_LABEL, processes::process_entry::ProcessEntry},
         window::Action,
     },
-    utils::settings::SETTINGS,
+    utils::{i18n::i18n_f, settings::SETTINGS},
 };
 use adw::{ToastOverlay, prelude::*, subclass::prelude::*};
 use async_channel::Sender;

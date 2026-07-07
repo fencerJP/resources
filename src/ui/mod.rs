@@ -1,8 +1,8 @@
 use adw::{ActionRow, prelude::ActionRowExt};
 
-use crate::{
+use crate::utils::{
     i18n::{i18n, i18n_f},
-    utils::units::{convert_fraction, convert_storage, convert_temperature},
+    units::{convert_fraction, convert_storage, convert_temperature},
 };
 
 extern crate pastey;

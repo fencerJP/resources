@@ -21,10 +21,7 @@ use process_data::{
     pci_slot::PciSlot,
 };
 
-use crate::{
-    i18n::i18n,
-    utils::{boot_time, read_parsed, snapd},
-};
+use crate::utils::{boot_time, i18n::i18n, read_parsed, snapd};
 
 use futures::future::{FutureExt, LocalBoxFuture, Shared};
 

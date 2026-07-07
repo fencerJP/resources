@@ -6,9 +6,9 @@ use log::trace;
 
 use crate::{
     config::DEVLOPMENT_BUILD,
-    i18n::i18n,
     utils::{
         FiniteOr,
+        i18n::i18n,
         units::{
             convert_fraction, convert_power, convert_speed, convert_storage, convert_temperature,
         },

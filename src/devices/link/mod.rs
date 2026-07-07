@@ -7,7 +7,7 @@ use crate::devices::link::pcie::PcieLinkData;
 use crate::devices::link::sata::SataSpeed;
 use crate::devices::link::usb::UsbSpeed;
 use crate::devices::link::wifi::WifiGeneration;
-use crate::i18n::i18n;
+use crate::utils::i18n::i18n;
 use anyhow::Result;
 use std::fmt::{Display, Formatter};
 

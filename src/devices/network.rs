@@ -9,10 +9,7 @@ use gtk::gio::{Icon, ThemedIcon};
 use log::trace;
 
 use super::pci::Device;
-use crate::{
-    i18n::i18n,
-    utils::{read_parsed, read_uevent},
-};
+use crate::utils::{i18n::i18n, read_parsed, read_uevent};
 
 const PATH_SYSFS: &str = "/sys/class/net";
 

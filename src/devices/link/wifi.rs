@@ -1,6 +1,6 @@
 use crate::devices::link::LinkData;
 use crate::devices::network::{InterfaceType, NetworkInterface};
-use crate::i18n::{i18n, i18n_f};
+use crate::utils::i18n::{i18n, i18n_f};
 use crate::utils::units::{convert_frequency, convert_speed_bits_decimal};
 use anyhow::{Context, Result, anyhow, bail};
 use log::{debug, trace, warn};

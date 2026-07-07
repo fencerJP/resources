@@ -1,6 +1,6 @@
 use crate::config::DEVLOPMENT_BUILD;
-use crate::i18n::i18n;
 use crate::ui::pages::applications::application_entry::ApplicationEntry;
+use crate::utils::i18n::i18n;
 use crate::utils::units::{convert_fraction, convert_speed, convert_storage};
 use adw::{prelude::*, subclass::prelude::*};
 use gtk::gio::ThemedIcon;

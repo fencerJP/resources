@@ -16,6 +16,7 @@ use std::{
 };
 
 use self::{amd::AmdGpu, intel::IntelGpu, nvidia::NvidiaGpu, other::OtherGpu};
+use crate::utils::{i18n::i18n, read_uevent};
 use crate::{
     devices::{
         link::{Link, LinkData},
@@ -23,7 +24,6 @@ use crate::{
     },
     utils::read_parsed,
 };
-use crate::{i18n::i18n, utils::read_uevent};
 use glob::glob;
 
 use super::pci::Vendor;

@@ -6,8 +6,8 @@ use log::trace;
 
 use crate::config::DEVLOPMENT_BUILD;
 use crate::devices::drive::{Drive, DriveData};
-use crate::i18n::{i18n, i18n_f};
 use crate::ui::{set_subtitle_boolean_maybe, set_subtitle_converted_maybe};
+use crate::utils::i18n::{i18n, i18n_f};
 use crate::utils::units::convert_storage;
 
 pub const TAB_ID_PREFIX: &str = "drive";

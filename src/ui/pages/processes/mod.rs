@@ -19,7 +19,6 @@ use crate::add_column;
 use crate::config::DEVLOPMENT_BUILD;
 use crate::devices::app::AppsContext;
 use crate::devices::process::ProcessAction;
-use crate::i18n::{i18n, i18n_f, ni18n_f};
 use crate::ui::dialogs::process_dialog::ResProcessDialog;
 use crate::ui::dialogs::process_options_dialog::ResProcessOptionsDialog;
 use crate::ui::pages::{
@@ -27,6 +26,7 @@ use crate::ui::pages::{
 };
 use crate::ui::window::{Action, MainWindow};
 use crate::utils::NUM_CPUS;
+use crate::utils::i18n::{i18n, i18n_f, ni18n_f};
 use crate::utils::settings::SETTINGS;
 use crate::utils::units::{convert_speed, convert_storage, format_time};
 

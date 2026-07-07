@@ -21,11 +21,11 @@ use crate::devices::network::{NetworkData, NetworkInterface};
 use crate::devices::npu::{Npu, NpuData};
 use crate::devices::process::{Process, ProcessAction};
 use crate::gui::ARGS;
-use crate::i18n::{i18n, i18n_f, ni18n_f};
 use crate::ui::pages::applications::ResApplications;
 use crate::ui::pages::battery::ResBattery;
 use crate::ui::pages::drive::ResDrive;
 use crate::ui::pages::processes::ResProcesses;
+use crate::utils::i18n::{i18n, i18n_f, ni18n_f};
 use crate::utils::settings::SETTINGS;
 
 use super::pages::applications;

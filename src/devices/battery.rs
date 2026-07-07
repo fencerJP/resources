@@ -4,9 +4,10 @@ use std::{
     str::{self, FromStr},
 };
 
-use crate::{
+use crate::utils::{
     i18n::{i18n, i18n_f},
-    utils::{read_parsed, units::convert_energy},
+    read_parsed,
+    units::convert_energy,
 };
 use anyhow::{Context, Result, bail};
 use lazy_regex::{Lazy, Regex, lazy_regex};

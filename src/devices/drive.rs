@@ -1,5 +1,5 @@
 use crate::devices::link::{Link, LinkData};
-use crate::i18n::{i18n, i18n_f};
+use crate::utils::i18n::{i18n, i18n_f};
 use crate::utils::{read_parsed, units::convert_storage};
 use anyhow::{Context, Result, bail};
 use gtk::gio::{Icon, ThemedIcon};

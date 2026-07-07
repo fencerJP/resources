@@ -1,7 +1,7 @@
 use strum::IntoEnumIterator;
 use strum_macros::{Display, EnumIter, EnumString};
 
-use crate::i18n::{i18n, i18n_f};
+use crate::utils::i18n::{i18n, i18n_f};
 
 use super::settings::{Base, SETTINGS, TemperatureUnit};
 
