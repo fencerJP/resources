@@ -1,5 +1,5 @@
-use crate::utils::drive::UsbSlot;
-use crate::utils::link::LinkData;
+use crate::devices::drive::UsbSlot;
+use crate::devices::link::LinkData;
 use crate::utils::read_parsed;
 use crate::utils::units::convert_speed_bits_decimal_with_places;
 use anyhow::{Context, Error, anyhow};
@@ -102,7 +102,7 @@ impl FromStr for UsbSpeed {
 
 #[cfg(test)]
 mod test {
-    use crate::utils::link::usb::UsbSpeed;
+    use crate::devices::link::usb::UsbSpeed;
     use std::collections::HashMap;
     use std::str::FromStr;
 

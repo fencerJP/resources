@@ -10,10 +10,9 @@ use std::{
     time::Instant,
 };
 
-use crate::utils::{
-    IS_FLATPAK,
-    pci::{self, Device},
-    read_parsed,
+use crate::{
+    devices::pci::Device,
+    utils::{IS_FLATPAK, read_parsed},
 };
 
 use super::GpuImpl;
@@ -133,7 +132,7 @@ impl GpuImpl for AmdGpu {
             16,
         )?;
         Ok((*AMDGPU_IDS)
-            .get(&(self.device().map_or(0, pci::Device::pid), revision))
+            .get(&(self.device().map_or(0, Device::pid), revision))
             .cloned()
             .unwrap_or_else(|| {
                 self.drm_name().map_or_else(

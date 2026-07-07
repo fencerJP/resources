@@ -3,8 +3,8 @@ use log::trace;
 use process_data::Containerization;
 
 use crate::{
+    devices::app::{App, AppsContext},
     i18n::i18n,
-    utils::app::{App, AppsContext},
 };
 
 mod imp {

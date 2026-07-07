@@ -5,7 +5,7 @@ use std::fs::File;
 use std::os::unix::io::AsRawFd;
 use std::path::{Path, PathBuf};
 
-use crate::utils::pci::Device;
+use crate::devices::pci::Device;
 
 use super::NpuImpl;
 

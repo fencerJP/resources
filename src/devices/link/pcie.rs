@@ -1,4 +1,4 @@
-use crate::utils::link::LinkData;
+use crate::devices::link::LinkData;
 use crate::utils::read_parsed;
 use anyhow::{Context, Error, anyhow, bail};
 use log::trace;
@@ -122,8 +122,8 @@ impl FromStr for PcieSpeed {
 }
 #[cfg(test)]
 mod test {
-    use crate::utils::link::LinkData;
-    use crate::utils::link::pcie::{PcieLinkData, PcieSpeed};
+    use crate::devices::link::LinkData;
+    use crate::devices::link::pcie::{PcieLinkData, PcieSpeed};
     use anyhow::anyhow;
     use std::collections::HashMap;
     use std::str::FromStr;

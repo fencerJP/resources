@@ -1,6 +1,6 @@
-use crate::utils::drive::AtaSlot;
-use crate::utils::link::LinkData;
-use crate::utils::link::sata::SataSpeed::{Sata150, Sata300, Sata600};
+use crate::devices::drive::AtaSlot;
+use crate::devices::link::LinkData;
+use crate::devices::link::sata::SataSpeed::{Sata150, Sata300, Sata600};
 use crate::utils::read_parsed;
 use anyhow::{Context, Error, anyhow};
 use log::trace;
@@ -68,7 +68,7 @@ impl Display for SataSpeed {
 
 #[cfg(test)]
 mod test {
-    use crate::utils::link::sata::SataSpeed;
+    use crate::devices::link::sata::SataSpeed;
     use std::collections::HashMap;
     use std::str::FromStr;
 

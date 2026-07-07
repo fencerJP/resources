@@ -6,13 +6,11 @@ use std::{
 
 use crate::{
     i18n::{i18n, i18n_f},
-    utils::read_parsed,
+    utils::{read_parsed, units::convert_energy},
 };
 use anyhow::{Context, Result, bail};
 use lazy_regex::{Lazy, Regex, lazy_regex};
 use log::trace;
-
-use super::units::convert_energy;
 
 // For (at least) Lenovo Yoga 6 13ALC7
 static HEX_ENCODED_REGEX: Lazy<Regex> = lazy_regex!(r"^(0x[0-9a-fA-F]{2}\s*)*$");

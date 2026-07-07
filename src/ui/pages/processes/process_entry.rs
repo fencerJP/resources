@@ -5,10 +5,7 @@ use gtk::{
 use log::trace;
 use process_data::Containerization;
 
-use crate::{
-    i18n::i18n,
-    utils::{TICK_RATE, process::Process},
-};
+use crate::{devices::process::Process, i18n::i18n, utils::TICK_RATE};
 
 mod imp {
     use std::cell::{Cell, RefCell};

@@ -362,7 +362,7 @@ fn read_sysfs_thermal<P: AsRef<Path>>(path: P) -> Result<f32> {
 mod test {
     use pretty_assertions::assert_eq;
 
-    use crate::utils::cpu::CpuInfo;
+    use crate::devices::cpu::CpuInfo;
 
     const LSCPU_OUTPUT: &str = concat!(
         "Architecture:             x86_64\n",

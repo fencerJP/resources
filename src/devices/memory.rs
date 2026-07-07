@@ -4,9 +4,7 @@ use anyhow::{Context, Result, bail};
 use lazy_regex::{Lazy, Regex, lazy_regex};
 use log::{debug, trace};
 
-use crate::utils::read_parsed;
-
-use super::{FLATPAK_APP_PATH, FLATPAK_SPAWN, IS_FLATPAK};
+use crate::utils::{FLATPAK_APP_PATH, FLATPAK_SPAWN, IS_FLATPAK, read_parsed};
 
 const PROC_MEMINFO: &str = "/proc/meminfo";
 
@@ -348,7 +346,7 @@ impl MemoryDevice {
 mod test {
     use pretty_assertions::assert_eq;
 
-    use crate::utils::memory::MemoryDevice;
+    use crate::devices::memory::MemoryDevice;
 
     const DMIDECODE_OUTPUT: &str = concat!(
         "Memory Device\n",

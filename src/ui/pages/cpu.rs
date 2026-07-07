@@ -6,9 +6,9 @@ use gtk::glib::{self, DateTime, Priority, clone};
 use log::trace;
 
 use crate::config::DEVLOPMENT_BUILD;
+use crate::devices::cpu::{CpuData, CpuInfo};
 use crate::i18n::{i18n, i18n_f};
 use crate::ui::widgets::graph_box::ResGraphBox;
-use crate::utils::cpu::{CpuData, CpuInfo};
 use crate::utils::settings::SETTINGS;
 use crate::utils::units::{
     convert_fraction, convert_frequency, convert_temperature, format_time_integer,

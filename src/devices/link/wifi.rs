@@ -1,6 +1,6 @@
+use crate::devices::link::LinkData;
+use crate::devices::network::{InterfaceType, NetworkInterface};
 use crate::i18n::{i18n, i18n_f};
-use crate::utils::link::LinkData;
-use crate::utils::network::{InterfaceType, NetworkInterface};
 use crate::utils::units::{convert_frequency, convert_speed_bits_decimal};
 use anyhow::{Context, Result, anyhow, bail};
 use log::{debug, trace, warn};
@@ -172,7 +172,7 @@ impl Display for WifiLinkData {
 
 #[cfg(test)]
 mod test {
-    use crate::utils::link::wifi::{WifiGeneration, WifiLinkData};
+    use crate::devices::link::wifi::{WifiGeneration, WifiLinkData};
     use neli_wifi::Station;
     use std::collections::HashMap;
 

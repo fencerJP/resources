@@ -1,23 +1,30 @@
 use anyhow::Result;
-use process_data::pci_slot::PciSlot;
+use process_data::{pci_slot::PciSlot, unix_as_secs_f64};
 
-use std::path::{Path, PathBuf};
+use std::{
+    cell::Cell,
+    path::{Path, PathBuf},
+};
 
-use crate::utils::pci::Device;
+use crate::devices::pci::Device;
+
+use crate::utils::read_parsed;
 
 use super::NpuImpl;
 
 #[derive(Debug, Clone, Default)]
 
-pub struct OtherNpu {
+pub struct IntelNpu {
     pub device: Option<&'static Device>,
     pub pci_slot: PciSlot,
     pub driver: String,
     sysfs_path: PathBuf,
     first_hwmon_path: Option<PathBuf>,
+    last_busy_time_us: Cell<usize>,
+    last_busy_time_timestamp: Cell<f64>,
 }
 
-impl OtherNpu {
+impl IntelNpu {
     pub fn new(
         device: Option<&'static Device>,
         pci_slot: PciSlot,
@@ -31,11 +38,13 @@ impl OtherNpu {
             driver,
             sysfs_path,
             first_hwmon_path,
+            last_busy_time_us: Cell::default(),
+            last_busy_time_timestamp: Cell::default(),
         }
     }
 }
 
-impl NpuImpl for OtherNpu {
+impl NpuImpl for IntelNpu {
     fn device(&self) -> Option<&'static Device> {
         self.device
     }
@@ -61,7 +70,19 @@ impl NpuImpl for OtherNpu {
     }
 
     fn usage(&self) -> Result<f64> {
-        self.drm_usage().map(|usage| usage as f64 / 100.0)
+        let last_timestamp = self.last_busy_time_timestamp.get();
+        let last_busy_time = self.last_busy_time_us.get();
+
+        let new_timestamp = unix_as_secs_f64();
+        let new_busy_time = read_parsed(self.sysfs_path().join("device/npu_busy_time_us"))?;
+
+        self.last_busy_time_timestamp.set(new_timestamp);
+        self.last_busy_time_us.set(new_busy_time);
+
+        let delta_timestamp = new_timestamp - last_timestamp;
+        let delta_busy_time = new_busy_time.saturating_sub(last_busy_time) as f64;
+
+        Ok(delta_busy_time / 1_000_000.0 / delta_timestamp)
     }
 
     fn used_memory(&self) -> Result<u64> {
@@ -81,7 +102,9 @@ impl NpuImpl for OtherNpu {
     }
 
     fn core_frequency(&self) -> Result<f64> {
-        self.hwmon_core_frequency()
+        read_parsed::<f64>(self.sysfs_path().join("device/npu_current_frequency_mhz"))
+            .map(|mhz| mhz * 1_000_000.0)
+            .or_else(|_| self.hwmon_core_frequency())
     }
 
     fn memory_frequency(&self) -> Result<f64> {

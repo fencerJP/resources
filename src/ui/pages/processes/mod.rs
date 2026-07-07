@@ -17,6 +17,8 @@ use process_data::Niceness;
 
 use crate::add_column;
 use crate::config::DEVLOPMENT_BUILD;
+use crate::devices::app::AppsContext;
+use crate::devices::process::ProcessAction;
 use crate::i18n::{i18n, i18n_f, ni18n_f};
 use crate::ui::dialogs::process_dialog::ResProcessDialog;
 use crate::ui::dialogs::process_options_dialog::ResProcessOptionsDialog;
@@ -25,8 +27,6 @@ use crate::ui::pages::{
 };
 use crate::ui::window::{Action, MainWindow};
 use crate::utils::NUM_CPUS;
-use crate::utils::app::AppsContext;
-use crate::utils::process::ProcessAction;
 use crate::utils::settings::SETTINGS;
 use crate::utils::units::{convert_speed, convert_storage, format_time};
 
@@ -60,12 +60,9 @@ mod imp {
         sync::OnceLock,
     };
 
-    use crate::{
-        ui::{
-            dialogs::process_options_dialog::ResProcessOptionsDialog, pages::PROCESSES_PRIMARY_ORD,
-            window::Action,
-        },
-        utils::process::ProcessAction,
+    use crate::ui::{
+        dialogs::process_options_dialog::ResProcessOptionsDialog, pages::PROCESSES_PRIMARY_ORD,
+        window::Action,
     };
 
     use super::*;

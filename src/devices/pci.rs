@@ -259,7 +259,7 @@ mod test {
     use pretty_assertions::assert_eq;
     use std::{collections::BTreeMap, io::BufReader};
 
-    use crate::utils::pci::{Device, Subdevice, Vendor, parse_pci_ids};
+    use crate::devices::pci::{Device, Subdevice, Vendor, parse_pci_ids};
 
     #[test]
     fn valid_empty() {
