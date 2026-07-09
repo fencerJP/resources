@@ -194,9 +194,9 @@ pub enum MemoryMetric {
     RssNoSharedMemory,
     /// Physical memory used for the process's heap and stack, excluding files and shared libraries
     RssAnon,
-    /// Physical memory used by the process with shared libraries accounted for approximately proportionally (if available, otherwise rss-no-shared-memory). Very accurate but also more CPU-intensive
+    /// Physical memory used by the process with shared libraries accounted for approximately proportionally (if available, otherwise RssNoSharedMemory). Very accurate but also more CPU-intensive
     ApproximatePss,
-    /// Physical memory used by the process with shared libraries accounted for proportionally (if available, otherwise rss-no-shared-memory). Most accurate but also most CPU-intensive.
+    /// Physical memory used by the process with shared libraries accounted for proportionally (if available, otherwise RssNoSharedMemory). Most accurate but also most CPU-intensive.
     Pss,
 }
 

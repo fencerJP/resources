@@ -47,18 +47,18 @@ fn kreplace(input: String, kwargs: &[(&str, &str)]) -> String {
 // Simple translations functions
 
 #[allow(dead_code)]
-pub fn i18n(format: &str) -> String {
+pub fn i18n<S: Into<String>>(format: S) -> String {
     gettext(format)
 }
 
 #[allow(dead_code)]
-pub fn i18n_f(format: &str, args: &[&str]) -> String {
+pub fn i18n_f<S: Into<String>>(format: S, args: &[&str]) -> String {
     let s = gettext(format);
     freplace(s, args)
 }
 
 #[allow(dead_code)]
-pub fn i18n_k(format: &str, kwargs: &[(&str, &str)]) -> String {
+pub fn i18n_k<S: Into<String>>(format: S, kwargs: &[(&str, &str)]) -> String {
     let s = gettext(format);
     kreplace(s, kwargs)
 }
@@ -66,18 +66,28 @@ pub fn i18n_k(format: &str, kwargs: &[(&str, &str)]) -> String {
 // Singular and plural translations functions
 
 #[allow(dead_code)]
-pub fn ni18n(single: &str, multiple: &str, number: u32) -> String {
+pub fn ni18n<S1: Into<String>, S2: Into<String>>(single: S1, multiple: S2, number: u32) -> String {
     ngettext(single, multiple, number)
 }
 
 #[allow(dead_code)]
-pub fn ni18n_f(single: &str, multiple: &str, number: u32, args: &[&str]) -> String {
+pub fn ni18n_f<S1: Into<String>, S2: Into<String>>(
+    single: S1,
+    multiple: S2,
+    number: u32,
+    args: &[&str],
+) -> String {
     let s = ngettext(single, multiple, number);
     freplace(s, args)
 }
 
 #[allow(dead_code)]
-pub fn ni18n_k(single: &str, multiple: &str, number: u32, kwargs: &[(&str, &str)]) -> String {
+pub fn ni18n_k<S1: Into<String>, S2: Into<String>>(
+    single: S1,
+    multiple: S2,
+    number: u32,
+    kwargs: &[(&str, &str)],
+) -> String {
     let s = ngettext(single, multiple, number);
     kreplace(s, kwargs)
 }
@@ -85,18 +95,22 @@ pub fn ni18n_k(single: &str, multiple: &str, number: u32, kwargs: &[(&str, &str)
 // Translations with context functions
 
 #[allow(dead_code)]
-pub fn pi18n(ctx: &str, format: &str) -> String {
+pub fn pi18n<S1: Into<String>, S2: Into<String>>(ctx: S1, format: S2) -> String {
     pgettext(ctx, format)
 }
 
 #[allow(dead_code)]
-pub fn pi18n_f(ctx: &str, format: &str, args: &[&str]) -> String {
+pub fn pi18n_f<S1: Into<String>, S2: Into<String>>(ctx: S1, format: S2, args: &[&str]) -> String {
     let s = pgettext(ctx, format);
     freplace(s, args)
 }
 
 #[allow(dead_code)]
-pub fn pi18n_k(ctx: &str, format: &str, kwargs: &[(&str, &str)]) -> String {
+pub fn pi18n_k<S1: Into<String>, S2: Into<String>>(
+    ctx: S1,
+    format: S2,
+    kwargs: &[(&str, &str)],
+) -> String {
     let s = pgettext(ctx, format);
     kreplace(s, kwargs)
 }
@@ -104,21 +118,32 @@ pub fn pi18n_k(ctx: &str, format: &str, kwargs: &[(&str, &str)]) -> String {
 // Singular and plural with context
 
 #[allow(dead_code)]
-pub fn pni18n(ctx: &str, single: &str, multiple: &str, number: u32) -> String {
+pub fn pni18n<S1: Into<String>, S2: Into<String>, S3: Into<String>>(
+    ctx: S1,
+    single: S2,
+    multiple: S3,
+    number: u32,
+) -> String {
     npgettext(ctx, single, multiple, number)
 }
 
 #[allow(dead_code)]
-pub fn pni18n_f(ctx: &str, single: &str, multiple: &str, number: u32, args: &[&str]) -> String {
+pub fn pni18n_f<S1: Into<String>, S2: Into<String>, S3: Into<String>>(
+    ctx: S1,
+    single: S2,
+    multiple: S3,
+    number: u32,
+    args: &[&str],
+) -> String {
     let s = npgettext(ctx, single, multiple, number);
     freplace(s, args)
 }
 
 #[allow(dead_code)]
-pub fn pni18n_k(
-    ctx: &str,
-    single: &str,
-    multiple: &str,
+pub fn pni18n_k<S1: Into<String>, S2: Into<String>, S3: Into<String>>(
+    ctx: S1,
+    single: S2,
+    multiple: S3,
     number: u32,
     kwargs: &[(&str, &str)],
 ) -> String {
