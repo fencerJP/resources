@@ -1,10 +1,10 @@
 use std::time::{Duration, SystemTime};
 
 use crate::config::DEVLOPMENT_BUILD;
-use crate::i18n::{i18n, i18n_f};
+use crate::devices::link::LinkData;
+use crate::devices::network::{NetworkData, NetworkInterface};
 use crate::ui::set_subtitle_converted_maybe;
-use crate::utils::link::LinkData;
-use crate::utils::network::{NetworkData, NetworkInterface};
+use crate::utils::i18n::{i18n, i18n_f};
 use crate::utils::units::{convert_speed_bits_decimal, convert_storage};
 use adw::{glib::property::PropertySet, prelude::*, subclass::prelude::*};
 use gtk::glib;

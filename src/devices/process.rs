@@ -24,11 +24,10 @@ use gtk::{
 
 use crate::{
     config,
-    utils::settings::{MemoryMetric, SETTINGS},
-};
-
-use super::{
-    FLATPAK_APP_PATH, FLATPAK_SPAWN, FiniteOr, IS_FLATPAK, NUM_CPUS, TICK_RATE, boot_time,
+    utils::{
+        FLATPAK_APP_PATH, FLATPAK_SPAWN, FiniteOr, IS_FLATPAK, NUM_CPUS, TICK_RATE, boot_time,
+        settings::{MemoryMetric, SETTINGS},
+    },
 };
 
 static COMPANION_PROCESS: LazyLock<Mutex<(ChildStdin, ChildStdout)>> = LazyLock::new(|| {

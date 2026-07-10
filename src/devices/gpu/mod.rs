@@ -16,13 +16,13 @@ use std::{
 };
 
 use self::{amd::AmdGpu, intel::IntelGpu, nvidia::NvidiaGpu, other::OtherGpu};
-use crate::utils::{
-    link::{Link, LinkData},
-    read_parsed,
-};
+use crate::utils::{i18n::i18n, read_uevent};
 use crate::{
-    i18n::i18n,
-    utils::{pci::Device, read_uevent},
+    devices::{
+        link::{Link, LinkData},
+        pci::Device,
+    },
+    utils::read_parsed,
 };
 use glob::glob;
 

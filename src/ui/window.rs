@@ -11,21 +11,21 @@ use log::{debug, info, trace, warn};
 
 use crate::application::Application;
 use crate::config::DEVLOPMENT_BUILD;
+use crate::devices::app::AppsContext;
+use crate::devices::battery::{Battery, BatteryData};
+use crate::devices::cpu::{self, CpuData};
+use crate::devices::drive::{Drive, DriveData};
+use crate::devices::gpu::{Gpu, GpuData};
+use crate::devices::memory::MemoryData;
+use crate::devices::network::{NetworkData, NetworkInterface};
+use crate::devices::npu::{Npu, NpuData};
+use crate::devices::process::{Process, ProcessAction};
 use crate::gui::ARGS;
-use crate::i18n::{i18n, i18n_f, ni18n_f};
 use crate::ui::pages::applications::ResApplications;
 use crate::ui::pages::battery::ResBattery;
 use crate::ui::pages::drive::ResDrive;
 use crate::ui::pages::processes::ResProcesses;
-use crate::utils::app::AppsContext;
-use crate::utils::battery::{Battery, BatteryData};
-use crate::utils::cpu::{self, CpuData};
-use crate::utils::drive::{Drive, DriveData};
-use crate::utils::gpu::{Gpu, GpuData};
-use crate::utils::memory::MemoryData;
-use crate::utils::network::{NetworkData, NetworkInterface};
-use crate::utils::npu::{Npu, NpuData};
-use crate::utils::process::{Process, ProcessAction};
+use crate::utils::i18n::{i18n, i18n_f, ni18n_f};
 use crate::utils::settings::SETTINGS;
 
 use super::pages::applications;
@@ -47,6 +47,7 @@ mod imp {
     };
 
     use crate::{
+        devices::app::AppsContext,
         ui::{
             pages::{
                 applications::ResApplications, cpu::ResCPU, memory::ResMemory,
@@ -54,7 +55,6 @@ mod imp {
             },
             widgets::stack_sidebar::ResStackSidebar,
         },
-        utils::app::AppsContext,
     };
 
     use super::*;

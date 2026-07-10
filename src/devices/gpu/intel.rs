@@ -8,7 +8,7 @@ use std::{
     str::FromStr,
 };
 
-use crate::utils::{pci::Device, read_parsed};
+use crate::{devices::pci::Device, utils::read_parsed};
 
 use super::GpuImpl;
 

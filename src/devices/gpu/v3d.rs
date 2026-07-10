@@ -3,7 +3,7 @@ use process_data::gpu_usage::GpuIdentifier;
 
 use std::path::{Path, PathBuf};
 
-use crate::utils::{pci::Device, read_parsed};
+use crate::{devices::pci::Device, utils::read_parsed};
 
 use super::GpuImpl;
 

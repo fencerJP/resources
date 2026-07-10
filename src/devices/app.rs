@@ -21,15 +21,11 @@ use process_data::{
     pci_slot::PciSlot,
 };
 
-use crate::{i18n::i18n, utils::read_parsed};
+use crate::utils::{boot_time, i18n::i18n, read_parsed, snapd};
 
 use futures::future::{FutureExt, LocalBoxFuture, Shared};
 
-use super::{
-    boot_time,
-    process::{Process, ProcessAction},
-    snapd,
-};
+use super::process::{Process, ProcessAction};
 
 // This contains executable names that are blocklisted from being recognized as applications
 const DESKTOP_EXEC_BLOCKLIST: &[&str] = &["bash", "zsh", "fish", "sh", "ksh", "flatpak"];

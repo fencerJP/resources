@@ -5,10 +5,10 @@ use process_data::gpu_usage::GpuIdentifier;
 use std::fmt::Write;
 
 use crate::config::DEVLOPMENT_BUILD;
-use crate::i18n::i18n;
+use crate::devices::gpu::{Gpu, GpuData};
+use crate::devices::link::Link;
 use crate::ui::{gpu_npu_usage_string, set_subtitle_converted_maybe};
-use crate::utils::gpu::{Gpu, GpuData};
-use crate::utils::link::Link;
+use crate::utils::i18n::i18n;
 use crate::utils::units::{convert_fraction, convert_frequency, convert_power};
 
 pub const TAB_ID_PREFIX: &str = "gpu";

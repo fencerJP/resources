@@ -4,8 +4,8 @@ use std::sync::LazyLock;
 use crate::application;
 #[rustfmt::skip]
 use crate::config;
+use crate::devices::app::DATA_DIRS;
 use crate::utils::IS_FLATPAK;
-use crate::utils::app::DATA_DIRS;
 
 use clap::Parser;
 use gettextrs::{LocaleCategory, gettext};

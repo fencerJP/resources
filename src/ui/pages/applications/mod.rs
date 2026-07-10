@@ -15,13 +15,13 @@ use gtk::{
 
 use crate::add_column;
 use crate::config::DEVLOPMENT_BUILD;
-use crate::i18n::{i18n, i18n_f};
+use crate::devices::app::AppsContext;
+use crate::devices::process::ProcessAction;
 use crate::ui::dialogs::app_dialog::ResAppDialog;
 use crate::ui::pages::{MAX_PERCENTAGE_LENGTH, MAX_SPEED_LENGTH, MAX_STORAGE_LENGTH};
 use crate::ui::window::{Action, MainWindow};
 use crate::utils::NUM_CPUS;
-use crate::utils::app::AppsContext;
-use crate::utils::process::ProcessAction;
+use crate::utils::i18n::{i18n, i18n_f};
 use crate::utils::settings::SETTINGS;
 use crate::utils::units::{convert_fraction, convert_speed, convert_storage};
 

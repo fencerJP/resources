@@ -3,8 +3,8 @@ use gtk::glib::{self, GString};
 use log::trace;
 
 use crate::config::DEVLOPMENT_BUILD;
-use crate::i18n::i18n;
 use crate::ui::pages::processes::process_entry::ProcessEntry;
+use crate::utils::i18n::i18n;
 use crate::utils::units::{convert_fraction, convert_speed, convert_storage, format_time};
 
 mod imp {

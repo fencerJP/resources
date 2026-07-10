@@ -6,8 +6,8 @@ use log::trace;
 use process_data::Containerization;
 
 use crate::{
-    i18n::i18n,
-    utils::{TICK_RATE, process::Process},
+    devices::process::Process,
+    utils::{TICK_RATE, i18n::i18n},
 };
 
 mod imp {

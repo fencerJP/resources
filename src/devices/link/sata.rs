@@ -1,6 +1,6 @@
-use crate::utils::drive::AtaSlot;
-use crate::utils::link::LinkData;
-use crate::utils::link::sata::SataSpeed::{Sata150, Sata300, Sata600};
+use crate::devices::drive::AtaSlot;
+use crate::devices::link::LinkData;
+use crate::devices::link::sata::SataSpeed::{Sata150, Sata300, Sata600};
 use crate::utils::read_parsed;
 use anyhow::{Context, Error, anyhow};
 use log::trace;
@@ -44,9 +44,9 @@ impl FromStr for SataSpeed {
     fn from_str(s: &str) -> std::result::Result<Self, Self::Err> {
         match s {
             // https://en.wikipedia.org/wiki/SATA
-            "1.5 Gbps" => Ok(Sata150),
-            "3.0 Gbps" => Ok(Sata300),
-            "6.0 Gbps" => Ok(Sata600),
+            "1.5 Gb/s" => Ok(Sata150),
+            "3.0 Gb/s" => Ok(Sata300),
+            "6.0 Gb/s" => Ok(Sata600),
             _ => Err(anyhow!("Could not parse SATA speed: '{s}'")),
         }
     }
@@ -68,16 +68,16 @@ impl Display for SataSpeed {
 
 #[cfg(test)]
 mod test {
-    use crate::utils::link::sata::SataSpeed;
+    use crate::devices::link::sata::SataSpeed;
     use std::collections::HashMap;
     use std::str::FromStr;
 
     #[test]
     fn parse_sata_link_speeds() {
         let map = HashMap::from([
-            ("1.5 Gbps", SataSpeed::Sata150),
-            ("3.0 Gbps", SataSpeed::Sata300),
-            ("6.0 Gbps", SataSpeed::Sata600),
+            ("1.5 Gb/s", SataSpeed::Sata150),
+            ("3.0 Gb/s", SataSpeed::Sata300),
+            ("6.0 Gb/s", SataSpeed::Sata600),
         ]);
 
         for input in map.keys() {
@@ -90,7 +90,7 @@ mod test {
 
     #[test]
     fn parse_sata_link_speeds_failure() {
-        let invalid = vec!["4.0 Gbps", "SOMETHING_ELSE", ""];
+        let invalid = vec!["4.0 Gb/s", "SOMETHING_ELSE", ""];
 
         for input in invalid {
             let result = SataSpeed::from_str(input);

@@ -4,9 +4,9 @@ use log::trace;
 use std::fmt::Write;
 
 use crate::config::DEVLOPMENT_BUILD;
-use crate::i18n::i18n;
+use crate::devices::battery::BatteryData;
 use crate::ui::set_subtitle_converted_maybe;
-use crate::utils::battery::BatteryData;
+use crate::utils::i18n::i18n;
 use crate::utils::units::{convert_charge_cycles, convert_energy, convert_fraction, convert_power};
 
 pub const TAB_ID_PREFIX: &str = "battery";

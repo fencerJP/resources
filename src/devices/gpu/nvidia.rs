@@ -25,7 +25,7 @@ static NVML: LazyLock<Result<Nvml, NvmlError>> = LazyLock::new(|| {
         .inspect(|_| debug!("Successfully connected to NVML"))
 });
 
-use crate::utils::{IS_FLATPAK, pci::Device};
+use crate::{devices::pci::Device, utils::IS_FLATPAK};
 
 use super::GpuImpl;
 

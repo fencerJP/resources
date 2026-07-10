@@ -5,11 +5,11 @@ use glib::clone;
 use gtk::{gdk, gio, glib};
 
 use crate::config::{self, APP_ID, DEVLOPMENT_BUILD, VERSION};
-use crate::i18n::i18n;
+use crate::devices::process::ProcessAction;
 use crate::ui::dialogs::settings_dialog::ResSettingsDialog;
 use crate::ui::window::MainWindow;
+use crate::utils::i18n::i18n;
 use crate::utils::os::OsInfo;
-use crate::utils::process::ProcessAction;
 
 mod imp {
     use std::{cell::Cell, sync::OnceLock};

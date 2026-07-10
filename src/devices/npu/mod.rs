@@ -15,11 +15,8 @@ use std::{
 use glob::glob;
 
 use crate::{
-    i18n::i18n,
-    utils::{
-        pci::{Device, Vendor},
-        read_parsed, read_uevent,
-    },
+    devices::pci::{Device, Vendor},
+    utils::{i18n::i18n, read_parsed, read_uevent},
 };
 
 use self::{intel::IntelNpu, other::OtherNpu};

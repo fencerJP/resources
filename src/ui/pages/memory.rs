@@ -3,8 +3,8 @@ use gtk::glib::{self, clone};
 use log::trace;
 
 use crate::config::DEVLOPMENT_BUILD;
-use crate::i18n::{i18n, i18n_f};
-use crate::utils::memory::{MemoryData, MemoryDevice};
+use crate::devices::memory::{MemoryData, MemoryDevice};
+use crate::utils::i18n::{i18n, i18n_f};
 use crate::utils::units::convert_storage;
 
 pub const TAB_ID: &str = "memory";
