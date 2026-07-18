@@ -42,7 +42,6 @@
         </child>
         <child>
           <object class="GtkStack" id="meter_stack">
-            <property name="transition-type">crossfade</property>
             <child>
               <object class="GtkBox" id="no_meter_page">
                 <property name="orientation">vertical</property>
