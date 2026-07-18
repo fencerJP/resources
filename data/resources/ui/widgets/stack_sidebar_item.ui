@@ -80,7 +80,9 @@
                     <property name="halign">end</property>
                     <property name="valign">start</property>
                     <property name="margin-end">6</property>
+                    <property name="margin-start">6</property>
                     <property name="margin-top">4</property>
+                    <property name="ellipsize">end</property>
                     <style>
                       <class name="subtitle"/>
                     </style>
