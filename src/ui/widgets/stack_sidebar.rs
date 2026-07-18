@@ -124,6 +124,25 @@ impl ResStackSidebar {
         let imp = self.imp();
         imp.populating.set(true);
 
+        // count pages by type to determine which types have duplicates
+        let mut type_counts: HashMap<glib::Type, usize> = HashMap::new();
+        for page in imp
+            .stack
+            .borrow()
+            .pages()
+            .iter::<gtk::StackPage>()
+            .flatten()
+        {
+            if let Some(child) = page
+                .child()
+                .downcast::<adw::ToolbarView>()
+                .ok()
+                .and_then(|tv| tv.content())
+            {
+                *type_counts.entry(child.type_()).or_default() += 1;
+            }
+        }
+
         for page in imp
             .stack
             .borrow()
@@ -178,23 +197,10 @@ impl ResStackSidebar {
                 }
             ));
 
+            let has_duplicates = type_counts.get(&child.type_()).copied().unwrap_or(0) > 1;
             sidebar_item.set_detail_label_visible(
-                SETTINGS.sidebar_description()
-                    && !child.property::<GString>("tab_detail_string").is_empty(),
+                has_duplicates && !child.property::<GString>("tab_detail_string").is_empty(),
             );
-            SETTINGS.connect_sidebar_description(clone!(
-                #[weak(rename_to = item)]
-                sidebar_item,
-                #[weak]
-                child,
-                move |sidebar_details| {
-                    // if the view doesn't provide a description, disable it regardless of the setting
-                    item.set_detail_label_visible(
-                        sidebar_details
-                            && !child.property::<GString>("tab_detail_string").is_empty(),
-                    );
-                }
-            ));
 
             // TODO: generalize to "uses_meter"?
             if child.property::<bool>("uses_progress_bar") {
