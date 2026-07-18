@@ -52,7 +52,8 @@
                     <property name="hexpand">1</property>
                     <property name="ellipsize">end</property>
                     <style>
-                      <class name="subtitle"/>
+                      <class name="dimmed"/>
+                      <class name="caption"/>
                     </style>
                   </object>
                 </child>
@@ -83,7 +84,8 @@
                     <property name="margin-top">6</property>
                     <property name="ellipsize">end</property>
                     <style>
-                      <class name="subtitle"/>
+                      <class name="dimmed"/>
+                      <class name="caption"/>
                     </style>
                   </object>
                 </child>
@@ -99,7 +101,8 @@
                     <property name="hexpand">1</property>
                     <property name="ellipsize">end</property>
                     <style>
-                      <class name="subtitle"/>
+                      <class name="dimmed"/>
+                      <class name="caption"/>
                     </style>
                   </object>
                 </child>
