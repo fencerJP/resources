@@ -27,3 +27,11 @@ progressbar.slim > trough, progressbar.slim > trough > progress {
 .graph {
   border-radius: 8px;
 }
+
+.dropshadow {
+  text-shadow: 0 0 2px alpha(black, 0.75);
+}
+
+.dropshadow-light {
+  text-shadow: 0 0 2px white;
+}

@@ -1,8 +1,8 @@
-use adw::{glib::property::PropertySet, prelude::*, subclass::prelude::*};
+use adw::{StyleManager, glib::property::PropertySet, prelude::*, subclass::prelude::*};
 use gtk::{
     Ordering,
     gio::Icon,
-    glib::{self},
+    glib::{self, clone},
 };
 use log::trace;
 
@@ -267,11 +267,39 @@ impl ResStackSidebarItem {
         this.imp().primary_ord.set(primary_ord);
         this.imp().secondary_ord.set(secondary_ord);
 
+        this.setup_signals();
+
         this
     }
 
     pub fn graph(&self) -> ResGraph {
         self.imp().graph.get()
+    }
+
+    pub fn setup_signals(&self) {
+        let style_manager = StyleManager::default();
+
+        self.update_class(style_manager.is_dark());
+
+        style_manager.connect_dark_notify(clone!(
+            #[weak(rename_to = this)]
+            self,
+            move |manager| {
+                this.update_class(manager.is_dark());
+            }
+        ));
+    }
+
+    fn update_class(&self, is_dark: bool) {
+        let label = &self.imp().graph_usage_label;
+
+        if is_dark {
+            label.add_css_class("dropshadow");
+            label.remove_css_class("dropshadow-light");
+        } else {
+            label.add_css_class("dropshadow-light");
+            label.remove_css_class("dropshadow");
+        }
     }
 
     pub fn set_meter_type(&self, meter_type: MeterType) {
