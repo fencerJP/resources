@@ -76,11 +76,11 @@
                 <property name="height-request">80</property>
                 <child type="overlay">
                   <object class="GtkLabel" id="graph_usage_label">
-                    <property name="halign">end</property>
+                    <property name="halign">start</property>
                     <property name="valign">start</property>
-                    <property name="margin-end">6</property>
-                    <property name="margin-start">6</property>
-                    <property name="margin-top">4</property>
+                    <property name="margin-end">8</property>
+                    <property name="margin-start">8</property>
+                    <property name="margin-top">6</property>
                     <property name="ellipsize">end</property>
                     <style>
                       <class name="subtitle"/>
