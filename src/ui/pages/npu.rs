@@ -201,7 +201,7 @@ impl ResNPU {
 
         let imp = self.imp();
 
-        let tab_id = format!("{}-{}", TAB_ID_PREFIX, &npu.pci_slot().to_string());
+        let tab_id = format!("{}-{}", TAB_ID_PREFIX, npu.pci_slot().to_string());
         imp.set_tab_id(&tab_id);
 
         imp.npu_usage.set_title_label(&i18n("Total Usage"));

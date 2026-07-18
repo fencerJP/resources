@@ -326,8 +326,8 @@ impl ResMemory {
                 "tab_usage_string",
                 format!(
                     "{} / {}",
-                    &convert_storage(used_mem as f64, false),
-                    &convert_storage(total_mem as f64, false)
+                    convert_storage(used_mem as f64, false),
+                    convert_storage(total_mem as f64, false)
                 ),
             );
         } else {

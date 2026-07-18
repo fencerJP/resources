@@ -417,8 +417,8 @@ impl ResCPU {
                 if let Some(frequency) = frequencies[i] {
                     curr_threadbox.set_title_label(&format!(
                         "{} · {}",
-                        &i18n_f("CPU {}", &[&(i + 1).to_string()]),
-                        &convert_frequency(frequency as f64)
+                        i18n_f("CPU {}", &[&(i + 1).to_string()]),
+                        convert_frequency(frequency as f64)
                     ));
                 } else {
                     curr_threadbox.set_title_label(&i18n_f("CPU {}", &[&(i + 1).to_string()]));

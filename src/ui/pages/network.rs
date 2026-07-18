@@ -237,7 +237,7 @@ impl ResNetwork {
 
         self.imp().set_icon(&network_interface.icon());
 
-        imp.set_tab_name(&i18n(&network_interface.interface_type.to_string()));
+        imp.set_tab_name(&i18n(network_interface.interface_type.to_string()));
 
         imp.receiving.set_title_label(&i18n("Receiving"));
         imp.receiving.graph().set_graph_color(0x34, 0xab, 0xaf);

@@ -208,7 +208,7 @@ impl ResGPU {
 
         let imp = self.imp();
 
-        let tab_id = format!("{}-{}", TAB_ID_PREFIX, &gpu.gpu_identifier());
+        let tab_id = format!("{}-{}", TAB_ID_PREFIX, gpu.gpu_identifier());
         imp.set_tab_id(&tab_id);
 
         imp.gpu_usage.set_title_label(&i18n("Total Usage"));

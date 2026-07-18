@@ -157,7 +157,7 @@ static MESSAGE_LOCALES: LazyLock<Vec<String>> = LazyLock::new(|| {
 
     debug!(
         "Using the following locales for app names and descriptions: {:?}",
-        &return_vec
+        return_vec
     );
 
     return_vec
@@ -505,9 +505,7 @@ impl App {
 
     #[must_use]
     pub fn memory_usage(&self, apps: &AppsContext) -> usize {
-        self.processes_iter(apps)
-            .map(|process| process.mem_usage())
-            .sum()
+        self.processes_iter(apps).map(Process::mem_usage).sum()
     }
 
     #[must_use]
