@@ -8,6 +8,13 @@ use log::trace;
 
 use super::graph::ResGraph;
 
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum MeterType {
+    NoMeter,
+    Graph,
+    ProgressBar,
+}
+
 mod imp {
     use std::cell::{Cell, RefCell};
 
@@ -32,11 +39,23 @@ mod imp {
         #[template_child]
         pub detail_label: TemplateChild<gtk::Label>,
         #[template_child]
-        pub usage_label: TemplateChild<gtk::Label>,
+        pub meter_stack: TemplateChild<gtk::Stack>,
         #[template_child]
-        pub progress_bar: TemplateChild<gtk::ProgressBar>,
+        pub no_meter_page: TemplateChild<gtk::Box>,
+        #[template_child]
+        pub graph_page: TemplateChild<gtk::Overlay>,
         #[template_child]
         pub graph: TemplateChild<ResGraph>,
+        #[template_child]
+        pub graph_usage_label: TemplateChild<gtk::Label>,
+        #[template_child]
+        pub progress_page: TemplateChild<gtk::Box>,
+        #[template_child]
+        pub usage_label: TemplateChild<gtk::Label>,
+        #[template_child]
+        pub usage_label_bar: TemplateChild<gtk::Label>,
+        #[template_child]
+        pub progress_bar: TemplateChild<gtk::ProgressBar>,
 
         #[property(get = Self::name, set = Self::set_name, type = glib::GString)]
         name: Cell<glib::GString>,
@@ -48,6 +67,8 @@ mod imp {
         icon: RefCell<Icon>,
         #[property(get, set = Self::set_usage)]
         usage: Cell<f64>,
+        #[property(get = Self::graph_usage_label_text, set = Self::set_graph_usage_label_text, type = glib::GString)]
+        graph_usage_label_text: RefCell<glib::GString>,
         #[property(get = Self::tab_id, set = Self::set_tab_id, type = glib::GString)]
         tab_id: Cell<glib::GString>,
 
@@ -115,6 +136,15 @@ mod imp {
             self.icon.set(icon.clone());
         }
 
+        pub fn graph_usage_label_text(&self) -> glib::GString {
+            self.graph_usage_label_text.borrow().clone()
+        }
+
+        pub fn set_graph_usage_label_text(&self, text: &str) {
+            self.graph_usage_label_text.set(glib::GString::from(text));
+            self.graph_usage_label.set_label(text);
+        }
+
         pub fn set_usage(&self, usage: f64) {
             self.usage.set(usage);
 
@@ -136,15 +166,22 @@ mod imp {
             Self {
                 image: Default::default(),
                 label: Default::default(),
-                progress_bar: Default::default(),
+                meter_stack: Default::default(),
+                no_meter_page: Default::default(),
+                graph_page: Default::default(),
                 graph: Default::default(),
-                detail_label: Default::default(),
+                graph_usage_label: Default::default(),
+                progress_page: Default::default(),
                 usage_label: Default::default(),
+                usage_label_bar: Default::default(),
+                progress_bar: Default::default(),
+                detail_label: Default::default(),
                 name: Default::default(),
                 detail: Default::default(),
                 subtitle: Default::default(),
                 icon: RefCell::new(ThemedIcon::new("generic-process").into()),
                 usage: Default::default(),
+                graph_usage_label_text: RefCell::new(glib::GString::new()),
                 tab_id: Default::default(),
                 primary_ord: Default::default(),
                 secondary_ord: Default::default(),
@@ -233,16 +270,38 @@ impl ResStackSidebarItem {
         this
     }
 
-    pub fn set_progress_bar_visible(&self, visible: bool) {
-        self.imp().progress_bar.set_visible(visible);
-    }
-
     pub fn graph(&self) -> ResGraph {
         self.imp().graph.get()
     }
 
-    pub fn set_usage_label_visible(&self, visible: bool) {
-        self.imp().usage_label.set_visible(visible);
+    pub fn set_meter_type(&self, meter_type: MeterType) {
+        let imp = self.imp();
+        let no_meter = imp.no_meter_page.get();
+        let graph = imp.graph_page.get();
+        let progress = imp.progress_page.get();
+
+        no_meter.set_visible(false);
+        graph.set_visible(false);
+        progress.set_visible(false);
+
+        match meter_type {
+            MeterType::NoMeter => {
+                no_meter.set_visible(true);
+                self.imp().meter_stack.set_visible_child(&no_meter);
+            }
+            MeterType::Graph => {
+                graph.set_visible(true);
+                self.imp().meter_stack.set_visible_child(&graph);
+            }
+            MeterType::ProgressBar => {
+                progress.set_visible(true);
+                self.imp().meter_stack.set_visible_child(&progress);
+            }
+        }
+    }
+
+    pub fn graph_usage_label(&self) -> gtk::Label {
+        self.imp().graph_usage_label.get()
     }
 
     pub fn set_detail_label_visible(&self, visible: bool) {

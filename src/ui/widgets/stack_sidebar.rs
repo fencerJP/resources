@@ -4,13 +4,14 @@ use adw::{prelude::*, subclass::prelude::*};
 use gtk::{
     Ordering,
     glib::{self, GString, clone},
+    prelude::WidgetExt,
 };
 use log::trace;
 use std::collections::HashMap;
 
 use crate::utils::settings::{SETTINGS, SidebarMeterType};
 
-use super::stack_sidebar_item::ResStackSidebarItem;
+use super::stack_sidebar_item::{MeterType, ResStackSidebarItem};
 
 mod imp {
     use std::{
@@ -188,15 +189,6 @@ impl ResStackSidebar {
                 .sync_create()
                 .build();
 
-            sidebar_item.set_usage_label_visible(SETTINGS.sidebar_details());
-            SETTINGS.connect_sidebar_details(clone!(
-                #[weak(rename_to = item)]
-                sidebar_item,
-                move |sidebar_details| {
-                    item.set_usage_label_visible(sidebar_details);
-                }
-            ));
-
             let has_duplicates = type_counts.get(&child.type_()).copied().unwrap_or(0) > 1;
             sidebar_item.set_detail_label_visible(
                 has_duplicates && !child.property::<GString>("tab_detail_string").is_empty(),
@@ -209,25 +201,49 @@ impl ResStackSidebar {
                     sidebar_item.graph().set_graph_color(b[0], b[1], b[2]);
                 }
 
-                sidebar_item.set_progress_bar_visible(
-                    SETTINGS.sidebar_meter_type() == SidebarMeterType::ProgressBar,
-                );
-                sidebar_item
-                    .graph()
-                    .set_visible(SETTINGS.sidebar_meter_type() == SidebarMeterType::Graph);
+                let meter_type = match SETTINGS.sidebar_meter_type() {
+                    SidebarMeterType::Graph => MeterType::Graph,
+                    SidebarMeterType::ProgressBar => MeterType::ProgressBar,
+                };
+                sidebar_item.set_meter_type(meter_type);
+
                 SETTINGS.connect_sidebar_meter_type(clone!(
                     #[weak(rename_to = item)]
                     sidebar_item,
                     move |sidebar_meter_type| {
-                        item.set_progress_bar_visible(
-                            sidebar_meter_type == SidebarMeterType::ProgressBar,
-                        );
-                        item.graph()
-                            .set_visible(sidebar_meter_type == SidebarMeterType::Graph);
+                        let meter_type = match sidebar_meter_type {
+                            SidebarMeterType::Graph => MeterType::Graph,
+                            SidebarMeterType::ProgressBar => MeterType::ProgressBar,
+                        };
+                        item.set_meter_type(meter_type);
                     }
                 ));
+
                 child
                     .bind_property("usage", &sidebar_item, "usage")
+                    .sync_create()
+                    .build();
+
+                child
+                    .bind_property("tab_usage_string", &sidebar_item, "graph_usage_label_text")
+                    .sync_create()
+                    .build();
+
+                child
+                    .bind_property(
+                        "tab_usage_string",
+                        &sidebar_item.imp().usage_label.get(),
+                        "label",
+                    )
+                    .sync_create()
+                    .build();
+
+                child
+                    .bind_property(
+                        "tab_usage_string",
+                        &sidebar_item.imp().usage_label_bar.get(),
+                        "label",
+                    )
                     .sync_create()
                     .build();
 
@@ -236,8 +252,7 @@ impl ResStackSidebar {
                     sidebar_item.graph().push_data_points(data);
                 }
             } else {
-                sidebar_item.set_progress_bar_visible(false);
-                sidebar_item.graph().set_visible(false);
+                sidebar_item.set_meter_type(MeterType::NoMeter);
             }
 
             let row = gtk::ListBoxRow::builder()
