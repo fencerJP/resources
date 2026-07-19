@@ -30,10 +30,6 @@ mod imp {
         #[template_child]
         pub graph_data_points_row: TemplateChild<adw::SpinRow>,
         #[template_child]
-        pub sidebar_details_row: TemplateChild<adw::SwitchRow>,
-        #[template_child]
-        pub sidebar_description_row: TemplateChild<adw::SwitchRow>,
-        #[template_child]
         pub sidebar_meter_type_row: TemplateChild<adw::ComboRow>,
         #[template_child]
         pub normalize_cpu_usage_row: TemplateChild<adw::SwitchRow>,
@@ -187,10 +183,6 @@ impl ResSettingsDialog {
             .set_active(SETTINGS.show_graph_grids());
         imp.graph_data_points_row
             .set_value(f64::from(SETTINGS.graph_data_points()));
-        imp.sidebar_details_row
-            .set_active(SETTINGS.sidebar_details());
-        imp.sidebar_description_row
-            .set_active(SETTINGS.sidebar_description());
         imp.sidebar_meter_type_row
             .set_selected(SETTINGS.sidebar_meter_type() as u32);
         imp.normalize_cpu_usage_row
@@ -305,15 +297,6 @@ impl ResSettingsDialog {
             let _ = SETTINGS.set_graph_data_points(spin_row.value() as u32);
             false
         });
-
-        imp.sidebar_details_row.connect_active_notify(|switch_row| {
-            let _ = SETTINGS.set_sidebar_details(switch_row.is_active());
-        });
-
-        imp.sidebar_description_row
-            .connect_active_notify(|switch_row| {
-                let _ = SETTINGS.set_sidebar_description(switch_row.is_active());
-            });
 
         imp.sidebar_meter_type_row
             .connect_selected_item_notify(|combo_row| {

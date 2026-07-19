@@ -19,6 +19,7 @@ use crate::devices::app::AppsContext;
 use crate::devices::process::ProcessAction;
 use crate::ui::dialogs::app_dialog::ResAppDialog;
 use crate::ui::pages::{MAX_PERCENTAGE_LENGTH, MAX_SPEED_LENGTH, MAX_STORAGE_LENGTH};
+use crate::ui::widgets::stack_sidebar_item::UsageLabels;
 use crate::ui::window::{Action, MainWindow};
 use crate::utils::NUM_CPUS;
 use crate::utils::i18n::{i18n, i18n_f};
@@ -36,7 +37,9 @@ mod imp {
         sync::OnceLock,
     };
 
-    use crate::ui::{pages::APPLICATIONS_PRIMARY_ORD, window::Action};
+    use crate::ui::{
+        pages::APPLICATIONS_PRIMARY_ORD, widgets::stack_sidebar_item::UsageLabels, window::Action,
+    };
 
     use super::*;
 
@@ -82,7 +85,7 @@ mod imp {
         pub columns: RefCell<Vec<ColumnViewColumn>>,
 
         #[property(get)]
-        uses_progress_bar: Cell<bool>,
+        uses_meter: Cell<bool>,
 
         #[property(get)]
         icon: RefCell<Icon>,
@@ -93,8 +96,8 @@ mod imp {
         #[property(get = Self::tab_detail_string, type = glib::GString)]
         tab_detail_string: Cell<glib::GString>,
 
-        #[property(get = Self::tab_usage_string, set = Self::set_tab_usage_string, type = glib::GString)]
-        tab_usage_string: Cell<glib::GString>,
+        #[property(get, set, type = UsageLabels)]
+        tab_usage_labels: RefCell<UsageLabels>,
 
         #[property(get = Self::tab_id, type = glib::GString)]
         tab_id: Cell<glib::GString>,
@@ -110,7 +113,7 @@ mod imp {
     }
 
     impl ResApplications {
-        gstring_getter_setter!(tab_name, tab_detail_string, tab_usage_string, tab_id);
+        gstring_getter_setter!(tab_name, tab_detail_string, tab_id);
     }
 
     impl Default for ResApplications {
@@ -132,11 +135,11 @@ mod imp {
                 applications_scrolled_window: Default::default(),
                 end_application_button: Default::default(),
                 toolbar_view: Default::default(),
-                uses_progress_bar: Cell::new(false),
+                uses_meter: Cell::new(false),
                 icon: RefCell::new(ThemedIcon::new("app-symbolic").into()),
                 tab_name: Cell::from(glib::GString::from(i18n("Apps"))),
                 tab_detail_string: Cell::new(glib::GString::new()),
-                tab_usage_string: Cell::new(glib::GString::new()),
+                tab_usage_labels: Default::default(),
                 tab_id: Cell::new(glib::GString::from(TAB_ID)),
                 popped_over_app: Default::default(),
                 columns: Default::default(),
@@ -841,10 +844,10 @@ impl ResApplications {
         }
 
         // -1 because we don't want to count System Processes
-        self.set_tab_usage_string(i18n_f(
+        self.set_tab_usage_labels(UsageLabels::single_without_icon(i18n_f(
             "Running Apps: {}",
             &[&(store.n_items().saturating_sub(1)).to_string()],
-        ));
+        )));
     }
 
     pub fn open_app_action_dialog(&self, app: &ApplicationEntry, action: ProcessAction) {

@@ -24,6 +24,7 @@ use crate::ui::dialogs::process_options_dialog::ResProcessOptionsDialog;
 use crate::ui::pages::{
     MAX_PERCENTAGE_LENGTH, MAX_PID_LENGTH, MAX_SPEED_LENGTH, MAX_STORAGE_LENGTH, NICE_TO_LABEL,
 };
+use crate::ui::widgets::stack_sidebar_item::UsageLabels;
 use crate::ui::window::{Action, MainWindow};
 use crate::utils::NUM_CPUS;
 use crate::utils::i18n::{i18n, i18n_f, ni18n_f};
@@ -62,7 +63,7 @@ mod imp {
 
     use crate::ui::{
         dialogs::process_options_dialog::ResProcessOptionsDialog, pages::PROCESSES_PRIMARY_ORD,
-        window::Action,
+        widgets::stack_sidebar_item::UsageLabels, window::Action,
     };
 
     use super::*;
@@ -120,7 +121,7 @@ mod imp {
         pub columns: RefCell<Vec<ColumnViewColumn>>,
 
         #[property(get)]
-        uses_progress_bar: Cell<bool>,
+        uses_meter: Cell<bool>,
 
         #[property(get)]
         icon: RefCell<Icon>,
@@ -131,8 +132,8 @@ mod imp {
         #[property(get = Self::tab_detail_string, type = glib::GString)]
         tab_detail_string: Cell<glib::GString>,
 
-        #[property(get = Self::tab_usage_string, set = Self::set_tab_usage_string, type = glib::GString)]
-        tab_usage_string: Cell<glib::GString>,
+        #[property(get, set, type = UsageLabels)]
+        tab_usage_labels: RefCell<UsageLabels>,
 
         #[property(get = Self::tab_id, type = glib::GString)]
         tab_id: Cell<glib::GString>,
@@ -148,7 +149,7 @@ mod imp {
     }
 
     impl ResProcesses {
-        gstring_getter_setter!(tab_name, tab_detail_string, tab_usage_string, tab_id);
+        gstring_getter_setter!(tab_name, tab_detail_string, tab_id);
     }
 
     impl Default for ResProcesses {
@@ -176,11 +177,11 @@ mod imp {
                 info_dialog_closed: Default::default(),
                 options_dialog_closed: Default::default(),
                 sender: Default::default(),
-                uses_progress_bar: Cell::new(false),
+                uses_meter: Cell::new(false),
                 icon: RefCell::new(ThemedIcon::new("generic-process-symbolic").into()),
                 tab_name: Cell::new(glib::GString::from(i18n("Processes"))),
                 tab_detail_string: Cell::new(glib::GString::new()),
-                tab_usage_string: Cell::new(glib::GString::new()),
+                tab_usage_labels: Default::default(),
                 tab_id: Cell::new(glib::GString::from(TAB_ID)),
                 popped_over_process: Default::default(),
                 columns: Default::default(),
@@ -1118,10 +1119,10 @@ impl ResProcesses {
             imp.end_process_button.set_sensitive(false);
         }
 
-        self.set_tab_usage_string(i18n_f(
+        self.set_tab_usage_labels(UsageLabels::single_without_icon(i18n_f(
             "Running Processes: {}",
             &[&(store.n_items()).to_string()],
-        ));
+        )));
     }
 
     pub fn open_process_action_dialog(&self, processes: Vec<ProcessEntry>, action: ProcessAction) {

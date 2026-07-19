@@ -157,7 +157,7 @@ impl ResGraphBox {
 
             let subtitle = format!(
                 "{} · {} {}",
-                &value_string,
+                value_string,
                 i18n("Highest:"),
                 highest_value_string
             );

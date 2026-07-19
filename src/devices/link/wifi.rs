@@ -153,8 +153,8 @@ impl WifiLinkData {
 
         format!(
             "{} · {}",
-            &i18n_f("Receive: {}", &[&receive_string]),
-            &i18n_f("Send: {}", &[&send_string]),
+            i18n_f("Receive: {}", &[&receive_string]),
+            i18n_f("Send: {}", &[&send_string]),
         )
     }
 }

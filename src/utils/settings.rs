@@ -331,8 +331,6 @@ impl Settings {
     bool_settings!(
         show_virtual_drives,
         show_virtual_network_interfaces,
-        sidebar_details,
-        sidebar_description,
         network_bits,
         apps_show_memory,
         apps_show_cpu,

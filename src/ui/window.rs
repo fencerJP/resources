@@ -186,7 +186,7 @@ mod imp {
             debug!("Closing the application…");
 
             if let Err(err) = self.obj().save_window_size() {
-                warn!("Failed to save window state, {}", &err);
+                warn!("Failed to save window state, {}", err);
             }
 
             // Pass close request on to the parent
