@@ -4,7 +4,8 @@ use crate::config::DEVLOPMENT_BUILD;
 use crate::devices::link::LinkData;
 use crate::devices::network::{NetworkData, NetworkInterface};
 use crate::ui::set_subtitle_converted_maybe;
-use crate::utils::i18n::{i18n, i18n_f};
+use crate::ui::widgets::stack_sidebar_item::UsageLabels;
+use crate::utils::i18n::i18n;
 use crate::utils::units::{convert_speed_bits_decimal, convert_storage};
 use adw::{glib::property::PropertySet, prelude::*, subclass::prelude::*};
 use gtk::glib;
@@ -57,7 +58,7 @@ mod imp {
         pub last_timestamp: Cell<SystemTime>,
 
         #[property(get)]
-        uses_progress_bar: Cell<bool>,
+        uses_meter: Cell<bool>,
 
         #[property(get)]
         main_graph_color: glib::Bytes,
@@ -75,9 +76,8 @@ mod imp {
         )]
         tab_detail_string: Cell<glib::GString>,
 
-        #[property(get = Self::tab_usage_string, set = Self::set_tab_usage_string, type = glib::GString
-        )]
-        tab_usage_string: Cell<glib::GString>,
+        #[property(get, set, type = UsageLabels)]
+        tab_usage_labels: RefCell<UsageLabels>,
 
         #[property(get = Self::tab_id, set = Self::set_tab_id, type = glib::GString)]
         tab_id: Cell<glib::GString>,
@@ -93,7 +93,7 @@ mod imp {
     }
 
     impl ResNetwork {
-        gstring_getter_setter!(tab_name, tab_detail_string, tab_usage_string, tab_id);
+        gstring_getter_setter!(tab_name, tab_detail_string, tab_id);
 
         pub fn icon(&self) -> Icon {
             let icon = self.icon.replace_with(|_| NetworkInterface::default_icon());
@@ -121,7 +121,7 @@ mod imp {
                 network_name: Default::default(),
                 link: Default::default(),
                 link_speed: Default::default(),
-                uses_progress_bar: Cell::new(true),
+                uses_meter: Cell::new(true),
                 main_graph_color: glib::Bytes::from_static(&super::ResNetwork::MAIN_GRAPH_COLOR),
                 icon: RefCell::new(ThemedIcon::new("unknown-network-type-symbolic").into()),
                 usage: Default::default(),
@@ -135,7 +135,7 @@ mod imp {
                         .checked_sub(Duration::from_secs(1))
                         .unwrap(),
                 ),
-                tab_usage_string: Cell::new(glib::GString::new()),
+                tab_usage_labels: Default::default(),
                 graph_locked_max_y: Cell::new(false),
                 primary_ord: Cell::new(NETWORK_PRIMARY_ORD),
                 secondary_ord: Default::default(),
@@ -403,15 +403,11 @@ impl ResNetwork {
             received_delta.unwrap_or_default() + sent_delta.unwrap_or_default(),
         );
 
-        self.set_property(
-            "tab_usage_string",
-            i18n_f(
-                // Translators: This is an abbreviation for "Receive" and "Send". This is displayed in the sidebar so
-                // your translation should preferably be quite short or an abbreviation
-                "R: {} · S: {}",
-                &[&received_string, &sent_string],
-            ),
-        );
+        let mut usage_labels = UsageLabels::default();
+        usage_labels.add_with_icon("downstream-symbolic", "Receiving", received_string);
+        usage_labels.add_with_icon("upstream-symbolic", "Sending", sent_string);
+
+        self.set_tab_usage_labels(usage_labels);
 
         imp.last_timestamp.set(SystemTime::now());
     }

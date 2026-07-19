@@ -47,13 +47,11 @@
                 <property name="orientation">vertical</property>
                 <property name="spacing">2</property>
                 <child>
-                  <object class="GtkLabel" id="usage_label">
-                    <property name="xalign">0</property>
-                    <property name="hexpand">1</property>
-                    <property name="ellipsize">end</property>
+                  <object class="GtkBox" id="usage_label_no_meter">
+                    <property name="orientation">horizontal</property>
                     <style>
-                      <class name="dimmed"/>
                       <class name="caption"/>
+                      <class name="dimmed"/>
                     </style>
                   </object>
                 </child>
@@ -76,16 +74,17 @@
                 <property name="overflow">hidden</property>
                 <property name="height-request">80</property>
                 <child type="overlay">
-                  <object class="GtkLabel" id="graph_usage_label">
+                  <object class="GtkBox" id="usage_label_graph">
                     <property name="halign">start</property>
                     <property name="valign">start</property>
                     <property name="margin-end">8</property>
                     <property name="margin-start">8</property>
                     <property name="margin-top">6</property>
-                    <property name="ellipsize">end</property>
+                    <property name="spacing">10</property>
+                    <property name="orientation">horizontal</property>
                     <style>
-                      <class name="dimmed"/>
                       <class name="caption"/>
+                      <class name="dimmed"/>
                     </style>
                   </object>
                 </child>
@@ -96,13 +95,12 @@
                 <property name="orientation">vertical</property>
                 <property name="spacing">2</property>
                 <child>
-                  <object class="GtkLabel" id="usage_label_bar">
-                    <property name="xalign">0</property>
-                    <property name="hexpand">1</property>
-                    <property name="ellipsize">end</property>
+                  <object class="GtkBox" id="usage_label_bar">
+                    <property name="orientation">horizontal</property>
+                    <property name="spacing">10</property>
                     <style>
-                      <class name="dimmed"/>
                       <class name="caption"/>
+                      <class name="dimmed"/>
                     </style>
                   </object>
                 </child>

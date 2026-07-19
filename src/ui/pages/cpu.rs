@@ -8,6 +8,7 @@ use log::trace;
 use crate::config::DEVLOPMENT_BUILD;
 use crate::devices::cpu::{CpuData, CpuInfo};
 use crate::ui::widgets::graph_box::ResGraphBox;
+use crate::ui::widgets::stack_sidebar_item::UsageLabels;
 use crate::utils::i18n::{i18n, i18n_f};
 use crate::utils::settings::SETTINGS;
 use crate::utils::units::{
@@ -68,7 +69,7 @@ mod imp {
         pub logical_cpus_amount: Cell<usize>,
 
         #[property(get)]
-        uses_progress_bar: Cell<bool>,
+        uses_meter: Cell<bool>,
 
         #[property(get)]
         main_graph_color: glib::Bytes,
@@ -85,8 +86,8 @@ mod imp {
         #[property(get = Self::tab_detail_string, set = Self::set_tab_detail_string, type = glib::GString)]
         tab_detail_string: Cell<glib::GString>,
 
-        #[property(get = Self::tab_usage_string, set = Self::set_tab_usage_string, type = glib::GString)]
-        tab_usage_string: Cell<glib::GString>,
+        #[property(get, set, type = UsageLabels)]
+        tab_usage_labels: RefCell<UsageLabels>,
 
         #[property(get = Self::tab_id, type = glib::GString)]
         tab_id: Cell<glib::GString>,
@@ -102,7 +103,7 @@ mod imp {
     }
 
     impl ResCPU {
-        gstring_getter_setter!(tab_name, tab_detail_string, tab_usage_string, tab_id);
+        gstring_getter_setter!(tab_name, tab_detail_string, tab_id);
     }
 
     impl Default for ResCPU {
@@ -123,13 +124,13 @@ mod imp {
                 architecture: Default::default(),
                 temperature: Default::default(),
                 thread_graphs: Default::default(),
-                uses_progress_bar: Cell::new(true),
+                uses_meter: Cell::new(true),
                 main_graph_color: glib::Bytes::from_static(&super::ResCPU::MAIN_GRAPH_COLOR),
                 icon: RefCell::new(ThemedIcon::new("processor-symbolic").into()),
                 usage: Default::default(),
                 tab_name: Cell::new(glib::GString::from(i18n("Processor"))),
                 tab_detail_string: Cell::new(glib::GString::new()),
-                tab_usage_string: Cell::new(glib::GString::new()),
+                tab_usage_labels: Default::default(),
                 tab_id: Cell::new(glib::GString::from(TAB_ID)),
                 old_total_usage: Cell::default(),
                 old_thread_usages: RefCell::default(),
@@ -388,7 +389,7 @@ impl ResCPU {
             total_fraction * *NUM_CPUS as f64
         };
 
-        let mut percentage_string = convert_fraction(display_fraction, true);
+        let percentage_string = convert_fraction(display_fraction, true);
         imp.total_cpu.set_subtitle(&percentage_string);
 
         imp.old_total_usage.set(new_total_usage);
@@ -430,13 +431,19 @@ impl ResCPU {
         imp.temperature
             .add_temperature_point(temperature.as_ref().ok().map(|temp| *temp as f64));
 
+        let mut usage_labels = UsageLabels::default();
+        usage_labels.add_with_icon("speedometer-symbolic", "Usage", percentage_string);
+
         if let Ok(temperature) = temperature {
-            percentage_string.push_str(" · ");
-            percentage_string.push_str(&convert_temperature(*temperature as f64));
-        };
+            usage_labels.add_with_icon(
+                "thermometer-symbolic",
+                "Temperature",
+                convert_temperature(*temperature as f64),
+            );
+        }
 
         self.set_property("usage", total_fraction);
 
-        self.set_property("tab_usage_string", percentage_string);
+        self.set_tab_usage_labels(usage_labels);
     }
 }

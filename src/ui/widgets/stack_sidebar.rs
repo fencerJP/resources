@@ -162,7 +162,6 @@ impl ResStackSidebar {
                 child.property("tab_name"),
                 child.property("icon"),
                 child.property("tab_detail_string"),
-                child.property("tab_usage_string"),
                 child.property("graph_locked_max_y"),
                 child.property("tab_id"),
                 child.property("primary_ord"),
@@ -180,11 +179,6 @@ impl ResStackSidebar {
                 .build();
 
             child
-                .bind_property("tab_usage_string", &sidebar_item, "subtitle")
-                .sync_create()
-                .build();
-
-            child
                 .bind_property("tab_detail_string", &sidebar_item, "detail")
                 .sync_create()
                 .build();
@@ -194,8 +188,13 @@ impl ResStackSidebar {
                 has_duplicates && !child.property::<GString>("tab_detail_string").is_empty(),
             );
 
+            child
+                .bind_property("tab_usage_labels", &sidebar_item, "usage_labels")
+                .sync_create()
+                .build();
+
             // TODO: generalize to "uses_meter"?
-            if child.property::<bool>("uses_progress_bar") {
+            if child.property::<bool>("uses_meter") {
                 if child.has_property("main_graph_color") {
                     let b = child.property::<glib::Bytes>("main_graph_color");
                     sidebar_item.graph().set_graph_color(b[0], b[1], b[2]);
@@ -221,29 +220,6 @@ impl ResStackSidebar {
 
                 child
                     .bind_property("usage", &sidebar_item, "usage")
-                    .sync_create()
-                    .build();
-
-                child
-                    .bind_property("tab_usage_string", &sidebar_item, "graph_usage_label_text")
-                    .sync_create()
-                    .build();
-
-                child
-                    .bind_property(
-                        "tab_usage_string",
-                        &sidebar_item.imp().usage_label.get(),
-                        "label",
-                    )
-                    .sync_create()
-                    .build();
-
-                child
-                    .bind_property(
-                        "tab_usage_string",
-                        &sidebar_item.imp().usage_label_bar.get(),
-                        "label",
-                    )
                     .sync_create()
                     .build();
 

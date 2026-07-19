@@ -15,6 +15,30 @@ pub enum MeterType {
     ProgressBar,
 }
 
+#[derive(Clone, Default, Debug, glib::Boxed)]
+#[boxed_type(name = "ResUsageLabels")]
+pub struct UsageLabels(Vec<(Option<(glib::GString, glib::GString)>, glib::GString)>);
+
+impl UsageLabels {
+    pub fn single_without_icon<G: Into<glib::GString>>(text: G) -> Self {
+        Self(vec![(None, text.into())])
+    }
+
+    pub fn add_with_icon<
+        G1: Into<glib::GString>,
+        G2: Into<glib::GString>,
+        G3: Into<glib::GString>,
+    >(
+        &mut self,
+        icon_name: G1,
+        tooltip: G2,
+        text: G3,
+    ) {
+        self.0
+            .push((Some((icon_name.into(), tooltip.into())), text.into()));
+    }
+}
+
 mod imp {
     use std::cell::{Cell, RefCell};
 
@@ -47,13 +71,13 @@ mod imp {
         #[template_child]
         pub graph: TemplateChild<ResGraph>,
         #[template_child]
-        pub graph_usage_label: TemplateChild<gtk::Label>,
+        pub usage_label_graph: TemplateChild<gtk::Box>,
         #[template_child]
         pub progress_page: TemplateChild<gtk::Box>,
         #[template_child]
-        pub usage_label: TemplateChild<gtk::Label>,
+        pub usage_label_no_meter: TemplateChild<gtk::Box>,
         #[template_child]
-        pub usage_label_bar: TemplateChild<gtk::Label>,
+        pub usage_label_bar: TemplateChild<gtk::Box>,
         #[template_child]
         pub progress_bar: TemplateChild<gtk::ProgressBar>,
 
@@ -67,8 +91,8 @@ mod imp {
         icon: RefCell<Icon>,
         #[property(get, set = Self::set_usage)]
         usage: Cell<f64>,
-        #[property(get = Self::graph_usage_label_text, set = Self::set_graph_usage_label_text, type = glib::GString)]
-        graph_usage_label_text: RefCell<glib::GString>,
+        #[property(get, set = Self::set_usage_string, type = UsageLabels)]
+        usage_labels: RefCell<UsageLabels>,
         #[property(get = Self::tab_id, set = Self::set_tab_id, type = glib::GString)]
         tab_id: Cell<glib::GString>,
 
@@ -77,6 +101,18 @@ mod imp {
     }
 
     impl ResStackSidebarItem {
+        fn visible_usage_box(&self) -> gtk::Box {
+            if let Some(visible) = self.meter_stack.visible_child() {
+                if visible == self.no_meter_page.get().upcast::<gtk::Widget>() {
+                    return self.usage_label_no_meter.get();
+                } else if visible == self.progress_page.get().upcast::<gtk::Widget>() {
+                    return self.usage_label_bar.get();
+                }
+            }
+
+            self.usage_label_graph.get()
+        }
+
         pub fn name(&self) -> glib::GString {
             let name = self.name.take();
             self.name.set(name.clone());
@@ -105,7 +141,6 @@ mod imp {
                 self.subtitle.set(current_usage_string);
                 return;
             }
-            self.usage_label.set_label(usage_string);
         }
 
         pub fn detail(&self) -> glib::GString {
@@ -136,13 +171,15 @@ mod imp {
             self.icon.set(icon.clone());
         }
 
-        pub fn graph_usage_label_text(&self) -> glib::GString {
-            self.graph_usage_label_text.borrow().clone()
+        pub fn set_usage_string(&self, contents: UsageLabels) {
+            self.usage_labels.replace(contents);
+            let visible_box = self.visible_usage_box();
+            Self::fill_usage_box(&visible_box, &self.usage_labels.borrow());
         }
 
-        pub fn set_graph_usage_label_text(&self, text: &str) {
-            self.graph_usage_label_text.set(glib::GString::from(text));
-            self.graph_usage_label.set_label(text);
+        pub fn refresh_visible_usage_box(&self) {
+            let visible_box = self.visible_usage_box();
+            Self::fill_usage_box(&visible_box, &self.usage_labels.borrow());
         }
 
         pub fn set_usage(&self, usage: f64) {
@@ -158,6 +195,31 @@ mod imp {
             self.graph.push_data_point(usage);
         }
 
+        pub fn fill_usage_box(usage_box: &gtk::Box, contents: &UsageLabels) {
+            // clear existing children
+            while let Some(child) = usage_box.first_child() {
+                usage_box.remove(&child);
+            }
+
+            let items = &contents.0;
+
+            for (icon_name, label) in items.iter() {
+                let item_box = gtk::Box::new(gtk::Orientation::Horizontal, 4);
+
+                if let Some(name) = icon_name {
+                    let icon = gtk::Image::from_gicon(&ThemedIcon::new(&name.0));
+                    icon.set_tooltip_text(Some(&name.1));
+                    icon.set_pixel_size(12);
+                    item_box.append(&icon);
+                }
+
+                let lbl = gtk::Label::new(Some(label.as_str()));
+                item_box.append(&lbl);
+
+                usage_box.append(&item_box);
+            }
+        }
+
         gstring_getter_setter!(tab_id);
     }
 
@@ -170,9 +232,9 @@ mod imp {
                 no_meter_page: Default::default(),
                 graph_page: Default::default(),
                 graph: Default::default(),
-                graph_usage_label: Default::default(),
+                usage_label_graph: Default::default(),
                 progress_page: Default::default(),
-                usage_label: Default::default(),
+                usage_label_no_meter: Default::default(),
                 usage_label_bar: Default::default(),
                 progress_bar: Default::default(),
                 detail_label: Default::default(),
@@ -181,7 +243,7 @@ mod imp {
                 subtitle: Default::default(),
                 icon: RefCell::new(ThemedIcon::new("generic-process").into()),
                 usage: Default::default(),
-                graph_usage_label_text: RefCell::new(glib::GString::new()),
+                usage_labels: Default::default(),
                 tab_id: Default::default(),
                 primary_ord: Default::default(),
                 secondary_ord: Default::default(),
@@ -239,7 +301,6 @@ impl ResStackSidebarItem {
         name: String,
         icon: Icon,
         detail: Option<String>,
-        usage_string: String,
         locked_max_y: bool,
         tab_id: String,
         primary_ord: u32,
@@ -252,7 +313,6 @@ impl ResStackSidebarItem {
             .property("name", name)
             .property("icon", icon)
             .property("detail", &detail)
-            .property("subtitle", usage_string)
             .build();
 
         this.imp()
@@ -291,7 +351,7 @@ impl ResStackSidebarItem {
     }
 
     fn update_class(&self, is_dark: bool) {
-        let label = &self.imp().graph_usage_label;
+        let label = &self.imp().usage_label_graph;
 
         if is_dark {
             label.add_css_class("dropshadow");
@@ -326,10 +386,8 @@ impl ResStackSidebarItem {
                 self.imp().meter_stack.set_visible_child(&progress);
             }
         }
-    }
 
-    pub fn graph_usage_label(&self) -> gtk::Label {
-        self.imp().graph_usage_label.get()
+        imp.refresh_visible_usage_box();
     }
 
     pub fn set_detail_label_visible(&self, visible: bool) {
