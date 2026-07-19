@@ -71,13 +71,13 @@ mod imp {
         #[template_child]
         pub graph: TemplateChild<ResGraph>,
         #[template_child]
-        pub usage_label_graph: TemplateChild<gtk::Box>,
+        pub usage_label_graph: TemplateChild<gtk::FlowBox>,
         #[template_child]
         pub progress_page: TemplateChild<gtk::Box>,
         #[template_child]
-        pub usage_label_no_meter: TemplateChild<gtk::Box>,
+        pub usage_label_no_meter: TemplateChild<gtk::FlowBox>,
         #[template_child]
-        pub usage_label_bar: TemplateChild<gtk::Box>,
+        pub usage_label_bar: TemplateChild<gtk::FlowBox>,
         #[template_child]
         pub progress_bar: TemplateChild<gtk::ProgressBar>,
 
@@ -101,7 +101,7 @@ mod imp {
     }
 
     impl ResStackSidebarItem {
-        fn visible_usage_box(&self) -> gtk::Box {
+        fn visible_usage_box(&self) -> gtk::FlowBox {
             if let Some(visible) = self.meter_stack.visible_child() {
                 if visible == self.no_meter_page.get().upcast::<gtk::Widget>() {
                     return self.usage_label_no_meter.get();
@@ -195,11 +195,8 @@ mod imp {
             self.graph.push_data_point(usage);
         }
 
-        pub fn fill_usage_box(usage_box: &gtk::Box, contents: &UsageLabels) {
-            // clear existing children
-            while let Some(child) = usage_box.first_child() {
-                usage_box.remove(&child);
-            }
+        pub fn fill_usage_box(usage_box: &gtk::FlowBox, contents: &UsageLabels) {
+            usage_box.remove_all();
 
             let items = &contents.0;
 

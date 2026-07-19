@@ -47,10 +47,16 @@
                 <property name="orientation">vertical</property>
                 <property name="spacing">2</property>
                 <child>
-                  <object class="GtkBox" id="usage_label_no_meter">
+                  <object class="GtkFlowBox" id="usage_label_no_meter">
+                    <property name="halign">start</property>
+                    <property name="valign">start</property>
                     <property name="orientation">horizontal</property>
+                    <property name="selection-mode">none</property>
+                    <property name="column-spacing">12</property>
+                    <property name="row-spacing">4</property>
                     <style>
                       <class name="caption"/>
+                      <class name="unselectable-flowbox"/>
                       <class name="dimmed"/>
                     </style>
                   </object>
@@ -74,16 +80,19 @@
                 <property name="overflow">hidden</property>
                 <property name="height-request">80</property>
                 <child type="overlay">
-                  <object class="GtkBox" id="usage_label_graph">
+                  <object class="GtkFlowBox" id="usage_label_graph">
                     <property name="halign">start</property>
                     <property name="valign">start</property>
                     <property name="margin-end">8</property>
                     <property name="margin-start">8</property>
                     <property name="margin-top">6</property>
-                    <property name="spacing">10</property>
+                    <property name="column-spacing">12</property>
+                    <property name="row-spacing">4</property>
                     <property name="orientation">horizontal</property>
+                    <property name="selection-mode">none</property>
                     <style>
                       <class name="caption"/>
+                      <class name="unselectable-flowbox"/>
                       <class name="dimmed"/>
                     </style>
                   </object>
@@ -95,11 +104,16 @@
                 <property name="orientation">vertical</property>
                 <property name="spacing">2</property>
                 <child>
-                  <object class="GtkBox" id="usage_label_bar">
+                  <object class="GtkFlowBox" id="usage_label_bar">
+                    <property name="halign">start</property>
+                    <property name="valign">start</property>
                     <property name="orientation">horizontal</property>
-                    <property name="spacing">10</property>
+                    <property name="column-spacing">12</property>
+                    <property name="row-spacing">4</property>
+                    <property name="selection-mode">none</property>
                     <style>
                       <class name="caption"/>
+                      <class name="unselectable-flowbox"/>
                       <class name="dimmed"/>
                     </style>
                   </object>
