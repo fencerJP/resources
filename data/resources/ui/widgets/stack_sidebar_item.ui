@@ -55,6 +55,8 @@
                     <property name="column-spacing">12</property>
                     <property name="row-spacing">4</property>
                     <property name="can-target">false</property>
+                    <property name="focusable">false</property>
+                    <property name="can-focus">false</property>
                     <style>
                       <class name="caption"/>
                       <class name="unselectable-flowbox"/>
@@ -92,6 +94,8 @@
                     <property name="orientation">horizontal</property>
                     <property name="selection-mode">none</property>
                     <property name="can-target">false</property>
+                    <property name="focusable">false</property>
+                    <property name="can-focus">false</property>
                     <style>
                       <class name="caption"/>
                       <class name="unselectable-flowbox"/>
