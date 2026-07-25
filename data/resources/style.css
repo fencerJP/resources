@@ -29,11 +29,11 @@ progressbar.slim > trough, progressbar.slim > trough > progress {
 }
 
 .dropshadow {
-  text-shadow: 0 0 2px alpha(black, 0.75);
+  text-shadow: 0 0 3px black;
 }
 
 .dropshadow-light {
-  text-shadow: 0 0 2px white;
+  text-shadow: 0 0 3px white;
 }
 
 flowbox.unselectable-flowbox flowboxchild {
