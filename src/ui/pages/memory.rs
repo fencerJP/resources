@@ -326,14 +326,14 @@ impl ResMemory {
 
         usage_labels.add_with_icon(
             "speedometer-symbolic",
-            "Memory Usage",
+            i18n("Memory Usage"),
             convert_fraction(memory_fraction, true),
         );
 
         if total_swap > 0 {
             usage_labels.add_with_icon(
                 "swap-symbolic",
-                "Swap Usage",
+                i18n("Swap Usage"),
                 convert_fraction(used_swap as f64 / total_swap as f64, true),
             );
         }

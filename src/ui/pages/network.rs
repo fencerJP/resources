@@ -404,8 +404,8 @@ impl ResNetwork {
         );
 
         let mut usage_labels = UsageLabels::default();
-        usage_labels.add_with_icon("downstream-symbolic", "Receiving", received_string);
-        usage_labels.add_with_icon("upstream-symbolic", "Sending", sent_string);
+        usage_labels.add_with_icon("downstream-symbolic", i18n("Receiving"), received_string);
+        usage_labels.add_with_icon("upstream-symbolic", i18n("Sending"), sent_string);
 
         self.set_tab_usage_labels(usage_labels);
 

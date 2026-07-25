@@ -437,7 +437,7 @@ impl ResCPU {
         if let Ok(temperature) = temperature {
             usage_labels.add_with_icon(
                 "thermometer-symbolic",
-                "Temperature",
+                i18n("Temperature"),
                 convert_temperature(*temperature as f64),
             );
         }
