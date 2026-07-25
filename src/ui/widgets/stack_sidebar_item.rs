@@ -15,7 +15,7 @@ pub enum MeterType {
     ProgressBar,
 }
 
-#[derive(Clone, Default, Debug, glib::Boxed)]
+#[derive(Clone, Default, Debug, PartialEq, PartialOrd, glib::Boxed)]
 #[boxed_type(name = "ResUsageLabels")]
 pub struct UsageLabels(Vec<(Option<(glib::GString, glib::GString)>, glib::GString)>);
 
@@ -139,7 +139,6 @@ mod imp {
             let current_usage_string = self.subtitle.take();
             if current_usage_string.as_str() == usage_string {
                 self.subtitle.set(current_usage_string);
-                return;
             }
         }
 
@@ -172,6 +171,10 @@ mod imp {
         }
 
         pub fn set_usage_string(&self, contents: UsageLabels) {
+            if *self.usage_labels.borrow() == contents {
+                return;
+            }
+
             self.usage_labels.replace(contents);
             let visible_box = self.visible_usage_box();
             Self::fill_usage_box(&visible_box, &self.usage_labels.borrow());
@@ -196,24 +199,97 @@ mod imp {
         }
 
         pub fn fill_usage_box(usage_box: &gtk::FlowBox, contents: &UsageLabels) {
-            usage_box.remove_all();
-
             let items = &contents.0;
+            let mut current = usage_box.first_child();
 
             for (icon_name, label) in items.iter() {
-                let item_box = gtk::Box::new(gtk::Orientation::Horizontal, 4);
+                if let Some(flow_child_widget) = current {
+                    let flow_child = flow_child_widget
+                        .downcast::<gtk::FlowBoxChild>()
+                        .expect("child of FlowBox should be a FlowBoxChild");
+                    let item_box = flow_child
+                        .child()
+                        .and_then(|w| w.downcast::<gtk::Box>().ok())
+                        .expect("FlowBoxChild should contain a Box");
 
-                if let Some(name) = icon_name {
-                    let icon = gtk::Image::from_gicon(&ThemedIcon::new(&name.0));
-                    icon.set_tooltip_text(Some(&name.1));
-                    icon.set_pixel_size(12);
-                    item_box.append(&icon);
+                    Self::update_item_box(&item_box, icon_name, label);
+
+                    current = flow_child.next_sibling();
+                } else {
+                    let item_box = gtk::Box::new(gtk::Orientation::Horizontal, 4);
+                    Self::update_item_box(&item_box, icon_name, label);
+                    usage_box.append(&item_box);
                 }
+            }
 
-                let lbl = gtk::Label::new(Some(label.as_str()));
-                item_box.append(&lbl);
+            // drop leftover children only if the new list got shorter
+            while let Some(leftover) = current {
+                let next = leftover.next_sibling();
+                usage_box.remove(&leftover);
+                current = next;
+            }
+        }
 
-                usage_box.append(&item_box);
+        fn update_item_box(
+            item_box: &gtk::Box,
+            icon_name: &Option<(glib::GString, glib::GString)>,
+            label_text: &glib::GString,
+        ) {
+            const ICON_SIZE: i32 = 12;
+
+            let has_icon_child = item_box
+                .first_child()
+                .map(|w| w.is::<gtk::Image>())
+                .unwrap_or(false);
+
+            match icon_name {
+                Some((name, tooltip)) => {
+                    let icon = if has_icon_child {
+                        item_box
+                            .first_child()
+                            .unwrap()
+                            .downcast::<gtk::Image>()
+                            .unwrap()
+                    } else {
+                        while let Some(child) = item_box.first_child() {
+                            item_box.remove(&child);
+                        }
+                        let icon = gtk::Image::new();
+                        icon.set_pixel_size(ICON_SIZE);
+                        item_box.append(&icon);
+                        item_box.append(&gtk::Label::new(None));
+                        icon
+                    };
+
+                    if &icon.icon_name().unwrap_or_default() != name {
+                        icon.set_from_gicon(&ThemedIcon::new(name));
+                    }
+                    item_box.set_tooltip_text(Some(tooltip));
+
+                    let label = icon
+                        .next_sibling()
+                        .and_then(|w| w.downcast::<gtk::Label>().ok())
+                        .expect("icon should be followed by a label");
+                    label.set_label(label_text);
+                }
+                None => {
+                    let label = if has_icon_child {
+                        while let Some(child) = item_box.first_child() {
+                            item_box.remove(&child);
+                        }
+                        let label = gtk::Label::new(None);
+                        item_box.append(&label);
+                        label
+                    } else if let Some(widget) = item_box.first_child() {
+                        widget.downcast::<gtk::Label>().expect("expected a label")
+                    } else {
+                        let lbl = gtk::Label::new(None);
+                        item_box.append(&lbl);
+                        lbl
+                    };
+
+                    label.set_label(label_text);
+                }
             }
         }
 
@@ -282,7 +358,32 @@ mod imp {
         }
     }
 
-    impl WidgetImpl for ResStackSidebarItem {}
+    impl WidgetImpl for ResStackSidebarItem {
+        // this is dodgy but allows the usage_label_bar items to stay untargetable but still make
+        // it look like they have tooltips (also circumvents tooltips disappearing after a refresh)
+        fn query_tooltip(
+            &self,
+            x: i32,
+            y: i32,
+            _keyboard_tooltip: bool,
+            tooltip: &gtk::Tooltip,
+        ) -> bool {
+            let obj = self.obj();
+            let widget: &gtk::Widget = obj.upcast_ref();
+
+            if let Some(picked) = widget.pick(x as f64, y as f64, gtk::PickFlags::NON_TARGETABLE) {
+                let mut current = Some(picked);
+                while let Some(w) = current {
+                    if let Some(text) = w.tooltip_text() {
+                        tooltip.set_text(Some(&text));
+                        return true;
+                    }
+                    current = w.parent();
+                }
+            }
+            false
+        }
+    }
 
     impl BinImpl for ResStackSidebarItem {}
 }
