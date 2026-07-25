@@ -376,8 +376,8 @@ impl ResDrive {
         }
 
         let mut usage_labels = UsageLabels::default();
-        usage_labels.add_with_icon("read-symbolic", "Read Speed", read_speed_string);
-        usage_labels.add_with_icon("write-symbolic", "Write Speed", write_speed_string);
+        usage_labels.add_with_icon("read-symbolic", i18n("Read Speed"), read_speed_string);
+        usage_labels.add_with_icon("write-symbolic", i18n("Write Speed"), write_speed_string);
         self.set_tab_usage_labels(usage_labels);
 
         *imp.old_stats.borrow_mut() = disk_stats;

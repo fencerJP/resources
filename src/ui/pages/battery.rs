@@ -256,7 +256,7 @@ impl ResBattery {
             let mut percentage_string = convert_fraction(charge, true);
             usage_labels.add_with_icon(
                 "speedometer-symbolic",
-                "Battery Charge",
+                i18n("Battery Charge"),
                 &percentage_string,
             );
 
@@ -276,7 +276,7 @@ impl ResBattery {
         if let Ok(power_usage) = battery_data.power_usage {
             usage_labels.add_with_icon(
                 "power-usage-symbolic",
-                "Power Usage",
+                i18n("Power Usage"),
                 &convert_power(power_usage),
             );
         }
