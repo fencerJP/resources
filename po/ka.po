@@ -4,9 +4,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: resources\n"
-"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/Incubator/resources/-/work_items\n"
-"POT-Creation-Date: 2026-05-30 16:50+0000\n"
-"PO-Revision-Date: 2026-06-01 05:54+0200\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/Incubator/resources/issues/\n"
+"POT-Creation-Date: 2026-07-25 12:34+0000\n"
+"PO-Revision-Date: 2026-07-26 06:07+0200\n"
 "Last-Translator: Ekaterine Papava <papava.e@gtu.ge>\n"
 "Language-Team: Georgian <(nothing)>\n"
 "Language: ka\n"
@@ -49,21 +49,21 @@ msgid "CPU"
 msgstr "CPU"
 
 #: data/org.gnome.Resources.metainfo.xml.in.in:25 data/resources/ui/dialogs/app_dialog.ui:82
-#: data/resources/ui/dialogs/process_dialog.ui:64 data/resources/ui/dialogs/settings_dialog.ui:128
-#: data/resources/ui/dialogs/settings_dialog.ui:220 data/resources/ui/window.ui:175 data/resources/ui/window.ui:182
-#: src/ui/pages/applications/mod.rs:424 src/ui/pages/memory.rs:105 src/ui/pages/memory.rs:191
-#: src/ui/pages/processes/mod.rs:534
+#: data/resources/ui/dialogs/process_dialog.ui:64 data/resources/ui/dialogs/settings_dialog.ui:118
+#: data/resources/ui/dialogs/settings_dialog.ui:210 data/resources/ui/window.ui:175 data/resources/ui/window.ui:182
+#: src/ui/pages/applications/mod.rs:427 src/ui/pages/memory.rs:106 src/ui/pages/memory.rs:192
+#: src/ui/pages/processes/mod.rs:532
 msgid "Memory"
 msgstr "მეხსიერება"
 
 #: data/org.gnome.Resources.metainfo.xml.in.in:26 data/resources/ui/dialogs/app_dialog.ui:140
-#: data/resources/ui/dialogs/process_dialog.ui:118 data/resources/ui/dialogs/settings_dialog.ui:158
-#: data/resources/ui/dialogs/settings_dialog.ui:250 src/ui/pages/applications/mod.rs:514 src/ui/pages/gpu.rs:121
-#: src/ui/pages/processes/mod.rs:630 src/ui/window.rs:473
+#: data/resources/ui/dialogs/process_dialog.ui:118 data/resources/ui/dialogs/settings_dialog.ui:148
+#: data/resources/ui/dialogs/settings_dialog.ui:240 src/ui/pages/applications/mod.rs:517 src/ui/pages/gpu.rs:124
+#: src/ui/pages/processes/mod.rs:628 src/ui/window.rs:473
 msgid "GPU"
 msgstr "GPU"
 
-#: data/org.gnome.Resources.metainfo.xml.in.in:27 data/resources/ui/dialogs/settings_dialog.ui:324
+#: data/org.gnome.Resources.metainfo.xml.in.in:27 data/resources/ui/dialogs/settings_dialog.ui:314
 msgid "Network Interfaces"
 msgstr "ქსელის ინტერფეისები"
 
@@ -128,57 +128,57 @@ msgid "Usage"
 msgstr "გამოყენება"
 
 #: data/resources/ui/dialogs/app_dialog.ui:73 data/resources/ui/dialogs/process_dialog.ui:55
-#: data/resources/ui/dialogs/settings_dialog.ui:133 data/resources/ui/dialogs/settings_dialog.ui:225
-#: data/resources/ui/window.ui:144 data/resources/ui/window.ui:151 src/ui/pages/applications/mod.rs:438
-#: src/ui/pages/cpu.rs:130 src/ui/pages/processes/mod.rs:549 src/ui/window.rs:286
+#: data/resources/ui/dialogs/settings_dialog.ui:123 data/resources/ui/dialogs/settings_dialog.ui:215
+#: data/resources/ui/window.ui:144 data/resources/ui/window.ui:151 src/ui/pages/applications/mod.rs:441
+#: src/ui/pages/cpu.rs:131 src/ui/pages/processes/mod.rs:547 src/ui/window.rs:286
 msgid "Processor"
 msgstr "პროცესორი"
 
 #: data/resources/ui/dialogs/app_dialog.ui:91 data/resources/ui/dialogs/process_dialog.ui:73
-#: data/resources/ui/dialogs/settings_dialog.ui:178 data/resources/ui/dialogs/settings_dialog.ui:290
-#: src/ui/pages/applications/mod.rs:570 src/ui/pages/memory.rs:197 src/ui/pages/processes/mod.rs:758
+#: data/resources/ui/dialogs/settings_dialog.ui:168 data/resources/ui/dialogs/settings_dialog.ui:280
+#: src/ui/pages/applications/mod.rs:573 src/ui/pages/memory.rs:198 src/ui/pages/processes/mod.rs:756
 msgid "Swap"
 msgstr "სვაპი"
 
 #: data/resources/ui/dialogs/app_dialog.ui:100 data/resources/ui/dialogs/process_dialog.ui:78
-#: data/resources/ui/dialogs/settings_dialog.ui:138 data/resources/ui/dialogs/settings_dialog.ui:230
-#: src/ui/pages/applications/mod.rs:458 src/ui/pages/processes/mod.rs:570
+#: data/resources/ui/dialogs/settings_dialog.ui:128 data/resources/ui/dialogs/settings_dialog.ui:220
+#: src/ui/pages/applications/mod.rs:461 src/ui/pages/processes/mod.rs:568
 msgid "Drive Read"
 msgstr "დისკიდან წაკითხვა"
 
 #: data/resources/ui/dialogs/app_dialog.ui:109 data/resources/ui/dialogs/process_dialog.ui:87
-#: data/resources/ui/dialogs/settings_dialog.ui:143 data/resources/ui/dialogs/settings_dialog.ui:235
-#: src/ui/pages/applications/mod.rs:472 src/ui/pages/processes/mod.rs:585
+#: data/resources/ui/dialogs/settings_dialog.ui:133 data/resources/ui/dialogs/settings_dialog.ui:225
+#: src/ui/pages/applications/mod.rs:475 src/ui/pages/processes/mod.rs:583
 msgid "Drive Read Total"
 msgstr "დისკიდან წაკითხვები სულ"
 
 #: data/resources/ui/dialogs/app_dialog.ui:118 data/resources/ui/dialogs/process_dialog.ui:96
-#: data/resources/ui/dialogs/settings_dialog.ui:148 data/resources/ui/dialogs/settings_dialog.ui:240
-#: src/ui/pages/applications/mod.rs:486 src/ui/pages/processes/mod.rs:600
+#: data/resources/ui/dialogs/settings_dialog.ui:138 data/resources/ui/dialogs/settings_dialog.ui:230
+#: src/ui/pages/applications/mod.rs:489 src/ui/pages/processes/mod.rs:598
 msgid "Drive Write"
 msgstr "დისკზე ჩაწერა"
 
 #: data/resources/ui/dialogs/app_dialog.ui:127 data/resources/ui/dialogs/process_dialog.ui:105
-#: data/resources/ui/dialogs/settings_dialog.ui:153 data/resources/ui/dialogs/settings_dialog.ui:245
-#: src/ui/pages/applications/mod.rs:500 src/ui/pages/processes/mod.rs:615
+#: data/resources/ui/dialogs/settings_dialog.ui:143 data/resources/ui/dialogs/settings_dialog.ui:235
+#: src/ui/pages/applications/mod.rs:503 src/ui/pages/processes/mod.rs:613
 msgid "Drive Write Total"
 msgstr "დისკზე ჩაწერები სულ"
 
 #: data/resources/ui/dialogs/app_dialog.ui:149 data/resources/ui/dialogs/process_dialog.ui:127
-#: data/resources/ui/dialogs/settings_dialog.ui:163 data/resources/ui/dialogs/settings_dialog.ui:255
-#: src/ui/pages/applications/mod.rs:528 src/ui/pages/processes/mod.rs:645
+#: data/resources/ui/dialogs/settings_dialog.ui:153 data/resources/ui/dialogs/settings_dialog.ui:245
+#: src/ui/pages/applications/mod.rs:531 src/ui/pages/processes/mod.rs:643
 msgid "Video Memory"
 msgstr "ვიდეომეხსიერება"
 
 #: data/resources/ui/dialogs/app_dialog.ui:158 data/resources/ui/dialogs/process_dialog.ui:136
-#: data/resources/ui/dialogs/settings_dialog.ui:168 data/resources/ui/dialogs/settings_dialog.ui:260
-#: src/ui/pages/applications/mod.rs:542 src/ui/pages/processes/mod.rs:660
+#: data/resources/ui/dialogs/settings_dialog.ui:158 data/resources/ui/dialogs/settings_dialog.ui:250
+#: src/ui/pages/applications/mod.rs:545 src/ui/pages/processes/mod.rs:658
 msgid "Video Encoder"
 msgstr "ვიდეო ენკოდერი"
 
 #: data/resources/ui/dialogs/app_dialog.ui:167 data/resources/ui/dialogs/process_dialog.ui:145
-#: data/resources/ui/dialogs/settings_dialog.ui:173 data/resources/ui/dialogs/settings_dialog.ui:265
-#: src/ui/pages/applications/mod.rs:556 src/ui/pages/processes/mod.rs:675
+#: data/resources/ui/dialogs/settings_dialog.ui:163 data/resources/ui/dialogs/settings_dialog.ui:255
+#: src/ui/pages/applications/mod.rs:559 src/ui/pages/processes/mod.rs:673
 msgid "Video Decoder"
 msgstr "ვიდეოდეკოდერი"
 
@@ -210,33 +210,33 @@ msgstr "კონტეინერიზებული"
 msgid "Process Information"
 msgstr "პროცესის ინფორმაცია"
 
-#: data/resources/ui/dialogs/process_dialog.ui:154 data/resources/ui/dialogs/settings_dialog.ui:270
-#: src/ui/pages/processes/mod.rs:690
+#: data/resources/ui/dialogs/process_dialog.ui:154 data/resources/ui/dialogs/settings_dialog.ui:260
+#: src/ui/pages/processes/mod.rs:688
 msgid "Total CPU Time"
 msgstr "სულ CPI-ის დრო"
 
-#: data/resources/ui/dialogs/process_dialog.ui:163 data/resources/ui/dialogs/settings_dialog.ui:275
-#: src/ui/pages/processes/mod.rs:704
+#: data/resources/ui/dialogs/process_dialog.ui:163 data/resources/ui/dialogs/settings_dialog.ui:265
+#: src/ui/pages/processes/mod.rs:702
 msgid "User CPU Time"
 msgstr "მომხმარებლის CPU დრო"
 
-#: data/resources/ui/dialogs/process_dialog.ui:172 data/resources/ui/dialogs/settings_dialog.ui:280
-#: src/ui/pages/processes/mod.rs:718
+#: data/resources/ui/dialogs/process_dialog.ui:172 data/resources/ui/dialogs/settings_dialog.ui:270
+#: src/ui/pages/processes/mod.rs:716
 msgid "System CPU Time"
 msgstr "სისტემის CPU დრო"
 
-#: data/resources/ui/dialogs/process_dialog.ui:186 data/resources/ui/dialogs/settings_dialog.ui:210
-#: src/ui/pages/processes/mod.rs:506
+#: data/resources/ui/dialogs/process_dialog.ui:186 data/resources/ui/dialogs/settings_dialog.ui:200
+#: src/ui/pages/processes/mod.rs:504
 msgid "Process ID"
 msgstr "პროცესის ID"
 
-#: data/resources/ui/dialogs/process_dialog.ui:204 data/resources/ui/dialogs/settings_dialog.ui:300
-#: src/ui/pages/processes/mod.rs:788
+#: data/resources/ui/dialogs/process_dialog.ui:204 data/resources/ui/dialogs/settings_dialog.ui:290
+#: src/ui/pages/processes/mod.rs:786
 msgid "Commandline"
 msgstr "ბრძანებისსტრიქონი"
 
-#: data/resources/ui/dialogs/process_dialog.ui:213 data/resources/ui/dialogs/settings_dialog.ui:215
-#: src/ui/pages/processes/mod.rs:520
+#: data/resources/ui/dialogs/process_dialog.ui:213 data/resources/ui/dialogs/settings_dialog.ui:205
+#: src/ui/pages/processes/mod.rs:518
 msgid "User"
 msgstr "მომხმარებელი"
 
@@ -261,8 +261,8 @@ msgstr "პრიორიტეტი"
 msgid "The priority of a process is given by its niceness. A lower niceness value correspond to a higher priority."
 msgstr "პროცესის პრიორიტეტი, რომელიც მას nice-ის მნიშვნელობით ენიჭება. რაც დაბალია მნიშვნელობა, მით მაღალია პრიორიტეტი."
 
-#: data/resources/ui/dialogs/process_options_dialog.ui:86 data/resources/ui/dialogs/settings_dialog.ui:285
-#: src/ui/pages/processes/mod.rs:732
+#: data/resources/ui/dialogs/process_options_dialog.ui:86 data/resources/ui/dialogs/settings_dialog.ui:275
+#: src/ui/pages/processes/mod.rs:730
 msgid "Priority"
 msgstr "პრიორიტეტი"
 
@@ -384,115 +384,99 @@ msgstr "გრაფიკის ბადეების ჩვენება"
 msgid "Graph Data Points"
 msgstr "გრაფიკის მონაცემთა წერტილები"
 
-#: data/resources/ui/dialogs/settings_dialog.ui:86
-msgid "Show Usage Details in Sidebar"
-msgstr "გამოყენების დეტალების ჩვენება გვერდით პანელზე"
-
-#: data/resources/ui/dialogs/settings_dialog.ui:87
-msgid "If enabled, the usage along with other information will be displayed"
-msgstr "თუ ჩართულია, ნაჩვენები იქნება გამოყენებაც, სხვა ინფორმაციასთან ერთად"
-
-#: data/resources/ui/dialogs/settings_dialog.ui:92
-msgid "Show Device Descriptions in Sidebar"
-msgstr "მოწყობილობის აღწერების ჩვენება გვერდით პანელზე"
-
-#: data/resources/ui/dialogs/settings_dialog.ui:93
-msgid "If enabled, a device identifier like its name or device type will be displayed"
-msgstr "თუ ჩართულია, ნაჩვენები იქნება მოწყობილობის იდენტიფიკატორი - როგორიცაა მისის ახელი"
-
-#: data/resources/ui/dialogs/settings_dialog.ui:98
+#: data/resources/ui/dialogs/settings_dialog.ui:88
 msgid "Sidebar Meter Type"
 msgstr "გვერდითი პანელის გაზომვის ტიპი"
 
-#: data/resources/ui/dialogs/settings_dialog.ui:102
+#: data/resources/ui/dialogs/settings_dialog.ui:92
 msgid "Bar"
 msgstr "ბარი"
 
-#: data/resources/ui/dialogs/settings_dialog.ui:103
+#: data/resources/ui/dialogs/settings_dialog.ui:93
 msgid "Graph"
 msgstr "გრაფიკი"
 
-#: data/resources/ui/dialogs/settings_dialog.ui:111
+#: data/resources/ui/dialogs/settings_dialog.ui:101
 msgid "Normalize Processor Usage"
 msgstr "პროცესორის გამოყენების ნორმალიზება"
 
-#: data/resources/ui/dialogs/settings_dialog.ui:112
+#: data/resources/ui/dialogs/settings_dialog.ui:102
 msgid "If enabled, the total usage of all cores will be divided by the amount of cores"
 msgstr "თუ ჩართულია, ყველა ბირთვის საერთო დატვირთვა ბირთვების რაოდენობაზე გაიყოფა"
 
-#: data/resources/ui/dialogs/settings_dialog.ui:122 data/resources/ui/window.ui:64 data/resources/ui/window.ui:71
-#: src/ui/pages/applications/mod.rs:137
+#: data/resources/ui/dialogs/settings_dialog.ui:112 data/resources/ui/window.ui:64 data/resources/ui/window.ui:71
+#: src/ui/pages/applications/mod.rs:140
 msgid "Apps"
 msgstr "აპები"
 
-#: data/resources/ui/dialogs/settings_dialog.ui:125 data/resources/ui/dialogs/settings_dialog.ui:207
+#: data/resources/ui/dialogs/settings_dialog.ui:115 data/resources/ui/dialogs/settings_dialog.ui:197
 msgid "Information Columns"
 msgstr "ინფორმაციის სვეტები"
 
-#: data/resources/ui/dialogs/settings_dialog.ui:183 data/resources/ui/dialogs/settings_dialog.ui:295
-#: src/ui/pages/applications/mod.rs:584 src/ui/pages/processes/mod.rs:773
+#: data/resources/ui/dialogs/settings_dialog.ui:173 data/resources/ui/dialogs/settings_dialog.ui:285
+#: src/ui/pages/applications/mod.rs:587 src/ui/pages/processes/mod.rs:771
 msgid "Combined Memory"
 msgstr "კომბინირებული მეხსიერება"
 
-#: data/resources/ui/dialogs/settings_dialog.ui:193 data/resources/ui/window.ui:104 data/resources/ui/window.ui:111
-#: src/ui/pages/processes/mod.rs:184
+#: data/resources/ui/dialogs/settings_dialog.ui:183 data/resources/ui/window.ui:104 data/resources/ui/window.ui:111
+#: src/ui/pages/processes/mod.rs:182
 msgid "Processes"
 msgstr "პროცესები"
 
-#: data/resources/ui/dialogs/settings_dialog.ui:196 data/resources/ui/pages/cpu.ui:22
+#: data/resources/ui/dialogs/settings_dialog.ui:186 data/resources/ui/pages/cpu.ui:22
 #: data/resources/ui/pages/processes.ui:56
 msgid "Options"
 msgstr "მორგება"
 
-#: data/resources/ui/dialogs/settings_dialog.ui:199
+#: data/resources/ui/dialogs/settings_dialog.ui:189
 msgid "Show Niceness Values"
 msgstr "პრიორიტეტის მნიშვნელობების ჩვენება"
 
-#: data/resources/ui/dialogs/settings_dialog.ui:200
+#: data/resources/ui/dialogs/settings_dialog.ui:190
 msgid "Display priorities as niceness to allow for more fine-grained adjustments"
 msgstr "პრიორიტეტების ჩვენება პარამეტრების უფრო ზუსტად დასაყენებლად"
 
-#: data/resources/ui/dialogs/settings_dialog.ui:310
+#: data/resources/ui/dialogs/settings_dialog.ui:300
 msgid "Devices"
 msgstr "მოწყობილობები"
 
-#: data/resources/ui/dialogs/settings_dialog.ui:313
+#: data/resources/ui/dialogs/settings_dialog.ui:303
 msgid "Drives"
 msgstr "დისკები"
 
-#: data/resources/ui/dialogs/settings_dialog.ui:316
+#: data/resources/ui/dialogs/settings_dialog.ui:306
 msgid "Show Virtual Drives"
 msgstr "ვირტუალური დისკების ჩვენება"
 
-#: data/resources/ui/dialogs/settings_dialog.ui:317
+#: data/resources/ui/dialogs/settings_dialog.ui:307
 msgid "Virtual drives are for example ZFS volumes or mapped devices"
 msgstr "ვირტუალური დისკებია მაგალითად ZFS ტომები, ან მიმაგრებული მოწყობილობები"
 
-#: data/resources/ui/dialogs/settings_dialog.ui:327
+#: data/resources/ui/dialogs/settings_dialog.ui:317
 msgid "Show Virtual Network Interfaces"
 msgstr "ვირტუალური ქსელის ინტერფეისების ჩვენება"
 
-#: data/resources/ui/dialogs/settings_dialog.ui:328
+#: data/resources/ui/dialogs/settings_dialog.ui:318
 msgid "Virtual network interfaces are for example bridges or VPN tunnels"
 msgstr "ვირტუალური ქსელური ინტერფეისებია, მაგალითად, ხიდები, ან VPN გვირაბები"
 
 #: data/resources/ui/pages/applications.ui:6 data/resources/ui/pages/applications.ui:26
-#: src/ui/pages/applications/mod.rs:1011
+#: src/ui/pages/applications/mod.rs:1014
 msgid "Kill App"
 msgstr "აპლიკაციის მოკვლა"
 
 #: data/resources/ui/pages/applications.ui:10 data/resources/ui/pages/applications.ui:30
-#: src/ui/pages/applications/mod.rs:1010
+#: src/ui/pages/applications/mod.rs:1013
 msgid "Halt App"
 msgstr "აპლიკაციის შეჩერება"
 
 #: data/resources/ui/pages/applications.ui:14 data/resources/ui/pages/applications.ui:34
-#: src/ui/pages/applications/mod.rs:1012
+#: src/ui/pages/applications/mod.rs:1015
 msgid "Continue App"
 msgstr "აპლიკაციის გაგრძელება"
 
 #: data/resources/ui/pages/applications.ui:22 data/resources/ui/pages/applications.ui:101
-#: src/ui/pages/applications/mod.rs:1009
+#: src/ui/pages/applications/mod.rs:1012
 msgid "End App"
 msgstr "აპლიკაციის დასრულება"
 
@@ -607,7 +591,8 @@ msgstr "GPU სიხშირე"
 msgid "Video Memory Frequency"
 msgstr "ვიდეომეხსიერების სიხშირე"
 
-#: data/resources/ui/pages/gpu.ui:55 data/resources/ui/pages/npu.ui:58 src/ui/pages/battery.rs:219
+#: data/resources/ui/pages/gpu.ui:55 data/resources/ui/pages/npu.ui:58 src/ui/pages/battery.rs:220
+#: src/ui/pages/battery.rs:279
 msgid "Power Usage"
 msgstr "კვების ხარჯვა"
 
@@ -683,15 +668,15 @@ msgstr "წარმადობა"
 msgid "Memory Frequency"
 msgstr "მეხსიერების სიხშირე"
 
-#: data/resources/ui/pages/processes.ui:6 data/resources/ui/pages/processes.ui:42 src/ui/pages/processes/mod.rs:1336
+#: data/resources/ui/pages/processes.ui:6 data/resources/ui/pages/processes.ui:42 src/ui/pages/processes/mod.rs:1334
 msgid "Kill Process"
 msgstr "პროცესის მოკვლა"
 
-#: data/resources/ui/pages/processes.ui:10 data/resources/ui/pages/processes.ui:46 src/ui/pages/processes/mod.rs:1335
+#: data/resources/ui/pages/processes.ui:10 data/resources/ui/pages/processes.ui:46 src/ui/pages/processes/mod.rs:1333
 msgid "Halt Process"
 msgstr "პროცესის შეჩერება"
 
-#: data/resources/ui/pages/processes.ui:14 data/resources/ui/pages/processes.ui:50 src/ui/pages/processes/mod.rs:1337
+#: data/resources/ui/pages/processes.ui:14 data/resources/ui/pages/processes.ui:50 src/ui/pages/processes/mod.rs:1335
 msgid "Continue Process"
 msgstr "პროცესის გაგრძელება"
 
@@ -707,12 +692,12 @@ msgstr "პროცესის შეჩერება"
 msgid "Continue Processes"
 msgstr "პროცესების გაგრძელება"
 
-#: data/resources/ui/pages/processes.ui:38 data/resources/ui/pages/processes.ui:162 src/ui/pages/processes/mod.rs:823
-#: src/ui/pages/processes/mod.rs:1334
+#: data/resources/ui/pages/processes.ui:38 data/resources/ui/pages/processes.ui:162 src/ui/pages/processes/mod.rs:821
+#: src/ui/pages/processes/mod.rs:1332
 msgid "End Process"
 msgstr "პროცესის დასრულება"
 
-#: data/resources/ui/pages/processes.ui:70 src/ui/pages/processes/mod.rs:827
+#: data/resources/ui/pages/processes.ui:70 src/ui/pages/processes/mod.rs:825
 msgid "End Processes"
 msgstr "პროცესის დასრულება"
 
@@ -815,28 +800,258 @@ msgstr "ძებნის ველის გადართვა"
 msgid "translator-credits"
 msgstr "ეკატერინე პაპავა"
 
+#: src/devices/app.rs:247
+msgid "System Processes"
+msgstr "სისტემური პროცესები"
+
+#: src/devices/battery.rs:92
+msgid "Charging"
+msgstr "იტენება"
+
+#: src/devices/battery.rs:93
+msgid "Discharging"
+msgstr "იცლება"
+
+#: src/devices/battery.rs:94
+msgid "Empty"
+msgstr "ცარიელი"
+
+#: src/devices/battery.rs:95
+msgid "Full"
+msgstr "სრული"
+
+#: src/devices/battery.rs:96
+msgid "Unknown"
+msgstr "უცნობი"
+
+#: src/devices/battery.rs:142
+msgid "Nickel-Metal Hydride"
+msgstr "ნიკელი-ლითონის-ჰიდრიდი"
+
+#: src/devices/battery.rs:143
+msgid "Nickel-Cadmium"
+msgstr "ნიკელ კადმიუმი"
+
+#: src/devices/battery.rs:144
+msgid "Nickel-Zinc"
+msgstr "ნიკელ-თუთია"
+
+#: src/devices/battery.rs:145
+msgid "Lead-Acid"
+msgstr "ტყვია-მჟავა"
+
+#: src/devices/battery.rs:146
+msgid "Lithium-Ion"
+msgstr "ლითიუმ-იონი"
+
+#: src/devices/battery.rs:147
+msgid "Lithium Iron Phosphate"
+msgstr "ლითიუმ-რკინის ფოსფატი"
+
+#: src/devices/battery.rs:148
+msgid "Lithium Polymer"
+msgstr "ლითიუმ-პოლიმერი"
+
+#: src/devices/battery.rs:149
+msgid "Rechargeable Alkaline Managanese"
+msgstr "დატენვადი ტუტე მანგანუმის"
+
+#: src/devices/battery.rs:150 src/devices/drive.rs:136 src/devices/gpu/mod.rs:279 src/devices/gpu/mod.rs:289
+#: src/devices/link/mod.rs:54 src/devices/link/wifi.rs:167 src/devices/npu/mod.rs:260 src/devices/npu/mod.rs:266
 #: src/ui/dialogs/app_dialog.rs:155 src/ui/dialogs/process_dialog.rs:133 src/ui/dialogs/process_dialog.rs:137
 #: src/ui/dialogs/process_dialog.rs:146 src/ui/dialogs/process_dialog.rs:148 src/ui/dialogs/process_dialog.rs:171
 #: src/ui/dialogs/process_dialog.rs:178 src/ui/dialogs/process_dialog.rs:185 src/ui/dialogs/process_dialog.rs:192
-#: src/ui/pages/applications/mod.rs:463 src/ui/pages/applications/mod.rs:491 src/ui/pages/battery.rs:207
-#: src/ui/pages/battery.rs:227 src/ui/pages/battery.rs:233 src/ui/pages/battery.rs:236 src/ui/pages/battery.rs:267
-#: src/ui/pages/cpu.rs:245 src/ui/pages/cpu.rs:260 src/ui/pages/cpu.rs:280 src/ui/pages/cpu.rs:286
-#: src/ui/pages/cpu.rs:292 src/ui/pages/cpu.rs:298 src/ui/pages/cpu.rs:302 src/ui/pages/cpu.rs:305
-#: src/ui/pages/cpu.rs:343 src/ui/pages/drive.rs:377 src/ui/pages/gpu.rs:247 src/ui/pages/gpu.rs:254
-#: src/ui/pages/gpu.rs:315 src/ui/pages/gpu.rs:318 src/ui/pages/gpu.rs:329 src/ui/pages/gpu.rs:343
-#: src/ui/pages/memory.rs:226 src/ui/pages/memory.rs:227 src/ui/pages/memory.rs:231 src/ui/pages/memory.rs:232
-#: src/ui/pages/memory.rs:236 src/ui/pages/memory.rs:237 src/ui/pages/memory.rs:265 src/ui/pages/network.rs:253
+#: src/ui/pages/applications/mod.rs:466 src/ui/pages/applications/mod.rs:494 src/ui/pages/battery.rs:208
+#: src/ui/pages/battery.rs:228 src/ui/pages/battery.rs:234 src/ui/pages/battery.rs:237 src/ui/pages/battery.rs:272
+#: src/ui/pages/cpu.rs:246 src/ui/pages/cpu.rs:261 src/ui/pages/cpu.rs:281 src/ui/pages/cpu.rs:287
+#: src/ui/pages/cpu.rs:293 src/ui/pages/cpu.rs:299 src/ui/pages/cpu.rs:303 src/ui/pages/cpu.rs:306
+#: src/ui/pages/cpu.rs:344 src/ui/pages/drive.rs:375 src/ui/pages/gpu.rs:250 src/ui/pages/gpu.rs:257
+#: src/ui/pages/gpu.rs:318 src/ui/pages/gpu.rs:321 src/ui/pages/gpu.rs:332 src/ui/pages/gpu.rs:346
+#: src/ui/pages/memory.rs:227 src/ui/pages/memory.rs:228 src/ui/pages/memory.rs:232 src/ui/pages/memory.rs:233
+#: src/ui/pages/memory.rs:237 src/ui/pages/memory.rs:238 src/ui/pages/memory.rs:266 src/ui/pages/network.rs:253
 #: src/ui/pages/network.rs:260 src/ui/pages/network.rs:267 src/ui/pages/network.rs:273 src/ui/pages/network.rs:276
 #: src/ui/pages/network.rs:286 src/ui/pages/network.rs:295 src/ui/pages/network.rs:304 src/ui/pages/network.rs:383
-#: src/ui/pages/network.rs:397 src/ui/pages/processes/mod.rs:576 src/ui/pages/processes/mod.rs:591
-#: src/ui/pages/processes/mod.rs:606 src/ui/pages/processes/mod.rs:621 src/ui/pages/processes/mod.rs:745
-#: src/ui/pages/processes/mod.rs:747 src/utils/battery.rs:152 src/utils/units.rs:354 src/utils/drive.rs:137
-#: src/utils/gpu/mod.rs:279 src/utils/gpu/mod.rs:291 src/utils/link/mod.rs:61 src/utils/link/wifi.rs:171
-#: src/utils/npu/mod.rs:263 src/utils/npu/mod.rs:269
+#: src/ui/pages/network.rs:397 src/ui/pages/processes/mod.rs:574 src/ui/pages/processes/mod.rs:589
+#: src/ui/pages/processes/mod.rs:604 src/ui/pages/processes/mod.rs:619 src/ui/pages/processes/mod.rs:743
+#: src/ui/pages/processes/mod.rs:745 src/utils/units.rs:354
 msgid "N/A"
 msgstr "N/A"
 
-#: src/ui/dialogs/process_options_dialog.rs:147 src/ui/pages/cpu.rs:259 src/ui/pages/cpu.rs:420 src/ui/pages/cpu.rs:424
+#: src/devices/battery.rs:252 src/ui/pages/battery.rs:105
+msgid "Battery"
+msgstr "ელემენტი"
+
+#: src/devices/battery.rs:255
+#, rust-format
+msgid "{} Battery"
+msgstr "{} ელემენტი"
+
+#: src/devices/drive.rs:128 src/devices/drive.rs:207
+msgid "CD/DVD/Blu-ray Drive"
+msgstr "CD/DVD/Blu-ray ამძრავი"
+
+#: src/devices/drive.rs:129
+msgid "eMMC Storage"
+msgstr "eMMC საცავი"
+
+#: src/devices/drive.rs:130
+msgid "Flash Storage"
+msgstr "Flash საცავი"
+
+#: src/devices/drive.rs:131 src/devices/drive.rs:208
+msgid "Floppy Drive"
+msgstr "დისკეტა"
+
+#: src/devices/drive.rs:132
+msgid "Hard Disk Drive"
+msgstr "მყარი დისკები"
+
+#: src/devices/drive.rs:133
+msgid "Loop Device"
+msgstr "მარყუჟმოწყობილობა"
+
+#: src/devices/drive.rs:134
+msgid "Mapped Device"
+msgstr "მიმაგრებული მოწყობილობები"
+
+#: src/devices/drive.rs:135
+msgid "NVMe Drive"
+msgstr "NVMe დისკი"
+
+#: src/devices/drive.rs:137
+msgid "Software Raid"
+msgstr "პროგრამული RAID"
+
+#: src/devices/drive.rs:138
+msgid "RAM Disk"
+msgstr "RAM დისკი"
+
+#: src/devices/drive.rs:139
+msgid "Solid State Drive"
+msgstr "SSD"
+
+#: src/devices/drive.rs:140
+msgid "ZFS Volume"
+msgstr "ZFS ტომი"
+
+#: src/devices/drive.rs:141
+msgid "Compressed RAM Disk (zram)"
+msgstr "შეკუმშული RAM რისკი (zram)"
+
+#: src/devices/drive.rs:209
+#, rust-format
+msgid "{} Loop Device"
+msgstr "{} მარყუჟმოწყობილობა"
+
+#: src/devices/drive.rs:210
+#, rust-format
+msgid "{} Mapped Device"
+msgstr "{} მიმაგრებული მოწყობილობა"
+
+#: src/devices/drive.rs:211
+#, rust-format
+msgid "{} RAID"
+msgstr "{} RAID"
+
+#: src/devices/drive.rs:212
+#, rust-format
+msgid "{} RAM Disk"
+msgstr "{} RAM დისკი"
+
+#: src/devices/drive.rs:213
+#, rust-format
+msgid "{} zram Device"
+msgstr "{} zram მოწყობილობა"
+
+#: src/devices/drive.rs:214
+#, rust-format
+msgid "{} ZFS Volume"
+msgstr "{} ZFS ტომი"
+
+#: src/devices/drive.rs:215
+#, rust-format
+msgid "{} Drive"
+msgstr "{} დისკი"
+
+#: src/devices/link/wifi.rs:156
+#, rust-format
+msgid "Receive: {}"
+msgstr "მიღება: {}"
+
+#: src/devices/link/wifi.rs:157
+#, rust-format
+msgid "Send: {}"
+msgstr "გაგზავნა: {}"
+
+#: src/devices/network.rs:131
+msgid "Bluetooth Tether"
+msgstr "ბლუთუზის Tether"
+
+#: src/devices/network.rs:132
+msgid "Network Bridge"
+msgstr "ქსელური ხიდი"
+
+#: src/devices/network.rs:133
+msgid "Ethernet Connection"
+msgstr "Ethernet შეერთება"
+
+#: src/devices/network.rs:134
+msgid "Docker Bridge"
+msgstr "Docker-ის ხიდი"
+
+#: src/devices/network.rs:135
+msgid "InfiniBand Connection"
+msgstr "InfiniBand შეერთება"
+
+#: src/devices/network.rs:136
+msgid "Incus Bridge"
+msgstr "Incus-ის ხიდი"
+
+#: src/devices/network.rs:137
+msgid "LXC Bridge"
+msgstr "LXC-ის ხიდი"
+
+#: src/devices/network.rs:138
+msgid "LXD Bridge"
+msgstr "LXD-ის ხიდი"
+
+#: src/devices/network.rs:139
+msgid "Serial Line IP Connection"
+msgstr "სერიული ხაზის IP მიერთება"
+
+#: src/devices/network.rs:140
+msgid "VM Network Interface"
+msgstr "ვმ-ის ქსელის ინტერფეისი"
+
+#: src/devices/network.rs:141
+msgid "Virtual Ethernet Device"
+msgstr "ვირტუალური Ethernet მოწყობილობა"
+
+#: src/devices/network.rs:142
+msgid "VM Network Bridge"
+msgstr "ვმ-ის ქსელური ხიდი"
+
+#: src/devices/network.rs:143
+msgid "VPN Tunnel"
+msgstr "VPN გვირაბი"
+
+#: src/devices/network.rs:144
+msgid "VPN Tunnel (WireGuard)"
+msgstr "VPN გვირაბი (WireGuard)"
+
+#: src/devices/network.rs:145
+msgid "Wi-Fi Connection"
+msgstr "Wi-Fi შეერთება"
+
+#: src/devices/network.rs:146
+msgid "WWAN Connection"
+msgstr "WWAN მიერთება"
+
+#: src/devices/network.rs:147 src/ui/pages/network.rs:128
+msgid "Network Interface"
+msgstr "ქსელის ინტერფეისი"
+
+#: src/ui/dialogs/process_options_dialog.rs:146 src/ui/pages/cpu.rs:260 src/ui/pages/cpu.rs:421 src/ui/pages/cpu.rs:425
 #, rust-format
 msgid "CPU {}"
 msgstr "CPU {}"
@@ -862,183 +1077,162 @@ msgstr "დიახ (პორტატული)"
 msgid "Yes (Snap)"
 msgstr "დიახ (Snap)"
 
-#: src/ui/pages/applications/mod.rs:845
+#: src/ui/pages/applications/mod.rs:848
 #, rust-format
 msgid "Running Apps: {}"
 msgstr "გაშვებული აპები: {}"
 
-#: src/ui/pages/applications/mod.rs:885 src/ui/pages/processes/mod.rs:1174
+#: src/ui/pages/applications/mod.rs:888 src/ui/pages/processes/mod.rs:1172
 msgid "Cancel"
 msgstr "გაუქმება"
 
-#: src/ui/pages/applications/mod.rs:931
+#: src/ui/pages/applications/mod.rs:934
 msgid "App"
 msgstr "აპი"
 
-#: src/ui/pages/applications/mod.rs:987 src/ui/pages/processes/mod.rs:1283
+#: src/ui/pages/applications/mod.rs:990 src/ui/pages/processes/mod.rs:1281
 #, rust-format
 msgid "End {}?"
 msgstr "დავასრულო {}?"
 
-#: src/ui/pages/applications/mod.rs:988 src/ui/pages/processes/mod.rs:1284
+#: src/ui/pages/applications/mod.rs:991 src/ui/pages/processes/mod.rs:1282
 #, rust-format
 msgid "Halt {}?"
 msgstr "შევაჩერო {}?"
 
-#: src/ui/pages/applications/mod.rs:989 src/ui/pages/processes/mod.rs:1285
+#: src/ui/pages/applications/mod.rs:992 src/ui/pages/processes/mod.rs:1283
 #, rust-format
 msgid "Kill {}?"
 msgstr "მოვკლა {}?"
 
-#: src/ui/pages/applications/mod.rs:990 src/ui/pages/processes/mod.rs:1286
+#: src/ui/pages/applications/mod.rs:993 src/ui/pages/processes/mod.rs:1284
 #, rust-format
 msgid "Continue {}?"
 msgstr "გავაგრძელო {}?"
 
-#: src/ui/pages/applications/mod.rs:996 src/ui/pages/processes/mod.rs:1321
+#: src/ui/pages/applications/mod.rs:999 src/ui/pages/processes/mod.rs:1319
 msgid "Unsaved work might be lost"
 msgstr "შეუნახავი მასალები დაგეკარგებათ"
 
-#: src/ui/pages/applications/mod.rs:998
+#: src/ui/pages/applications/mod.rs:1001
 msgid "Halting an app can come with serious risks such as losing data and security implications. Use with caution."
 msgstr ""
 "აპლიკაციის შეჩერებამ შეძლება ისეთ სერიოზულ რისკებს შეიცავდეს, როგორიცაა მონაცემების კარგვა და უსაფრთხოების "
 "გართულებები. ფრთხილად გამოიყენეთ."
 
-#: src/ui/pages/applications/mod.rs:1001
+#: src/ui/pages/applications/mod.rs:1004
 msgid "Killing an app can come with serious risks such as losing data and security implications. Use with caution."
 msgstr ""
 "აპლიკაციის მოკვლამ შეძლება ისეთ სერიოზულ რისკებს შეიცავდეს, როგორიცაა მონაცემების კარგვა და უსაფრთხოების გართულებები. "
 "ფრთხილად გამოიყენეთ."
 
-#: src/ui/pages/battery.rs:104 src/utils/battery.rs:258
-msgid "Battery"
-msgstr "ელემენტი"
-
-#: src/ui/pages/battery.rs:212
+#: src/ui/pages/battery.rs:213 src/ui/pages/battery.rs:259
 msgid "Battery Charge"
 msgstr "ელემენტის მუხტი"
 
-#: src/ui/pages/cpu.rs:244 src/ui/pages/gpu.rs:214
+#: src/ui/pages/cpu.rs:245 src/ui/pages/gpu.rs:217
 msgid "Total Usage"
 msgstr "სულ გამოყენება"
 
-#: src/ui/pages/cpu.rs:273 src/ui/pages/gpu.rs:241
+#: src/ui/pages/cpu.rs:274 src/ui/pages/cpu.rs:440 src/ui/pages/gpu.rs:244
 msgid "Temperature"
 msgstr "ტემპერატურა"
 
-#: src/ui/pages/drive.rs:127
+#: src/ui/pages/drive.rs:128
 msgid "Drive"
 msgstr "დისკი"
 
-#: src/ui/pages/drive.rs:237
+#: src/ui/pages/drive.rs:238
 msgid "Drive Activity"
 msgstr "დისკის აქტივობა"
 
-#: src/ui/pages/drive.rs:244
+#: src/ui/pages/drive.rs:245 src/ui/pages/drive.rs:379
 msgid "Read Speed"
 msgstr "კითხვის სიჩქარე"
 
-#: src/ui/pages/drive.rs:248
+#: src/ui/pages/drive.rs:249 src/ui/pages/drive.rs:380
 msgid "Write Speed"
 msgstr "ჩაწერის სიჩქარე"
 
-#. Translators: This is an abbreviation for "Read" and "Write". This is displayed in the sidebar so your
-#. translation should preferably be quite short or an abbreviation
-#: src/ui/pages/drive.rs:384
-#, rust-format
-msgid "R: {} · W: {}"
-msgstr "წ: {} · ჩ: {}"
-
-#: src/ui/pages/gpu.rs:222
+#: src/ui/pages/gpu.rs:225
 msgid "Video Encoder/Decoder Usage"
 msgstr "ვიდეო ენჯიდერის/დეკოდერის გამოყენება"
 
-#: src/ui/pages/gpu.rs:228
+#: src/ui/pages/gpu.rs:231
 msgid "Video Encoder Usage"
 msgstr "ვიდეოენკოდერის გამოყენება"
 
-#: src/ui/pages/gpu.rs:233
+#: src/ui/pages/gpu.rs:236
 msgid "Video Decoder Usage"
 msgstr "ვიდეოდეკოდერის გამოყენება"
 
-#: src/ui/pages/gpu.rs:238
+#: src/ui/pages/gpu.rs:241
 msgid "Video Memory Usage"
 msgstr "ვიდეომეხსიერების გამოყენება"
 
-#: src/ui/pages/memory.rs:261
+#: src/ui/pages/memory.rs:262
 #, rust-format
 msgid "{} of {}"
 msgstr "{} {}-დან"
 
-#: src/ui/pages/memory.rs:264
+#: src/ui/pages/memory.rs:265
 #, rust-format
 msgid "{} MT/s"
 msgstr "{} მტ/წმ"
 
-#. Translators: This will be displayed in the sidebar, so your translation for "Swap" should
-#. preferably be quite short or an abbreviation
-#: src/ui/pages/memory.rs:340
-#, rust-format
-msgid "{} / {} · Swap: {} %"
-msgstr "{} / {} · სვოპი: {} %"
+#: src/ui/pages/memory.rs:329
+msgid "Memory Usage"
+msgstr "მეხსიერების გამოყენება"
 
-#: src/ui/pages/network.rs:128 src/utils/network.rs:147
-msgid "Network Interface"
-msgstr "ქსელის ინტერფეისი"
+#: src/ui/pages/memory.rs:336
+msgid "Swap Usage"
+msgstr "სვოპის გამოყენება"
 
-#: src/ui/pages/network.rs:242
+#: src/ui/pages/network.rs:242 src/ui/pages/network.rs:407
 msgid "Receiving"
 msgstr "მიღება"
 
-#: src/ui/pages/network.rs:246
+#: src/ui/pages/network.rs:246 src/ui/pages/network.rs:408
 msgid "Sending"
 msgstr "გაგზავნა"
 
-#. Translators: This is an abbreviation for "Receive" and "Send". This is displayed in the sidebar so
-#. your translation should preferably be quite short or an abbreviation
-#: src/ui/pages/network.rs:414
-#, rust-format
-msgid "R: {} · S: {}"
-msgstr "წ: {} · ჩ: {}"
-
-#: src/ui/pages/processes/mod.rs:1125
+#: src/ui/pages/processes/mod.rs:1123
 #, rust-format
 msgid "Running Processes: {}"
 msgstr "გაშვებული პროცესები: {}"
 
-#: src/ui/pages/processes/mod.rs:1223
+#: src/ui/pages/processes/mod.rs:1221
 msgid "Process"
 msgstr "პროცესი"
 
-#: src/ui/pages/processes/mod.rs:1293
+#: src/ui/pages/processes/mod.rs:1291
 #, rust-format
 msgid "End process?"
 msgid_plural "End {} processes?"
 msgstr[0] "დავასრულო პროცესი?"
 msgstr[1] "დავასრულო {} პროცესი?"
 
-#: src/ui/pages/processes/mod.rs:1299
+#: src/ui/pages/processes/mod.rs:1297
 #, rust-format
 msgid "Halt process?"
 msgid_plural "Halt {} processes?"
 msgstr[0] "შევაჩერო პროცესი?"
 msgstr[1] "შევაჩერო {} პროცესი?"
 
-#: src/ui/pages/processes/mod.rs:1305 src/ui/pages/processes/mod.rs:1311
+#: src/ui/pages/processes/mod.rs:1303 src/ui/pages/processes/mod.rs:1309
 #, rust-format
 msgid "Kill process?"
 msgid_plural "Kill {} processes?"
 msgstr[0] "მოვკლა პროცესი?"
 msgstr[1] "მოვკლა {} პროცესი?"
 
-#: src/ui/pages/processes/mod.rs:1323
+#: src/ui/pages/processes/mod.rs:1321
 msgid "Halting a process can come with serious risks such as losing data and security implications. Use with caution."
 msgstr ""
 "პროცესის შეჩერებამ შეძლება ისეთ სერიოზულ რისკებს შეიცავდეს, როგორიცაა მონაცემების კარგვა და უსაფრთხოების გართულებები. "
 "ფრთხილად გამოიყენეთ."
 
-#: src/ui/pages/processes/mod.rs:1326
+#: src/ui/pages/processes/mod.rs:1324
 msgid "Killing a process can come with serious risks such as losing data and security implications. Use with caution."
 msgstr ""
 "პროცესის მოკვლამ შეძლება ისეთ სერიოზულ რისკებს შეიცავდეს, როგორიცაა მონაცემების კარგვა და უსაფრთხოების გართულებები. "
@@ -1049,181 +1243,120 @@ msgstr ""
 msgid "GPU {}"
 msgstr "GPU {}"
 
-#: src/ui/window.rs:501
+#: src/ui/window.rs:500
 #, rust-format
 msgid "NPU {}"
 msgstr "NPU {}"
 
-#: src/ui/window.rs:503
+#: src/ui/window.rs:502
 msgid "NPU"
 msgstr "NPU"
 
-#: src/ui/window.rs:1205
+#: src/ui/window.rs:1200
 #, rust-format
 msgid "Successfully adjusted {}"
 msgstr "{} წარმატებით გასწორდა"
 
-#: src/ui/window.rs:1206
+#: src/ui/window.rs:1201
 #, rust-format
 msgid "There was a problem adjusting {}"
 msgstr "{}-ის გასწორების პრობლემა"
 
-#: src/ui/window.rs:1288
+#: src/ui/window.rs:1283
 #, rust-format
 msgid "Successfully ended {}"
 msgstr "{} წარმატებით დასრულდა"
 
-#: src/ui/window.rs:1289
+#: src/ui/window.rs:1284
 #, rust-format
 msgid "Successfully halted {}"
 msgstr "{} წარმატებით შეჩერდა"
 
-#: src/ui/window.rs:1290
+#: src/ui/window.rs:1285
 #, rust-format
 msgid "Successfully killed {}"
 msgstr "{} წარმატებით მოვკალი"
 
-#: src/ui/window.rs:1291
+#: src/ui/window.rs:1286
 #, rust-format
 msgid "Successfully continued {}"
 msgstr "{} წარმატებით გაგრძელდა"
 
-#: src/ui/window.rs:1298
+#: src/ui/window.rs:1293
 #, rust-format
 msgid "Successfully ended the process"
 msgid_plural "Successfully ended {} processes"
 msgstr[0] "პროცესი წარმატებით დასრულდა"
 msgstr[1] "{} პროცესი წარმატებით დასრულდა"
 
-#: src/ui/window.rs:1304
+#: src/ui/window.rs:1299
 #, rust-format
 msgid "Successfully halted the process"
 msgid_plural "Successfully halted {} processes"
 msgstr[0] "პროცესი წარმატებით შეჩერდა"
 msgstr[1] "{} პროცესი წარმატებით შეჩერდა"
 
-#: src/ui/window.rs:1310
+#: src/ui/window.rs:1305
 #, rust-format
 msgid "Successfully killed the process"
 msgid_plural "Successfully killed {} processes"
 msgstr[0] "პროცესი წარმატებით მოკვდა"
 msgstr[1] "{} პროცესი წარმატებით მოკვდა"
 
-#: src/ui/window.rs:1316
+#: src/ui/window.rs:1311
 #, rust-format
 msgid "Successfully continued the process"
 msgid_plural "Successfully continued {} processes"
 msgstr[0] "პროცესი წარმატებით გაგრძელდა"
 msgstr[1] "{} პროცესი წარმატებით გაგრძელდა"
 
-#: src/ui/window.rs:1327
+#: src/ui/window.rs:1322
 #, rust-format
 msgid "There was a problem ending a process"
 msgid_plural "There were problems ending {} processes"
 msgstr[0] "პროცესის დასრულების პრობლემა"
 msgstr[1] "{} პროცესის დასრულების პრობლემა"
 
-#: src/ui/window.rs:1333
+#: src/ui/window.rs:1328
 #, rust-format
 msgid "There was a problem halting a process"
 msgid_plural "There were problems halting {} processes"
 msgstr[0] "პროცესის შეჩერების პრობლემა"
 msgstr[1] "{} პროცესის შეჩერების პრობლემა"
 
-#: src/ui/window.rs:1339
+#: src/ui/window.rs:1334
 #, rust-format
 msgid "There was a problem killing a process"
 msgid_plural "There were problems killing {} processes"
 msgstr[0] "პროცესის მოკვლის პრობლემა"
 msgstr[1] "{} პროცესის მოკვლის პრობლემა"
 
-#: src/ui/window.rs:1345
+#: src/ui/window.rs:1340
 #, rust-format
 msgid "There was a problem continuing a process"
 msgid_plural "There were problems continuing {} processes"
 msgstr[0] "პროცესის გაგრძელების პრობლემა"
 msgstr[1] "{} პროცესის გაგრძელების პრობლემა"
 
-#: src/ui/window.rs:1355
+#: src/ui/window.rs:1350
 #, rust-format
 msgid "There was a problem ending {}"
 msgstr "{}-ის დასრულების პრობლემა"
 
-#: src/ui/window.rs:1356
+#: src/ui/window.rs:1351
 #, rust-format
 msgid "There was a problem halting {}"
 msgstr "{}-ის შეჩერების პრობლემა"
 
-#: src/ui/window.rs:1357
+#: src/ui/window.rs:1352
 #, rust-format
 msgid "There was a problem killing {}"
 msgstr "{}-ის მოკვლის პრობლემა"
 
-#: src/ui/window.rs:1358
+#: src/ui/window.rs:1353
 #, rust-format
 msgid "There was a problem continuing {}"
 msgstr "{}-ის გაგრძელების პრობლემა"
-
-#: src/utils/app.rs:252
-msgid "System Processes"
-msgstr "სისტემური პროცესები"
-
-#: src/utils/battery.rs:93
-msgid "Charging"
-msgstr "იტენება"
-
-#: src/utils/battery.rs:94
-msgid "Discharging"
-msgstr "იცლება"
-
-#: src/utils/battery.rs:95
-msgid "Empty"
-msgstr "ცარიელი"
-
-#: src/utils/battery.rs:96
-msgid "Full"
-msgstr "სრული"
-
-#: src/utils/battery.rs:97
-msgid "Unknown"
-msgstr "უცნობი"
-
-#: src/utils/battery.rs:143
-msgid "Nickel-Metal Hydride"
-msgstr "ნიკელი-ლითონის-ჰიდრიდი"
-
-#: src/utils/battery.rs:144
-msgid "Nickel-Cadmium"
-msgstr "ნიკელ კადმიუმი"
-
-#: src/utils/battery.rs:145
-msgid "Nickel-Zinc"
-msgstr "ნიკელ-თუთია"
-
-#: src/utils/battery.rs:146
-msgid "Lead-Acid"
-msgstr "ტყვია-მჟავა"
-
-#: src/utils/battery.rs:147
-msgid "Lithium-Ion"
-msgstr "ლითიუმ-იონი"
-
-#: src/utils/battery.rs:148
-msgid "Lithium Iron Phosphate"
-msgstr "ლითიუმ-რკინის ფოსფატი"
-
-#: src/utils/battery.rs:149
-msgid "Lithium Polymer"
-msgstr "ლითიუმ-პოლიმერი"
-
-#: src/utils/battery.rs:151
-msgid "Rechargeable Alkaline Managanese"
-msgstr "დატენვადი ტუტე მანგანუმის"
-
-#: src/utils/battery.rs:256
-#, rust-format
-msgid "{} Battery"
-msgstr "{} ელემენტი"
 
 #: src/utils/units.rs:91
 #, rust-format
@@ -1725,166 +1858,29 @@ msgstr "{} ქვტ/სთ"
 msgid "{} TOPs"
 msgstr "{} TOP"
 
-#: src/utils/drive.rs:129 src/utils/drive.rs:208
-msgid "CD/DVD/Blu-ray Drive"
-msgstr "CD/DVD/Blu-ray ამძრავი"
+#~ msgid "Show Usage Details in Sidebar"
+#~ msgstr "გამოყენების დეტალების ჩვენება გვერდით პანელზე"
 
-#: src/utils/drive.rs:130
-msgid "eMMC Storage"
-msgstr "eMMC საცავი"
+#~ msgid "If enabled, the usage along with other information will be displayed"
+#~ msgstr "თუ ჩართულია, ნაჩვენები იქნება გამოყენებაც, სხვა ინფორმაციასთან ერთად"
 
-#: src/utils/drive.rs:131
-msgid "Flash Storage"
-msgstr "Flash საცავი"
+#~ msgid "Show Device Descriptions in Sidebar"
+#~ msgstr "მოწყობილობის აღწერების ჩვენება გვერდით პანელზე"
 
-#: src/utils/drive.rs:132 src/utils/drive.rs:209
-msgid "Floppy Drive"
-msgstr "დისკეტა"
+#~ msgid "If enabled, a device identifier like its name or device type will be displayed"
+#~ msgstr "თუ ჩართულია, ნაჩვენები იქნება მოწყობილობის იდენტიფიკატორი - როგორიცაა მისის ახელი"
 
-#: src/utils/drive.rs:133
-msgid "Hard Disk Drive"
-msgstr "მყარი დისკები"
-
-#: src/utils/drive.rs:134
-msgid "Loop Device"
-msgstr "მარყუჟმოწყობილობა"
-
-#: src/utils/drive.rs:135
-msgid "Mapped Device"
-msgstr "მიმაგრებული მოწყობილობები"
-
-#: src/utils/drive.rs:136
-msgid "NVMe Drive"
-msgstr "NVMe დისკი"
-
-#: src/utils/drive.rs:138
-msgid "Software Raid"
-msgstr "პროგრამული RAID"
-
-#: src/utils/drive.rs:139
-msgid "RAM Disk"
-msgstr "RAM დისკი"
-
-#: src/utils/drive.rs:140
-msgid "Solid State Drive"
-msgstr "SSD"
-
-#: src/utils/drive.rs:141
-msgid "ZFS Volume"
-msgstr "ZFS ტომი"
-
-#: src/utils/drive.rs:142
-msgid "Compressed RAM Disk (zram)"
-msgstr "შეკუმშული RAM რისკი (zram)"
-
-#: src/utils/drive.rs:210
 #, rust-format
-msgid "{} Loop Device"
-msgstr "{} მარყუჟმოწყობილობა"
+#~ msgid "R: {} · W: {}"
+#~ msgstr "წ: {} · ჩ: {}"
 
-#: src/utils/drive.rs:211
 #, rust-format
-msgid "{} Mapped Device"
-msgstr "{} მიმაგრებული მოწყობილობა"
+#~ msgid "{} / {} · Swap: {} %"
+#~ msgstr "{} / {} · სვოპი: {} %"
 
-#: src/utils/drive.rs:212
 #, rust-format
-msgid "{} RAID"
-msgstr "{} RAID"
-
-#: src/utils/drive.rs:213
-#, rust-format
-msgid "{} RAM Disk"
-msgstr "{} RAM დისკი"
-
-#: src/utils/drive.rs:214
-#, rust-format
-msgid "{} zram Device"
-msgstr "{} zram მოწყობილობა"
-
-#: src/utils/drive.rs:215
-#, rust-format
-msgid "{} ZFS Volume"
-msgstr "{} ZFS ტომი"
-
-#: src/utils/drive.rs:216
-#, rust-format
-msgid "{} Drive"
-msgstr "{} დისკი"
-
-#: src/utils/link/wifi.rs:158
-#, rust-format
-msgid "Receive: {}"
-msgstr "მიღება: {}"
-
-#: src/utils/link/wifi.rs:159
-#, rust-format
-msgid "Send: {}"
-msgstr "გაგზავნა: {}"
-
-#: src/utils/network.rs:131
-msgid "Bluetooth Tether"
-msgstr "ბლუთუზის Tether"
-
-#: src/utils/network.rs:132
-msgid "Network Bridge"
-msgstr "ქსელური ხიდი"
-
-#: src/utils/network.rs:133
-msgid "Ethernet Connection"
-msgstr "Ethernet შეერთება"
-
-#: src/utils/network.rs:134
-msgid "Docker Bridge"
-msgstr "Docker-ის ხიდი"
-
-#: src/utils/network.rs:135
-msgid "InfiniBand Connection"
-msgstr "InfiniBand შეერთება"
-
-#: src/utils/network.rs:136
-msgid "Incus Bridge"
-msgstr "Incus-ის ხიდი"
-
-#: src/utils/network.rs:137
-msgid "LXC Bridge"
-msgstr "LXC-ის ხიდი"
-
-#: src/utils/network.rs:138
-msgid "LXD Bridge"
-msgstr "LXD-ის ხიდი"
-
-#: src/utils/network.rs:139
-msgid "Serial Line IP Connection"
-msgstr "სერიული ხაზის IP მიერთება"
-
-#: src/utils/network.rs:140
-msgid "VM Network Interface"
-msgstr "ვმ-ის ქსელის ინტერფეისი"
-
-#: src/utils/network.rs:141
-msgid "Virtual Ethernet Device"
-msgstr "ვირტუალური Ethernet მოწყობილობა"
-
-#: src/utils/network.rs:142
-msgid "VM Network Bridge"
-msgstr "ვმ-ის ქსელური ხიდი"
-
-#: src/utils/network.rs:143
-msgid "VPN Tunnel"
-msgstr "VPN გვირაბი"
-
-#: src/utils/network.rs:144
-msgid "VPN Tunnel (WireGuard)"
-msgstr "VPN გვირაბი (WireGuard)"
-
-#: src/utils/network.rs:145
-msgid "Wi-Fi Connection"
-msgstr "Wi-Fi შეერთება"
-
-#: src/utils/network.rs:146
-msgid "WWAN Connection"
-msgstr "WWAN მიერთება"
+#~ msgid "R: {} · S: {}"
+#~ msgstr "წ: {} · ჩ: {}"
 
 #~ msgid "Select which processor cores the process is allowed to run on"
 #~ msgstr "აირჩიეთ, რომელ პროცესორის ბირთვებზე შეუძლია პროცესს, გაეშვეას"
