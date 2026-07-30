@@ -82,6 +82,21 @@
     </screenshot>
   </screenshots>
   <releases>
+    <release version="51~beta" date="2026-07-30">
+      <url type="details">https://gitlab.gnome.org/GNOME/Incubator/resources/-/releases/51.beta</url>
+      <description translate="no">
+        <p>
+          Resources is now part of GNOME Incubator and therefore follows GNOME's release cycle, so here is Resources 51.beta with new features and improvements:
+        </p>
+        <ul>
+          <li>Better detection of Steam games and Snap apps</li>
+          <li>Added utilization, power and performance metrics for AMD NPUs</li>
+          <li>Added temperature readings for PowerPC CPUs</li>
+          <li>Accessibility improvements</li>
+          <li>Revamped sidebar featuring a more space efficient layout and many other small UI improvements</li>
+        </ul>
+      </description>
+    </release>
     <release version="1.10.2" date="2026-03-06">
       <url type="details">https://gitlab.gnome.org/GNOME/Incubator/resources/-/releases/v1.10.2</url>
       <description translate="no">
