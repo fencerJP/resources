@@ -19,7 +19,7 @@ flatpak@aarch64:
   extends: .flatpak@aarch64
   variables:
     MANIFEST_PATH: build-aux/org.gnome.Resources.Devel.json
-    RUNTIME_REPO: https://sdk.gnome.org/gnome-nightly.flatpakrepo
+    RUNTIME_REPO: https://nightly.gnome.org/gnome-nightly.flatpakrepo
     FLATPAK_MODULE: resources
     APP_ID: org.gnome.Resources.Devel
     BUNDLE: org.gnome.Resources.Devel.flatpak
@@ -27,6 +27,6 @@ flatpak@aarch64:
 
 nightly:
   extends: .publish_nightly
-  dependencies: 
+  dependencies:
     - flatpak@x86_64
     - flatpak@aarch64
