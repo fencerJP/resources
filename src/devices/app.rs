@@ -73,7 +73,13 @@ static APP_ID_BLOCKLIST: LazyLock<HashMap<&'static str, &'static str>> = LazyLoc
         ("gnome-wacom-panel", "Technical application"),
         ("gnome-wifi-panel", "Technical application"),
         ("gnome-wwan-panel", "Technical application"),
+        ("org.gnome.goa-daemon", "Technical application"),
         ("org.freedesktop.Xwayland", "Technical application"),
+        ("mobi.phosh.Shell", "Technical application from Phosh DE"),
+        ("mobi.phosh.Phoc", "Technical application from Phosh DE"),
+        ("mobi.phosh.Phrog", "Technical application from Phosh DE"),
+        ("mobi.phosh.OsUpdater", "Technical application from Phosh DE"),
+        ("org.freedesktop.cbd", "Technical application for Linux Mobile"),
     ])
 });
 
