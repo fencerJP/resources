@@ -22,10 +22,27 @@ mkdir -p /usr/share/resources
 cp "${BUILD_DIR}/data/resources/resources.gresource" /usr/share/resources/resources.gresource
 chmod 644 /usr/share/resources/resources.gresource
 
-echo "==> Installing GSchema..."
-cp "${SCRIPT_DIR}/data/org.gnome.Resources.gschema.xml.in" /usr/share/glib-2.0/schemas/org.gnome.Resources.gschema.xml
+echo "==> Installing compiled GSchemas..."
+cp "${BUILD_DIR}/data/org.gnome.Resources.gschema.xml" /usr/share/glib-2.0/schemas/org.gnome.Resources.gschema.xml
 chmod 644 /usr/share/glib-2.0/schemas/org.gnome.Resources.gschema.xml
+
+sed 's/id="org.gnome.Resources"/id="net.nokyan.Resources"/g' "${BUILD_DIR}/data/org.gnome.Resources.gschema.xml" > /usr/share/glib-2.0/schemas/net.nokyan.Resources.gschema.xml
+chmod 644 /usr/share/glib-2.0/schemas/net.nokyan.Resources.gschema.xml
+
 glib-compile-schemas /usr/share/glib-2.0/schemas/
+
+echo "==> Installing desktop launchers..."
+if [ -f "${BUILD_DIR}/data/org.gnome.Resources.desktop" ]; then
+  cp "${BUILD_DIR}/data/org.gnome.Resources.desktop" /usr/share/applications/org.gnome.Resources.desktop
+  cp "${BUILD_DIR}/data/org.gnome.Resources.desktop" /usr/share/applications/net.nokyan.Resources.desktop
+  chmod 644 /usr/share/applications/org.gnome.Resources.desktop /usr/share/applications/net.nokyan.Resources.desktop
+fi
+
+echo "==> Installing icons..."
+if [ -d "${SCRIPT_DIR}/data/icons" ]; then
+  mkdir -p /usr/share/icons/hicolor/scalable/apps
+  cp ${SCRIPT_DIR}/data/icons/*.svg /usr/share/icons/hicolor/scalable/apps/ 2>/dev/null || true
+fi
 
 echo "==> Installing npu-data-exporter systemd service..."
 cat <<'SERVICE_EOF' > /etc/systemd/system/npu-data-exporter.service
