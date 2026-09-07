@@ -8,6 +8,7 @@ fi
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 BUILD_DIR="${SCRIPT_DIR}/build"
+SUDO_USER_HOME=$(eval echo "~${SUDO_USER}")
 
 echo "==> Stopping any running npu-data-exporter or resources processes..."
 systemctl stop npu-data-exporter.service 2>/dev/null || true
@@ -29,7 +30,7 @@ mkdir -p /usr/share/resources
 cp -f "${BUILD_DIR}/data/resources/resources.gresource" /usr/share/resources/resources.gresource
 chmod 644 /usr/share/resources/resources.gresource
 
-echo "==> Installing compiled GSchemas..."
+echo "==> Installing compiled GSchemas to system and user locations..."
 cp -f "${BUILD_DIR}/data/org.gnome.Resources.gschema.xml" /usr/share/glib-2.0/schemas/org.gnome.Resources.gschema.xml
 chmod 644 /usr/share/glib-2.0/schemas/org.gnome.Resources.gschema.xml
 
@@ -38,10 +39,18 @@ chmod 644 /usr/share/glib-2.0/schemas/net.nokyan.Resources.gschema.xml
 
 glib-compile-schemas /usr/share/glib-2.0/schemas/
 
-echo "==> Installing desktop launchers..."
+# If user has a local schema override dir, update it as well to prevent stale schema crashes
+if [ -d "${SUDO_USER_HOME}/.local/share/glib-2.0/schemas" ]; then
+  cp -f "${BUILD_DIR}/data/org.gnome.Resources.gschema.xml" "${SUDO_USER_HOME}/.local/share/glib-2.0/schemas/org.gnome.Resources.gschema.xml"
+  chown "${SUDO_USER}:${SUDO_USER}" "${SUDO_USER_HOME}/.local/share/glib-2.0/schemas/org.gnome.Resources.gschema.xml" 2>/dev/null || true
+  su - "${SUDO_USER}" -c "glib-compile-schemas '${SUDO_USER_HOME}/.local/share/glib-2.0/schemas'" 2>/dev/null || true
+fi
+
+echo "==> Installing desktop launchers with original theme icon (net.nokyan.Resources)..."
 if [ -f "${BUILD_DIR}/data/org.gnome.Resources.desktop" ]; then
-  cp -f "${BUILD_DIR}/data/org.gnome.Resources.desktop" /usr/share/applications/org.gnome.Resources.desktop
-  cp -f "${BUILD_DIR}/data/org.gnome.Resources.desktop" /usr/share/applications/net.nokyan.Resources.desktop
+  # Preserve original Yaru icon name net.nokyan.Resources for system icon theme
+  sed 's/Icon=org.gnome.Resources/Icon=net.nokyan.Resources/g' "${BUILD_DIR}/data/org.gnome.Resources.desktop" > /usr/share/applications/org.gnome.Resources.desktop
+  cp -f /usr/share/applications/org.gnome.Resources.desktop /usr/share/applications/net.nokyan.Resources.desktop
   chmod 644 /usr/share/applications/org.gnome.Resources.desktop /usr/share/applications/net.nokyan.Resources.desktop
 fi
 
