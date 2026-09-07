@@ -6,25 +6,15 @@ use ini::Ini;
 use log::{debug, trace};
 use process_data::unix_as_millis;
 
-pub mod app;
-pub mod battery;
-pub mod cpu;
-pub mod drive;
-pub mod gpu;
-pub mod link;
-pub mod memory;
-pub mod network;
-pub mod npu;
+pub mod i18n;
 pub mod os;
-pub mod pci;
-pub mod process;
 pub mod settings;
-mod snapd;
+pub mod snapd;
 pub mod units;
 
-const FLATPAK_SPAWN: &str = "/usr/bin/flatpak-spawn";
+pub const FLATPAK_SPAWN: &str = "/usr/bin/flatpak-spawn";
 
-static BOOT_TIMESTAMP: LazyLock<Option<i64>> = LazyLock::new(|| {
+pub static BOOT_TIMESTAMP: LazyLock<Option<i64>> = LazyLock::new(|| {
     let unix_timestamp = (unix_as_millis() / 1000) as i64;
     read_parsed::<String>("/proc/uptime")
         .context("unable to read /proc/uptime")
@@ -44,7 +34,7 @@ static BOOT_TIMESTAMP: LazyLock<Option<i64>> = LazyLock::new(|| {
         .ok()
 });
 
-static FLATPAK_APP_PATH: LazyLock<String> =
+pub static FLATPAK_APP_PATH: LazyLock<String> =
     LazyLock::new(|| flatpak_app_path().unwrap_or_else(|_| String::new()));
 
 pub static TICK_RATE: LazyLock<usize> =

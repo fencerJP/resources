@@ -2,10 +2,11 @@ use adw::{prelude::*, subclass::prelude::*};
 use gtk::glib::{self, clone};
 use log::trace;
 
-use crate::config::PROFILE;
-use crate::i18n::{i18n, i18n_f};
-use crate::utils::memory::{MemoryData, MemoryDevice};
-use crate::utils::units::convert_storage;
+use crate::config::DEVLOPMENT_BUILD;
+use crate::devices::memory::{MemoryData, MemoryDevice};
+use crate::ui::widgets::stack_sidebar_item::UsageLabels;
+use crate::utils::i18n::{i18n, i18n_f};
+use crate::utils::units::{convert_fraction, convert_storage};
 
 pub const TAB_ID: &str = "memory";
 
@@ -23,7 +24,7 @@ mod imp {
     };
 
     #[derive(CompositeTemplate, Properties)]
-    #[template(resource = "/net/nokyan/Resources/ui/pages/memory.ui")]
+    #[template(resource = "/org/gnome/Resources/ui/pages/memory.ui")]
     #[properties(wrapper_type = super::ResMemory)]
     pub struct ResMemory {
         #[template_child]
@@ -48,7 +49,7 @@ mod imp {
         pub memory_devices: RefCell<Vec<MemoryDevice>>,
 
         #[property(get)]
-        uses_progress_bar: Cell<bool>,
+        uses_meter: Cell<bool>,
 
         #[property(get)]
         main_graph_color: glib::Bytes,
@@ -65,8 +66,8 @@ mod imp {
         #[property(get = Self::tab_detail_string, set = Self::set_tab_detail_string, type = glib::GString)]
         tab_detail_string: Cell<glib::GString>,
 
-        #[property(get = Self::tab_usage_string, set = Self::set_tab_usage_string, type = glib::GString)]
-        tab_usage_string: Cell<glib::GString>,
+        #[property(get, set, type = UsageLabels)]
+        tab_usage_labels: RefCell<UsageLabels>,
 
         #[property(get = Self::tab_id, type = glib::GString)]
         tab_id: Cell<glib::GString>,
@@ -82,7 +83,7 @@ mod imp {
     }
 
     impl ResMemory {
-        gstring_getter_setter!(tab_name, tab_detail_string, tab_usage_string, tab_id);
+        gstring_getter_setter!(tab_name, tab_detail_string, tab_id);
     }
 
     impl Default for ResMemory {
@@ -98,13 +99,13 @@ mod imp {
                 memory_type: Default::default(),
                 type_detail: Default::default(),
                 memory_devices: Default::default(),
-                uses_progress_bar: Cell::new(true),
+                uses_meter: Cell::new(true),
                 main_graph_color: glib::Bytes::from_static(&super::ResMemory::MAIN_GRAPH_COLOR),
                 icon: RefCell::new(ThemedIcon::new("memory-symbolic").into()),
                 usage: Default::default(),
                 tab_name: Cell::new(glib::GString::from(i18n("Memory"))),
                 tab_detail_string: Cell::new(glib::GString::new()),
-                tab_usage_string: Cell::new(glib::GString::new()),
+                tab_usage_labels: Default::default(),
                 tab_id: Cell::new(glib::GString::from(TAB_ID)),
                 graph_locked_max_y: Cell::new(true),
                 primary_ord: Cell::new(MEMORY_PRIMARY_ORD),
@@ -135,7 +136,7 @@ mod imp {
             let obj = self.obj();
 
             // Devel Profile
-            if PROFILE == "Devel" {
+            if DEVLOPMENT_BUILD {
                 obj.add_css_class("devel");
             }
         }
@@ -321,31 +322,23 @@ impl ResMemory {
             .map(|md| md.size.unwrap_or(0))
             .sum::<u64>() as f64;
 
-        if total_swap == 0 {
-            self.set_property(
-                "tab_usage_string",
-                format!(
-                    "{} / {}",
-                    &convert_storage(used_mem as f64, false),
-                    &convert_storage(total_mem as f64, false)
-                ),
-            );
-        } else {
-            let swap_fraction = used_swap as f64 / total_swap as f64;
-            self.set_property(
-                "tab_usage_string",
-                i18n_f(
-                    // Translators: This will be displayed in the sidebar, so your translation for "Swap" should
-                    // preferably be quite short or an abbreviation
-                    "{} / {} · Swap: {} %",
-                    &[
-                        &convert_storage(used_mem as f64, false),
-                        &convert_storage(total_mem as f64, false),
-                        &(swap_fraction * 100.0).round().to_string(),
-                    ],
-                ),
+        let mut usage_labels = UsageLabels::default();
+
+        usage_labels.add_with_icon(
+            "speedometer-symbolic",
+            i18n("Memory Usage"),
+            convert_fraction(memory_fraction, true),
+        );
+
+        if total_swap > 0 {
+            usage_labels.add_with_icon(
+                "swap-symbolic",
+                i18n("Swap Usage"),
+                convert_fraction(used_swap as f64 / total_swap as f64, true),
             );
         }
+
+        self.set_tab_usage_labels(usage_labels);
 
         self.set_property(
             "tab_detail_string",

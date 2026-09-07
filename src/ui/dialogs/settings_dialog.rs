@@ -3,7 +3,7 @@ use gtk::glib;
 use log::trace;
 
 use crate::{
-    config::PROFILE,
+    config::DEVLOPMENT_BUILD,
     utils::settings::{Base, RefreshSpeed, SETTINGS, SidebarMeterType, TemperatureUnit},
 };
 
@@ -14,7 +14,7 @@ mod imp {
     use gtk::CompositeTemplate;
 
     #[derive(Debug, CompositeTemplate, Default)]
-    #[template(resource = "/net/nokyan/Resources/ui/dialogs/settings_dialog.ui")]
+    #[template(resource = "/org/gnome/Resources/ui/dialogs/settings_dialog.ui")]
     pub struct ResSettingsDialog {
         #[template_child]
         pub prefix_combo_row: TemplateChild<adw::ComboRow>,
@@ -29,10 +29,6 @@ mod imp {
         pub show_graph_grids_row: TemplateChild<adw::SwitchRow>,
         #[template_child]
         pub graph_data_points_row: TemplateChild<adw::SpinRow>,
-        #[template_child]
-        pub sidebar_details_row: TemplateChild<adw::SwitchRow>,
-        #[template_child]
-        pub sidebar_description_row: TemplateChild<adw::SwitchRow>,
         #[template_child]
         pub sidebar_meter_type_row: TemplateChild<adw::ComboRow>,
         #[template_child]
@@ -52,6 +48,10 @@ mod imp {
         pub apps_show_drive_write_total_row: TemplateChild<adw::SwitchRow>,
         #[template_child]
         pub apps_show_gpu_row: TemplateChild<adw::SwitchRow>,
+        #[template_child]
+        pub apps_show_npu_row: TemplateChild<adw::SwitchRow>,
+        #[template_child]
+        pub apps_show_gpu_npu_row: TemplateChild<adw::SwitchRow>,
         #[template_child]
         pub apps_show_gpu_mem_row: TemplateChild<adw::SwitchRow>,
         #[template_child]
@@ -83,6 +83,10 @@ mod imp {
         pub processes_show_drive_write_total_row: TemplateChild<adw::SwitchRow>,
         #[template_child]
         pub processes_show_gpu_row: TemplateChild<adw::SwitchRow>,
+        #[template_child]
+        pub processes_show_npu_row: TemplateChild<adw::SwitchRow>,
+        #[template_child]
+        pub processes_show_gpu_npu_row: TemplateChild<adw::SwitchRow>,
         #[template_child]
         pub processes_show_gpu_mem_row: TemplateChild<adw::SwitchRow>,
         #[template_child]
@@ -132,7 +136,7 @@ mod imp {
             let obj = self.obj();
 
             // Devel Profile
-            if PROFILE == "Devel" {
+            if DEVLOPMENT_BUILD {
                 obj.add_css_class("devel");
             }
         }
@@ -187,10 +191,6 @@ impl ResSettingsDialog {
             .set_active(SETTINGS.show_graph_grids());
         imp.graph_data_points_row
             .set_value(f64::from(SETTINGS.graph_data_points()));
-        imp.sidebar_details_row
-            .set_active(SETTINGS.sidebar_details());
-        imp.sidebar_description_row
-            .set_active(SETTINGS.sidebar_description());
         imp.sidebar_meter_type_row
             .set_selected(SETTINGS.sidebar_meter_type() as u32);
         imp.normalize_cpu_usage_row
@@ -208,6 +208,9 @@ impl ResSettingsDialog {
         imp.apps_show_drive_write_total_row
             .set_active(SETTINGS.apps_show_drive_write_total());
         imp.apps_show_gpu_row.set_active(SETTINGS.apps_show_gpu());
+        imp.apps_show_npu_row.set_active(SETTINGS.apps_show_npu());
+        imp.apps_show_gpu_npu_row
+            .set_active(SETTINGS.apps_show_gpu_npu());
         imp.apps_show_gpu_mem_row
             .set_active(SETTINGS.apps_show_gpu_memory());
         imp.apps_show_encoder_row
@@ -238,6 +241,10 @@ impl ResSettingsDialog {
             .set_active(SETTINGS.processes_show_drive_write_total());
         imp.processes_show_gpu_row
             .set_active(SETTINGS.processes_show_gpu());
+        imp.processes_show_npu_row
+            .set_active(SETTINGS.processes_show_npu());
+        imp.processes_show_gpu_npu_row
+            .set_active(SETTINGS.processes_show_gpu_npu());
         imp.processes_show_gpu_mem_row
             .set_active(SETTINGS.processes_show_gpu_memory());
         imp.processes_show_encoder_row
@@ -306,15 +313,6 @@ impl ResSettingsDialog {
             false
         });
 
-        imp.sidebar_details_row.connect_active_notify(|switch_row| {
-            let _ = SETTINGS.set_sidebar_details(switch_row.is_active());
-        });
-
-        imp.sidebar_description_row
-            .connect_active_notify(|switch_row| {
-                let _ = SETTINGS.set_sidebar_description(switch_row.is_active());
-            });
-
         imp.sidebar_meter_type_row
             .connect_selected_item_notify(|combo_row| {
                 if let Some(t) = SidebarMeterType::from_repr(combo_row.selected() as u8) {
@@ -349,6 +347,15 @@ impl ResSettingsDialog {
         imp.apps_show_gpu_row.connect_active_notify(|switch_row| {
             let _ = SETTINGS.set_apps_show_gpu(switch_row.is_active());
         });
+
+        imp.apps_show_npu_row.connect_active_notify(|switch_row| {
+            let _ = SETTINGS.set_apps_show_npu(switch_row.is_active());
+        });
+
+        imp.apps_show_gpu_npu_row
+            .connect_active_notify(|switch_row| {
+                let _ = SETTINGS.set_apps_show_gpu_npu(switch_row.is_active());
+            });
 
         imp.apps_show_gpu_mem_row
             .connect_active_notify(|switch_row| {
@@ -431,6 +438,16 @@ impl ResSettingsDialog {
         imp.processes_show_gpu_row
             .connect_active_notify(|switch_row| {
                 let _ = SETTINGS.set_processes_show_gpu(switch_row.is_active());
+            });
+
+        imp.processes_show_npu_row
+            .connect_active_notify(|switch_row| {
+                let _ = SETTINGS.set_processes_show_npu(switch_row.is_active());
+            });
+
+        imp.processes_show_gpu_npu_row
+            .connect_active_notify(|switch_row| {
+                let _ = SETTINGS.set_processes_show_gpu_npu(switch_row.is_active());
             });
 
         imp.processes_show_gpu_mem_row

@@ -6,8 +6,8 @@ use log::trace;
 use process_data::Containerization;
 
 use crate::{
-    i18n::i18n,
-    utils::{TICK_RATE, process::Process},
+    devices::process::Process,
+    utils::{TICK_RATE, i18n::i18n},
 };
 
 mod imp {
@@ -68,6 +68,13 @@ mod imp {
         gpu_usage: Cell<f32>,
 
         #[property(get, set)]
+        npu_usage: Cell<f32>,
+
+        /// Combined GPU and NPU utilization percentage, calculated as (GPU / 2.0) + (NPU / 2.0).
+        #[property(get, set)]
+        gpu_npu_usage: Cell<f32>,
+
+        #[property(get, set)]
         enc_usage: Cell<f32>,
 
         #[property(get, set)]
@@ -122,6 +129,8 @@ mod imp {
                 write_speed: Cell::new(0.0),
                 write_total: Cell::new(0),
                 gpu_usage: Cell::new(0.0),
+                npu_usage: Cell::new(0.0),
+                gpu_npu_usage: Cell::new(0.0),
                 enc_usage: Cell::new(0.0),
                 dec_usage: Cell::new(0.0),
                 gpu_mem_usage: Cell::new(0),
@@ -236,13 +245,10 @@ impl ProcessEntry {
         self.set_icon(&process.icon);
 
         self.set_cpu_usage(process.cpu_time_ratio());
-        self.set_memory_usage(process.data.memory_usage as u64);
+        self.set_memory_usage(process.mem_usage() as u64);
         self.set_swap_usage(process.data.swap_usage as u64);
         self.set_combined_memory_usage(
-            process
-                .data
-                .memory_usage
-                .saturating_add(process.data.swap_usage) as u64,
+            process.mem_usage().saturating_add(process.data.swap_usage) as u64
         );
         self.set_read_speed(process.read_speed().unwrap_or(-1.0));
         self.set_read_total(
@@ -259,6 +265,8 @@ impl ProcessEntry {
                 .map_or(-1, |write_total| write_total as i64),
         );
         self.set_gpu_usage(process.gpu_usage());
+        self.set_npu_usage(process.npu_usage());
+        self.set_gpu_npu_usage((process.gpu_usage() / 2.0) + (process.npu_usage() / 2.0));
         self.set_enc_usage(process.enc_usage());
         self.set_dec_usage(process.dec_usage());
         self.set_gpu_mem_usage(process.gpu_mem_usage());

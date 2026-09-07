@@ -3,8 +3,8 @@ use log::trace;
 use process_data::Containerization;
 
 use crate::{
-    i18n::i18n,
-    utils::app::{App, AppsContext},
+    devices::app::{App, AppsContext},
+    utils::i18n::i18n,
 };
 
 mod imp {
@@ -63,6 +63,13 @@ mod imp {
         gpu_usage: Cell<f32>,
 
         #[property(get, set)]
+        npu_usage: Cell<f32>,
+
+        /// Combined GPU and NPU utilization percentage, calculated as (GPU / 2.0) + (NPU / 2.0).
+        #[property(get, set)]
+        gpu_npu_usage: Cell<f32>,
+
+        #[property(get, set)]
         enc_usage: Cell<f32>,
 
         #[property(get, set)]
@@ -102,6 +109,8 @@ mod imp {
                 write_speed: Cell::new(0.0),
                 write_total: Cell::new(0),
                 gpu_usage: Cell::new(0.0),
+                npu_usage: Cell::new(0.0),
+                gpu_npu_usage: Cell::new(0.0),
                 enc_usage: Cell::new(0.0),
                 dec_usage: Cell::new(0.0),
                 gpu_mem_usage: Cell::new(0),
@@ -220,6 +229,10 @@ impl ApplicationEntry {
         self.set_write_speed(app.write_speed(apps_context));
         self.set_write_total(app.write_total(apps_context));
         self.set_gpu_usage(app.gpu_usage(apps_context));
+        self.set_npu_usage(app.npu_usage(apps_context));
+        self.set_gpu_npu_usage(
+            (app.gpu_usage(apps_context) / 2.0) + (app.npu_usage(apps_context) / 2.0),
+        );
         self.set_enc_usage(app.enc_usage(apps_context));
         self.set_dec_usage(app.dec_usage(apps_context));
         self.set_gpu_mem_usage(app.gpu_mem_usage(apps_context));

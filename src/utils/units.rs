@@ -1,7 +1,7 @@
 use strum::IntoEnumIterator;
 use strum_macros::{Display, EnumIter, EnumString};
 
-use crate::i18n::i18n_f;
+use crate::utils::i18n::{i18n, i18n_f};
 
 use super::settings::{Base, SETTINGS, TemperatureUnit};
 
@@ -37,9 +37,9 @@ pub fn format_time(time_in_seconds: f64) -> String {
     let hours = (time_in_seconds / (60.0 * 60.0)) as usize;
 
     if negative {
-        format!("-{hours}∶{minutes:02}∶{seconds:02}.{millis:02}")
+        format!("-{hours}:{minutes:02}:{seconds:02}.{millis:02}")
     } else {
-        format!("{hours}∶{minutes:02}∶{seconds:02}.{millis:02}")
+        format!("{hours}:{minutes:02}:{seconds:02}.{millis:02}")
     }
 }
 
@@ -52,9 +52,9 @@ pub fn format_time_integer(time_in_seconds: isize) -> String {
     let hours = (time_in_seconds / (60 * 60)) as usize;
 
     if negative {
-        format!("-{hours}∶{minutes:02}∶{seconds:02}")
+        format!("-{hours}:{minutes:02}:{seconds:02}")
     } else {
-        format!("{hours}∶{minutes:02}∶{seconds:02}")
+        format!("{hours}:{minutes:02}:{seconds:02}")
     }
 }
 
@@ -99,9 +99,14 @@ pub fn convert_temperature(celsius: f64) -> String {
 }
 
 pub fn convert_fraction(fraction: f64, integer: bool) -> String {
-    let percentage = fraction * 100.0;
+    let mut percentage = fraction * 100.0;
+    if percentage.abs() < 1e-6 || percentage.is_nan() {
+        percentage = 0.0;
+    }
     if integer {
-        format!("{} %", percentage.round())
+        let rounded = percentage.round();
+        let val = if rounded.abs() < 1e-6 { 0.0 } else { rounded };
+        format!("{val:.0} %")
     } else {
         format!("{percentage:.1} %")
     }
@@ -347,6 +352,14 @@ pub fn convert_tops(tops: f64) -> String {
     i18n_f("{} TOPs", &[&tops.to_string()])
 }
 
+pub fn convert_charge_cycles(cycles: usize) -> String {
+    if cycles > 0 {
+        cycles.to_string()
+    } else {
+        i18n("N/A")
+    }
+}
+
 #[cfg(test)]
 mod test {
     use crate::utils::{
@@ -361,21 +374,21 @@ mod test {
     fn format_time_negative() {
         let seconds = -3723.13;
         let formatted_time = format_time(seconds);
-        assert_eq!("-1∶02∶03.13", formatted_time)
+        assert_eq!("-1:02:03.13", formatted_time)
     }
 
     #[test]
     fn format_time_zero() {
         let seconds = 0.0;
         let formatted_time = format_time(seconds);
-        assert_eq!("0∶00∶00.00", formatted_time)
+        assert_eq!("0:00:00.00", formatted_time)
     }
 
     #[test]
     fn format_time_positive() {
         let seconds = 3723.13;
         let formatted_time = format_time(seconds);
-        assert_eq!("1∶02∶03.13", formatted_time)
+        assert_eq!("1:02:03.13", formatted_time)
     }
 
     #[test]
