@@ -9,21 +9,28 @@ fi
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 BUILD_DIR="${SCRIPT_DIR}/build"
 
+echo "==> Stopping any running npu-data-exporter or resources processes..."
+systemctl stop npu-data-exporter.service 2>/dev/null || true
+pkill -9 npu-data-exporter 2>/dev/null || true
+pkill -9 resources 2>/dev/null || true
+sleep 1
+
 echo "==> Installing updated resources binary..."
-cp "${BUILD_DIR}/src/release/resources" /usr/bin/resources
+cp -f "${BUILD_DIR}/src/release/resources" /usr/bin/resources
 chmod 755 /usr/bin/resources
 
 echo "==> Installing npu-data-exporter binary..."
-cp "${BUILD_DIR}/src/release/npu-data-exporter" /usr/local/bin/npu-data-exporter
+rm -f /usr/local/bin/npu-data-exporter
+cp -f "${BUILD_DIR}/src/release/npu-data-exporter" /usr/local/bin/npu-data-exporter
 chmod 755 /usr/local/bin/npu-data-exporter
 
 echo "==> Installing compiled GResource..."
 mkdir -p /usr/share/resources
-cp "${BUILD_DIR}/data/resources/resources.gresource" /usr/share/resources/resources.gresource
+cp -f "${BUILD_DIR}/data/resources/resources.gresource" /usr/share/resources/resources.gresource
 chmod 644 /usr/share/resources/resources.gresource
 
 echo "==> Installing compiled GSchemas..."
-cp "${BUILD_DIR}/data/org.gnome.Resources.gschema.xml" /usr/share/glib-2.0/schemas/org.gnome.Resources.gschema.xml
+cp -f "${BUILD_DIR}/data/org.gnome.Resources.gschema.xml" /usr/share/glib-2.0/schemas/org.gnome.Resources.gschema.xml
 chmod 644 /usr/share/glib-2.0/schemas/org.gnome.Resources.gschema.xml
 
 sed 's/id="org.gnome.Resources"/id="net.nokyan.Resources"/g' "${BUILD_DIR}/data/org.gnome.Resources.gschema.xml" > /usr/share/glib-2.0/schemas/net.nokyan.Resources.gschema.xml
@@ -33,8 +40,8 @@ glib-compile-schemas /usr/share/glib-2.0/schemas/
 
 echo "==> Installing desktop launchers..."
 if [ -f "${BUILD_DIR}/data/org.gnome.Resources.desktop" ]; then
-  cp "${BUILD_DIR}/data/org.gnome.Resources.desktop" /usr/share/applications/org.gnome.Resources.desktop
-  cp "${BUILD_DIR}/data/org.gnome.Resources.desktop" /usr/share/applications/net.nokyan.Resources.desktop
+  cp -f "${BUILD_DIR}/data/org.gnome.Resources.desktop" /usr/share/applications/org.gnome.Resources.desktop
+  cp -f "${BUILD_DIR}/data/org.gnome.Resources.desktop" /usr/share/applications/net.nokyan.Resources.desktop
   chmod 644 /usr/share/applications/org.gnome.Resources.desktop /usr/share/applications/net.nokyan.Resources.desktop
 fi
 
