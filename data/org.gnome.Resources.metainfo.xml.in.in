@@ -82,6 +82,14 @@
     </screenshot>
   </screenshots>
   <releases>
+    <release version="51.0" date="2026-09-12">
+      <url type="details">https://gitlab.gnome.org/GNOME/Incubator/resources/-/releases/51.0</url>
+      <description translate="no">
+        <ul>
+          <li>Updated translations</li>
+        </ul>
+      </description>
+    </release>
     <release version="51~beta" date="2026-07-30">
       <url type="details">https://gitlab.gnome.org/GNOME/Incubator/resources/-/releases/51.beta</url>
       <description translate="no">
