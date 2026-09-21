@@ -38,8 +38,12 @@ static COMPANION_PROCESS: LazyLock<Mutex<(ChildStdin, ChildStdout)>> = LazyLock:
         )
     } else if std::path::Path::new(&format!("{LIBEXECDIR}/resources/resources-processes")).exists() {
         format!("{LIBEXECDIR}/resources/resources-processes")
-    } else {
+    } else if std::path::Path::new(&format!("{LIBEXECDIR}/resources-processes")).exists() {
         format!("{LIBEXECDIR}/resources-processes")
+    } else if std::path::Path::new("/usr/libexec/resources/resources-processes").exists() {
+        "/usr/libexec/resources/resources-processes".to_string()
+    } else {
+        "/usr/libexec/resources-processes".to_string()
     };
 
     let mut additional_args: Vec<&str> = Vec::new();
@@ -294,8 +298,12 @@ impl Process {
             )
         } else if std::path::Path::new(&format!("{LIBEXECDIR}/resources/resources-adjust")).exists() {
             format!("{LIBEXECDIR}/resources/resources-adjust")
-        } else {
+        } else if std::path::Path::new(&format!("{LIBEXECDIR}/resources-adjust")).exists() {
             format!("{LIBEXECDIR}/resources-adjust")
+        } else if std::path::Path::new("/usr/libexec/resources/resources-adjust").exists() {
+            "/usr/libexec/resources/resources-adjust".to_string()
+        } else {
+            "/usr/libexec/resources-adjust".to_string()
         };
 
         let affinity_string = affinity
@@ -338,8 +346,12 @@ impl Process {
             )
         } else if std::path::Path::new(&format!("{LIBEXECDIR}/resources/resources-kill")).exists() {
             format!("{LIBEXECDIR}/resources/resources-kill")
-        } else {
+        } else if std::path::Path::new(&format!("{LIBEXECDIR}/resources-kill")).exists() {
             format!("{LIBEXECDIR}/resources-kill")
+        } else if std::path::Path::new("/usr/libexec/resources/resources-kill").exists() {
+            "/usr/libexec/resources/resources-kill".to_string()
+        } else {
+            "/usr/libexec/resources-kill".to_string()
         };
 
         let result = Self::maybe_pkexec_command(
