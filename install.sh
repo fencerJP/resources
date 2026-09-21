@@ -68,11 +68,40 @@ fi
 echo "==> Installing icons..."
 if [ -d "${SCRIPT_DIR}/data/icons" ]; then
   mkdir -p /usr/share/icons/hicolor/scalable/apps
+  mkdir -p /usr/share/icons/hicolor/symbolic/apps
+  cp ${SCRIPT_DIR}/data/icons/*-symbolic.svg /usr/share/icons/hicolor/symbolic/apps/ 2>/dev/null || true
   cp ${SCRIPT_DIR}/data/icons/*.svg /usr/share/icons/hicolor/scalable/apps/ 2>/dev/null || true
 fi
 
+echo "==> Installing UI translations (gettext locales)..."
+if [ -d "${BUILD_DIR}/po" ]; then
+  find "${BUILD_DIR}/po" -name "*.mo" | while read -r mo_file; do
+    lang=$(echo "$mo_file" | sed -E 's|.*/po/([^/]+)/LC_MESSAGES/.*|\1|')
+    if [ -n "$lang" ]; then
+      mkdir -p "/usr/share/locale/${lang}/LC_MESSAGES"
+      cp -f "$mo_file" "/usr/share/locale/${lang}/LC_MESSAGES/resources.mo"
+      chmod 644 "/usr/share/locale/${lang}/LC_MESSAGES/resources.mo"
+    fi
+  done
+fi
+
+echo "==> Installing Polkit action policy..."
+if [ -f "${BUILD_DIR}/data/org.gnome.Resources.policy" ]; then
+  mkdir -p /usr/share/polkit-1/actions
+  # Ensure the exec path points to /usr/libexec/resources/resources-kill
+  sed 's|/tmp/resources-build/libexec/resources/resources-kill|/usr/libexec/resources/resources-kill|g' \
+    "${BUILD_DIR}/data/org.gnome.Resources.policy" > /usr/share/polkit-1/actions/org.gnome.Resources.policy
+  chmod 644 /usr/share/polkit-1/actions/org.gnome.Resources.policy
+
+  # Provide legacy action ID net.nokyan.Resources.policy compatibility
+  sed 's|id="org.gnome.Resources.kill"|id="net.nokyan.Resources.kill"|g' \
+    /usr/share/polkit-1/actions/org.gnome.Resources.policy > /usr/share/polkit-1/actions/net.nokyan.Resources.policy
+  chmod 644 /usr/share/polkit-1/actions/net.nokyan.Resources.policy
+fi
+
 echo "==> Installing npu-data-exporter systemd service..."
-cat <<'SERVICE_EOF' > /etc/systemd/system/npu-data-exporter.service
+if command -v systemctl >/dev/null 2>&1 && [ -d /run/systemd/system ]; then
+  cat <<'SERVICE_EOF' > /etc/systemd/system/npu-data-exporter.service
 [Unit]
 Description=AMD XDNA NPU Data Exporter Daemon
 After=syslog.target network.target
@@ -87,7 +116,10 @@ RestartSec=3
 WantedBy=multi-user.target
 SERVICE_EOF
 
-systemctl daemon-reload
-systemctl enable --now npu-data-exporter.service || true
+  systemctl daemon-reload
+  systemctl enable --now npu-data-exporter.service 2>/dev/null || true
+else
+  echo "Notice: systemd is not active or available; skipping systemd service activation."
+fi
 
 echo "==> Installation complete! GNOME Resources and npu-data-exporter service are now active."

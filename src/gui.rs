@@ -90,8 +90,14 @@ pub fn main() {
     // Prepare i18n
     gettextrs::setlocale(LocaleCategory::LcAll, "");
 
-    if let Err(err) = gettextrs::bindtextdomain(GETTEXT_PACKAGE, LOCALEDIR) {
-        log::warn!("gettext: Unable to bind the text domain: {err}");
+    let locale_dir = if std::path::Path::new(LOCALEDIR).exists() {
+        LOCALEDIR
+    } else {
+        "/usr/share/locale"
+    };
+
+    if let Err(err) = gettextrs::bindtextdomain(GETTEXT_PACKAGE, locale_dir) {
+        log::warn!("gettext: Unable to bind the text domain ({locale_dir}): {err}");
     }
     if let Err(err) = gettextrs::textdomain(GETTEXT_PACKAGE) {
         log::warn!("gettext: Unable to switch to the text domain: {err}");

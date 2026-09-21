@@ -30,7 +30,7 @@ use crate::{
     },
 };
 
-static COMPANION_PROCESS: LazyLock<Mutex<(ChildStdin, ChildStdout)>> = LazyLock::new(|| {
+static COMPANION_PROCESS: LazyLock<Mutex<Option<(ChildStdin, ChildStdout)>>> = LazyLock::new(|| {
     let proxy_path = if *IS_FLATPAK {
         format!(
             "{}/libexec/resources/resources-processes",
@@ -66,25 +66,30 @@ static COMPANION_PROCESS: LazyLock<Mutex<(ChildStdin, ChildStdout)>> = LazyLock:
             .stdout(Stdio::piped())
             .stderr(Stdio::piped())
             .spawn()
-            .unwrap()
     } else {
         debug!(
             "Spawning resources-processes in native mode ({proxy_path} {})",
             additional_args.join(" ")
         );
-        Command::new(proxy_path)
+        Command::new(&proxy_path)
             .args(additional_args)
             .stdin(Stdio::piped())
             .stdout(Stdio::piped())
             .stderr(Stdio::piped())
             .spawn()
-            .unwrap()
     };
 
-    let stdin = child.stdin.unwrap();
-    let stdout = child.stdout.unwrap();
-
-    Mutex::new((stdin, stdout))
+    match child {
+        Ok(mut c) => {
+            let stdin = c.stdin.take().expect("failed to get stdin");
+            let stdout = c.stdout.take().expect("failed to get stdout");
+            Mutex::new(Some((stdin, stdout)))
+        }
+        Err(err) => {
+            error!("Failed to spawn companion process ({proxy_path}): {err}");
+            Mutex::new(None)
+        }
+    }
 });
 
 /// Represents a process that can be found within procfs.
@@ -125,23 +130,27 @@ impl Process {
         let start = Instant::now();
         let output = {
             trace!("Acquiring companion process lock");
-            let mut process = COMPANION_PROCESS.lock().unwrap();
+            let mut guard = COMPANION_PROCESS.lock().unwrap();
+            let Some((ref mut stdin, ref mut stdout)) = *guard else {
+                return Ok(Vec::new());
+            };
+
             trace!("Writing b\"\\n\" into companion process stdin");
-            let _ = process.0.write_all(b"\n");
+            let _ = stdin.write_all(b"\n");
             trace!("Flushing");
-            let _ = process.0.flush();
+            let _ = stdin.flush();
 
             let mut len_bytes = [0_u8; (usize::BITS / 8) as usize];
 
             trace!("Reading companion process output length as little-endian");
-            process.1.read_exact(&mut len_bytes)?;
+            stdout.read_exact(&mut len_bytes)?;
 
             let len = usize::from_le_bytes(len_bytes);
             trace!("Companion process output is {len} bytes long");
 
             let mut output_bytes = vec![0; len];
             trace!("Reading companion process output");
-            process.1.read_exact(&mut output_bytes)?;
+            stdout.read_exact(&mut output_bytes)?;
 
             output_bytes
         };
