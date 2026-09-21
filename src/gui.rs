@@ -98,7 +98,14 @@ pub fn main() {
     }
     glib::set_application_name(&gettext("Resources"));
 
-    let res = gio::Resource::load(RESOURCES_FILE).expect("Could not load gresource file");
+    let res_path = if std::path::Path::new(RESOURCES_FILE).exists() {
+        std::path::PathBuf::from(RESOURCES_FILE)
+    } else {
+        std::path::PathBuf::from("/usr/share/resources/resources.gresource")
+    };
+    let res = gio::Resource::load(&res_path).unwrap_or_else(|err| {
+        panic!("Could not load gresource file from {:?}: {err}", res_path);
+    });
     gio::resources_register(&res);
 
     let app = Application::new();
