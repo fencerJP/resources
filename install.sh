@@ -14,11 +14,22 @@ echo "==> Stopping any running npu-data-exporter or resources processes..."
 systemctl stop npu-data-exporter.service 2>/dev/null || true
 pkill -9 npu-data-exporter 2>/dev/null || true
 pkill -9 resources 2>/dev/null || true
+pkill -9 resources-processes 2>/dev/null || true
 sleep 1
 
 echo "==> Installing updated resources binary..."
 cp -f "${BUILD_DIR}/src/release/resources" /usr/bin/resources
 chmod 755 /usr/bin/resources
+
+echo "==> Installing companion helper binaries (resources-processes, adjust, kill)..."
+mkdir -p /usr/libexec/resources
+for bin in resources-processes resources-adjust resources-kill; do
+  if [ -f "${BUILD_DIR}/src/release/${bin}" ]; then
+    cp -f "${BUILD_DIR}/src/release/${bin}" "/usr/libexec/${bin}"
+    cp -f "${BUILD_DIR}/src/release/${bin}" "/usr/libexec/resources/${bin}"
+    chmod 755 "/usr/libexec/${bin}" "/usr/libexec/resources/${bin}"
+  fi
+done
 
 echo "==> Installing npu-data-exporter binary..."
 rm -f /usr/local/bin/npu-data-exporter

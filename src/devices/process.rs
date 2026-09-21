@@ -36,6 +36,8 @@ static COMPANION_PROCESS: LazyLock<Mutex<(ChildStdin, ChildStdout)>> = LazyLock:
             "{}/libexec/resources/resources-processes",
             FLATPAK_APP_PATH.as_str()
         )
+    } else if std::path::Path::new(&format!("{LIBEXECDIR}/resources/resources-processes")).exists() {
+        format!("{LIBEXECDIR}/resources/resources-processes")
     } else {
         format!("{LIBEXECDIR}/resources-processes")
     };
@@ -290,6 +292,8 @@ impl Process {
                 "{}/libexec/resources/resources-adjust",
                 FLATPAK_APP_PATH.as_str()
             )
+        } else if std::path::Path::new(&format!("{LIBEXECDIR}/resources/resources-adjust")).exists() {
+            format!("{LIBEXECDIR}/resources/resources-adjust")
         } else {
             format!("{LIBEXECDIR}/resources-adjust")
         };
@@ -332,6 +336,8 @@ impl Process {
                 "{}/libexec/resources/resources-kill",
                 FLATPAK_APP_PATH.as_str()
             )
+        } else if std::path::Path::new(&format!("{LIBEXECDIR}/resources/resources-kill")).exists() {
+            format!("{LIBEXECDIR}/resources/resources-kill")
         } else {
             format!("{LIBEXECDIR}/resources-kill")
         };
