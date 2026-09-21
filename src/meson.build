@@ -1,13 +1,13 @@
 cargo_env = environment()
 
 # App specific env vars
-cargo_env.append('APP_ID', application_id)
-cargo_env.append('DEVLOPMENT_BUILD', development_build.to_string())
-cargo_env.append('VERSION', version + version_suffix)
-cargo_env.append('GETTEXT_PACKAGE', gettext_package)
-cargo_env.append('LOCALEDIR', localedir)
-cargo_env.append('LIBEXECDIR', libexecdir)
-cargo_env.append('RESOURCES_FILE', pkgdatadir / 'resources.gresource')
+cargo_env.set('APP_ID', application_id)
+cargo_env.set('DEVLOPMENT_BUILD', development_build.to_string())
+cargo_env.set('VERSION', version + version_suffix)
+cargo_env.set('GETTEXT_PACKAGE', gettext_package)
+cargo_env.set('LOCALEDIR', localedir)
+cargo_env.set('LIBEXECDIR', libexecdir)
+cargo_env.set('RESOURCES_FILE', pkgdatadir / 'resources.gresource')
 
 # Cargo env vars
 cargo_env.append('CARGO_HOME', meson.project_build_root() / 'cargo')
