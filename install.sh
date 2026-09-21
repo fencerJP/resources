@@ -38,6 +38,11 @@ chmod 755 /usr/local/bin/npu-data-exporter
 
 echo "==> Installing compiled GResource..."
 mkdir -p /usr/share/resources
+if command -v glib-compile-resources >/dev/null 2>&1; then
+  glib-compile-resources "${SCRIPT_DIR}/data/resources/resources.gresource.xml" \
+    --sourcedir "${SCRIPT_DIR}/data/resources" \
+    --target "${BUILD_DIR}/data/resources/resources.gresource" 2>/dev/null || true
+fi
 cp -f "${BUILD_DIR}/data/resources/resources.gresource" /usr/share/resources/resources.gresource
 chmod 644 /usr/share/resources/resources.gresource
 
