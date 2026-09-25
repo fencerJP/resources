@@ -34,10 +34,8 @@ msgstr "Hald auge med systemressurser"
 
 #. Translators: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
 #: data/org.gnome.Resources.desktop.in.in:9
-#| msgid "System;Resources;Monitor;Processes;Usage;Task;Manager;CPU;RAM;Memory;GPU;"
 msgid "System;Resources;Monitor;Processes;Usage;Task;Manager;CPU;RAM;Memory;GPU;Performance;Power;Battery;"
-msgstr ""
-"System;Ressursar;Overvaking;Prosessar;Bruk;Oppgåve;Styring;CPU;RAM;Minne;GPU;Yting;Straum;Batteri;"
+msgstr "System;Ressursar;Overvaking;Prosessar;Bruk;Oppgåve;Styring;CPU;RAM;Minne;GPU;Yting;Straum;Batteri;"
 
 #: data/org.gnome.Resources.metainfo.xml.in.in:17
 msgid ""
@@ -810,14 +808,11 @@ msgid "Quit"
 msgstr "Avslutt"
 
 #: data/resources/ui/shortcuts.ui:27
-#| msgctxt "shortcut window"
-#| msgid "Toggle Search Field"
 msgctxt "shortcut window"
 msgid "Toggle Sidebar"
 msgstr "Veksle sidefelt"
 
 #: data/resources/ui/shortcuts.ui:35
-#| msgid "Processes"
 msgctxt "shortcut window"
 msgid "Apps/Processes"
 msgstr "Appar/prosessar"
@@ -858,17 +853,14 @@ msgid "Show Process Options"
 msgstr "Syn prosessinnstillingar"
 
 #: data/resources/ui/window.ui:6
-#| msgid "Preferences"
 msgid "_Preferences"
 msgstr "_Innstillingar"
 
 #: data/resources/ui/window.ui:10
-#| msgid "Keyboard Shortcuts"
 msgid "_Keyboard Shortcuts"
 msgstr "_Tastatursnarvegar"
 
 #: data/resources/ui/window.ui:14
-#| msgid "About Resources"
 msgid "_About Resources"
 msgstr "_Om ressursar"
 
@@ -1079,7 +1071,6 @@ msgstr "{}-disk"
 
 #: src/devices/link/wifi.rs:156
 #, rust-format
-#| msgid "Receiving"
 msgid "Receive: {}"
 msgstr "Ta imot: {}"
 
@@ -1109,17 +1100,14 @@ msgid "InfiniBand Connection"
 msgstr "InfiniBand-tilkopling"
 
 #: src/devices/network.rs:136
-#| msgid "Docker Bridge"
 msgid "Incus Bridge"
 msgstr "Incus-bru"
 
 #: src/devices/network.rs:137
-#| msgid "Docker Bridge"
 msgid "LXC Bridge"
 msgstr "LXC-bru"
 
 #: src/devices/network.rs:138
-#| msgid "Docker Bridge"
 msgid "LXD Bridge"
 msgstr "LXD-bru"
 
@@ -1128,7 +1116,6 @@ msgid "Serial Line IP Connection"
 msgstr "IP-tilkopling med seriell linje"
 
 #: src/devices/network.rs:140
-#| msgid "Network Interface"
 msgid "VM Network Interface"
 msgstr "VM-nettverksgrensesnitt"
 
@@ -1226,7 +1213,6 @@ msgid "Continue {}?"
 msgstr "Lat {} halde fram?"
 
 #: src/ui/pages/applications/mod.rs:999 src/ui/pages/processes/mod.rs:1319
-#| msgid "Unsaved work might be lost."
 msgid "Unsaved work might be lost"
 msgstr "Ulagra arbeid kan gå tapt"
 
@@ -1305,7 +1291,6 @@ msgid "Memory Usage"
 msgstr "Minnebruk"
 
 #: src/ui/pages/memory.rs:336
-#| msgid "Power Usage"
 msgid "Swap Usage"
 msgstr "Swap-bruk"
 
@@ -1507,7 +1492,7 @@ msgstr "{} B"
 #: src/utils/units.rs:123 src/utils/units.rs:137
 #, rust-format
 msgid "{} kB"
-msgstr "{} B"
+msgstr "{} kB"
 
 #: src/utils/units.rs:124 src/utils/units.rs:138
 #, rust-format
@@ -1981,7 +1966,6 @@ msgstr "{} QWh"
 
 #: src/utils/units.rs:347
 #, rust-format
-#| msgid "{} TB/s"
 msgid "{} TOPs"
 msgstr "{} TOPs"
 
