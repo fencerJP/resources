@@ -25,7 +25,8 @@ use gtk::{
 use crate::{
     config,
     utils::{
-        FLATPAK_APP_PATH, FLATPAK_SPAWN, FiniteOr, IS_FLATPAK, NUM_CPUS, TICK_RATE, boot_time,
+        FLATPAK_APP_PATH, FLATPAK_RUNTIME_PATH, FLATPAK_SPAWN, FiniteOr, IS_FLATPAK,
+        LD_LINUX_RELATIVE, MULTIARCH_DIR, NUM_CPUS, TICK_RATE, boot_time,
         settings::{MemoryMetric, SETTINGS},
     },
 };
@@ -49,12 +50,25 @@ static COMPANION_PROCESS: LazyLock<Mutex<(ChildStdin, ChildStdout)>> = LazyLock:
     }
 
     let child = if *IS_FLATPAK {
+        let runtime_path = FLATPAK_RUNTIME_PATH
+            .as_ref()
+            .expect("could not determine Flatpak runtime path");
+        let ld_linux = format!("{runtime_path}/{LD_LINUX_RELATIVE}");
+        let ld_library_path = format!("LD_LIBRARY_PATH={runtime_path}/{MULTIARCH_DIR}");
+
         debug!(
-            "Spawning resources-processes in Flatpak mode ({proxy_path} {})",
+            "Spawning resources-processes in Flatpak mode via {ld_linux} ({proxy_path} {})",
             additional_args.join(" ")
         );
+
         Command::new(FLATPAK_SPAWN)
-            .args(["--host", proxy_path.as_str()])
+            .args([
+                "--host",
+                "env",
+                ld_library_path.as_str(),
+                ld_linux.as_str(),
+                proxy_path.as_str(),
+            ])
             .args(additional_args)
             .stdin(Stdio::piped())
             .stdout(Stdio::piped())
@@ -212,15 +226,23 @@ impl Process {
             .collect::<Vec<_>>();
 
         let status_code = if *IS_FLATPAK {
+            let runtime_path = FLATPAK_RUNTIME_PATH
+                .as_ref()
+                .expect("could not determine Flatpak runtime path");
+            let ld_linux = format!("{runtime_path}/{LD_LINUX_RELATIVE}");
+            let ld_library_path = format!("LD_LIBRARY_PATH={runtime_path}/{MULTIARCH_DIR}");
+
             debug!(
-                "Executing command: {} --host {} {}",
+                "Executing command: {} --host env {} {} {} {}",
                 FLATPAK_SPAWN,
+                ld_library_path,
+                ld_linux,
                 command.as_ref().to_string_lossy(),
                 args.join(&OsString::from(" ")).to_string_lossy()
             );
 
             Command::new(FLATPAK_SPAWN)
-                .arg("--host")
+                .args(["--host", "env", ld_library_path.as_str(), ld_linux.as_str()])
                 .arg(command.as_ref())
                 .args(args.clone())
                 .output()?
@@ -244,14 +266,23 @@ impl Process {
 
         if status_code == libc::EPERM || status_code == libc::EACCES {
             let pkexec_status_code = if *IS_FLATPAK {
+                let runtime_path = FLATPAK_RUNTIME_PATH
+                    .as_ref()
+                    .expect("could not determine Flatpak runtime path");
+                let ld_linux = format!("{runtime_path}/{LD_LINUX_RELATIVE}");
+                let ld_library_path = format!("LD_LIBRARY_PATH={runtime_path}/{MULTIARCH_DIR}");
+
                 debug!(
-                    "Received EPERM, executing command: {} --host pkexec --disable-internal-agent {} {}",
+                    "Received EPERM, executing command: {} --host pkexec --disable-internal-agent env {} {} {} {}",
                     FLATPAK_SPAWN,
+                    ld_library_path,
+                    ld_linux,
                     command.as_ref().to_string_lossy(),
                     args.join(&OsString::from(" ")).to_string_lossy()
                 );
                 Command::new(FLATPAK_SPAWN)
-                    .args(["--host", "pkexec", "--disable-internal-agent"])
+                    .args(["--host", "pkexec", "--disable-internal-agent", "env"])
+                    .args([ld_library_path.as_str(), ld_linux.as_str()])
                     .arg(command)
                     .args(args)
                     .output()?
