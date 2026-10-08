@@ -5,8 +5,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: resources\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/Incubator/resources/issues/\n"
-"POT-Creation-Date: 2026-07-25 12:34+0000\n"
-"PO-Revision-Date: 2026-07-26 06:07+0200\n"
+"POT-Creation-Date: 2026-10-06 14:15+0000\n"
+"PO-Revision-Date: 2026-10-08 05:59+0200\n"
 "Last-Translator: Ekaterine Papava <papava.e@gtu.ge>\n"
 "Language-Team: Georgian <(nothing)>\n"
 "Language: ka\n"
@@ -51,7 +51,7 @@ msgstr "CPU"
 #: data/org.gnome.Resources.metainfo.xml.in.in:25 data/resources/ui/dialogs/app_dialog.ui:82
 #: data/resources/ui/dialogs/process_dialog.ui:64 data/resources/ui/dialogs/settings_dialog.ui:118
 #: data/resources/ui/dialogs/settings_dialog.ui:210 data/resources/ui/window.ui:175 data/resources/ui/window.ui:182
-#: src/ui/pages/applications/mod.rs:427 src/ui/pages/memory.rs:106 src/ui/pages/memory.rs:192
+#: src/ui/pages/applications/mod.rs:427 src/ui/pages/memory.rs:166 src/ui/pages/memory.rs:252
 #: src/ui/pages/processes/mod.rs:532
 msgid "Memory"
 msgstr "მეხსიერება"
@@ -122,7 +122,7 @@ msgstr "აპლიკაციის ინფორმაცია"
 
 #: data/resources/ui/dialogs/app_dialog.ui:70 data/resources/ui/dialogs/process_dialog.ui:48
 #: data/resources/ui/pages/battery.ui:22 data/resources/ui/pages/cpu.ui:37 data/resources/ui/pages/cpu.ui:50
-#: data/resources/ui/pages/drive.ui:22 data/resources/ui/pages/gpu.ui:22 data/resources/ui/pages/memory.ui:31
+#: data/resources/ui/pages/drive.ui:22 data/resources/ui/pages/gpu.ui:22 data/resources/ui/pages/memory.ui:43
 #: data/resources/ui/pages/network.ui:22 data/resources/ui/pages/npu.ui:22
 msgid "Usage"
 msgstr "გამოყენება"
@@ -136,7 +136,7 @@ msgstr "პროცესორი"
 
 #: data/resources/ui/dialogs/app_dialog.ui:91 data/resources/ui/dialogs/process_dialog.ui:73
 #: data/resources/ui/dialogs/settings_dialog.ui:168 data/resources/ui/dialogs/settings_dialog.ui:280
-#: src/ui/pages/applications/mod.rs:573 src/ui/pages/memory.rs:198 src/ui/pages/processes/mod.rs:756
+#: src/ui/pages/applications/mod.rs:573 src/ui/pages/memory.rs:258 src/ui/pages/processes/mod.rs:756
 msgid "Swap"
 msgstr "სვაპი"
 
@@ -184,7 +184,7 @@ msgstr "ვიდეოდეკოდერი"
 
 #: data/resources/ui/dialogs/app_dialog.ui:174 data/resources/ui/dialogs/process_dialog.ui:179
 #: data/resources/ui/pages/battery.ui:33 data/resources/ui/pages/cpu.ui:83 data/resources/ui/pages/drive.ui:54
-#: data/resources/ui/pages/gpu.ui:74 data/resources/ui/pages/memory.ui:42 data/resources/ui/pages/network.ui:51
+#: data/resources/ui/pages/gpu.ui:74 data/resources/ui/pages/memory.ui:60 data/resources/ui/pages/network.ui:51
 #: data/resources/ui/pages/npu.ui:77
 msgid "Properties"
 msgstr "თვისებები"
@@ -424,7 +424,7 @@ msgid "Processes"
 msgstr "პროცესები"
 
 #: data/resources/ui/dialogs/settings_dialog.ui:186 data/resources/ui/pages/cpu.ui:22
-#: data/resources/ui/pages/processes.ui:56
+#: data/resources/ui/pages/memory.ui:31 data/resources/ui/pages/processes.ui:56
 msgid "Options"
 msgstr "მორგება"
 
@@ -561,7 +561,7 @@ msgstr "სულ წაკითხული"
 msgid "Total Written"
 msgstr "სულ ჩაწერილი"
 
-#: data/resources/ui/pages/drive.ui:57 data/resources/ui/pages/memory.ui:72
+#: data/resources/ui/pages/drive.ui:57 data/resources/ui/pages/memory.ui:90
 msgid "Type"
 msgstr "ტიპი"
 
@@ -616,19 +616,27 @@ msgstr "მეხსიერების თვისებების სა�
 msgid "Authenticate"
 msgstr "ავთენტიკაცია"
 
-#: data/resources/ui/pages/memory.ui:45
+#: data/resources/ui/pages/memory.ui:35
+msgid "Show Swap Devices"
+msgstr "სვოპის მოწყობილობების ჩვენება"
+
+#: data/resources/ui/pages/memory.ui:54
+msgid "Swap Devices"
+msgstr "სვოპის მოწყობილობები"
+
+#: data/resources/ui/pages/memory.ui:63
 msgid "Slots Used"
 msgstr "გამოყენებულ სლოტები"
 
-#: data/resources/ui/pages/memory.ui:54
+#: data/resources/ui/pages/memory.ui:72
 msgid "Speed"
 msgstr "სიჩქარე"
 
-#: data/resources/ui/pages/memory.ui:63
+#: data/resources/ui/pages/memory.ui:81
 msgid "Form Factor"
 msgstr "ზომა"
 
-#: data/resources/ui/pages/memory.ui:81
+#: data/resources/ui/pages/memory.ui:99
 msgid "Type Detail"
 msgstr "ტიპის დეტალი"
 
@@ -800,7 +808,7 @@ msgstr "ძებნის ველის გადართვა"
 msgid "translator-credits"
 msgstr "ეკატერინე პაპავა"
 
-#: src/devices/app.rs:247
+#: src/devices/app.rs:256
 msgid "System Processes"
 msgstr "სისტემური პროცესები"
 
@@ -867,8 +875,8 @@ msgstr "დატენვადი ტუტე მანგანუმის"
 #: src/ui/pages/cpu.rs:293 src/ui/pages/cpu.rs:299 src/ui/pages/cpu.rs:303 src/ui/pages/cpu.rs:306
 #: src/ui/pages/cpu.rs:344 src/ui/pages/drive.rs:375 src/ui/pages/gpu.rs:250 src/ui/pages/gpu.rs:257
 #: src/ui/pages/gpu.rs:318 src/ui/pages/gpu.rs:321 src/ui/pages/gpu.rs:332 src/ui/pages/gpu.rs:346
-#: src/ui/pages/memory.rs:227 src/ui/pages/memory.rs:228 src/ui/pages/memory.rs:232 src/ui/pages/memory.rs:233
-#: src/ui/pages/memory.rs:237 src/ui/pages/memory.rs:238 src/ui/pages/memory.rs:266 src/ui/pages/network.rs:253
+#: src/ui/pages/memory.rs:289 src/ui/pages/memory.rs:290 src/ui/pages/memory.rs:294 src/ui/pages/memory.rs:295
+#: src/ui/pages/memory.rs:299 src/ui/pages/memory.rs:300 src/ui/pages/memory.rs:328 src/ui/pages/network.rs:253
 #: src/ui/pages/network.rs:260 src/ui/pages/network.rs:267 src/ui/pages/network.rs:273 src/ui/pages/network.rs:276
 #: src/ui/pages/network.rs:286 src/ui/pages/network.rs:295 src/ui/pages/network.rs:304 src/ui/pages/network.rs:383
 #: src/ui/pages/network.rs:397 src/ui/pages/processes/mod.rs:574 src/ui/pages/processes/mod.rs:589
@@ -1170,21 +1178,26 @@ msgstr "ვიდეოდეკოდერის გამოყენებ�
 msgid "Video Memory Usage"
 msgstr "ვიდეომეხსიერების გამოყენება"
 
-#: src/ui/pages/memory.rs:262
+#: src/ui/pages/memory.rs:324
 #, rust-format
 msgid "{} of {}"
 msgstr "{} {}-დან"
 
-#: src/ui/pages/memory.rs:265
+#: src/ui/pages/memory.rs:327
 #, rust-format
 msgid "{} MT/s"
 msgstr "{} მტ/წმ"
 
-#: src/ui/pages/memory.rs:329
+#: src/ui/pages/memory.rs:418
 msgid "Memory Usage"
 msgstr "მეხსიერების გამოყენება"
 
-#: src/ui/pages/memory.rs:336
+#: src/ui/pages/memory.rs:484
+#, rust-format
+msgid "{} · {} · Priority: {}"
+msgstr "{} · {} · პრიორიტეტი: {}"
+
+#: src/ui/pages/memory.rs:505
 msgid "Swap Usage"
 msgstr "სვოპის გამოყენება"
 
