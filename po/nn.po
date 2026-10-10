@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/Incubator/resources/"
 "issues/\n"
-"POT-Creation-Date: 2026-09-14 12:29+0000\n"
-"PO-Revision-Date: 2026-09-21 20:38+0200\n"
+"POT-Creation-Date: 2026-10-06 14:15+0000\n"
+"PO-Revision-Date: 2026-10-10 22:00+0200\n"
 "Last-Translator: Roy-Magne Mo <rmo@sunnmore.net>\n"
 "Language-Team: \n"
 "Language: nn\n"
@@ -49,7 +49,7 @@ msgstr ""
 
 #: data/org.gnome.Resources.metainfo.xml.in.in:20
 msgid "Resources supports monitoring the following components:"
-msgstr "Resources kan overvaka dei fylgjande komponentane:"
+msgstr "Resources kan overvaka dei følgjande komponentane:"
 
 #: data/org.gnome.Resources.metainfo.xml.in.in:24
 msgid "CPU"
@@ -61,8 +61,8 @@ msgstr "CPU"
 #: data/resources/ui/dialogs/settings_dialog.ui:118
 #: data/resources/ui/dialogs/settings_dialog.ui:210
 #: data/resources/ui/window.ui:175 data/resources/ui/window.ui:182
-#: src/ui/pages/applications/mod.rs:427 src/ui/pages/memory.rs:106
-#: src/ui/pages/memory.rs:192 src/ui/pages/processes/mod.rs:532
+#: src/ui/pages/applications/mod.rs:427 src/ui/pages/memory.rs:166
+#: src/ui/pages/memory.rs:252 src/ui/pages/processes/mod.rs:532
 msgid "Memory"
 msgstr "Minne"
 
@@ -95,7 +95,7 @@ msgstr "Appar-fana i lys drakt"
 
 #: data/org.gnome.Resources.metainfo.xml.in.in:57
 msgid "Processes page in dark theme"
-msgstr "Prosesser-fana i mørk drakt"
+msgstr "Prosessar-fana i mørk drakt"
 
 #: data/org.gnome.Resources.metainfo.xml.in.in:61
 msgid "Processor page in light theme"
@@ -119,7 +119,7 @@ msgstr "Nettverksgrensesnitt-fana i lys drakt"
 
 #: data/org.gnome.Resources.metainfo.xml.in.in:81
 msgid "Battery page in dark theme"
-msgstr "Batteri-fanen i mørk drakt"
+msgstr "Batteri-fana i mørk drakt"
 
 #: data/org.gnome.Resources.policy.in.in:9
 msgid "Control Process"
@@ -142,7 +142,7 @@ msgstr "Appopplysningar"
 #: data/resources/ui/dialogs/process_dialog.ui:48
 #: data/resources/ui/pages/battery.ui:22 data/resources/ui/pages/cpu.ui:37
 #: data/resources/ui/pages/cpu.ui:50 data/resources/ui/pages/drive.ui:22
-#: data/resources/ui/pages/gpu.ui:22 data/resources/ui/pages/memory.ui:31
+#: data/resources/ui/pages/gpu.ui:22 data/resources/ui/pages/memory.ui:43
 #: data/resources/ui/pages/network.ui:22 data/resources/ui/pages/npu.ui:22
 msgid "Usage"
 msgstr "Bruk"
@@ -161,7 +161,7 @@ msgstr "Prosessor"
 #: data/resources/ui/dialogs/process_dialog.ui:73
 #: data/resources/ui/dialogs/settings_dialog.ui:168
 #: data/resources/ui/dialogs/settings_dialog.ui:280
-#: src/ui/pages/applications/mod.rs:573 src/ui/pages/memory.rs:198
+#: src/ui/pages/applications/mod.rs:573 src/ui/pages/memory.rs:258
 #: src/ui/pages/processes/mod.rs:756
 msgid "Swap"
 msgstr "Swapminne"
@@ -226,7 +226,7 @@ msgstr "Videoavkodar"
 #: data/resources/ui/dialogs/process_dialog.ui:179
 #: data/resources/ui/pages/battery.ui:33 data/resources/ui/pages/cpu.ui:83
 #: data/resources/ui/pages/drive.ui:54 data/resources/ui/pages/gpu.ui:74
-#: data/resources/ui/pages/memory.ui:42 data/resources/ui/pages/network.ui:51
+#: data/resources/ui/pages/memory.ui:60 data/resources/ui/pages/network.ui:51
 #: data/resources/ui/pages/npu.ui:77
 msgid "Properties"
 msgstr "Eigenskapar"
@@ -265,13 +265,13 @@ msgstr "Total CPU-tid"
 #: data/resources/ui/dialogs/settings_dialog.ui:265
 #: src/ui/pages/processes/mod.rs:702
 msgid "User CPU Time"
-msgstr "Brukar CPU-tid"
+msgstr "CPU-tid for brukar"
 
 #: data/resources/ui/dialogs/process_dialog.ui:172
 #: data/resources/ui/dialogs/settings_dialog.ui:270
 #: src/ui/pages/processes/mod.rs:716
 msgid "System CPU Time"
-msgstr "System CPU-tid"
+msgstr "CPU-tid for systemet"
 
 #: data/resources/ui/dialogs/process_dialog.ui:186
 #: data/resources/ui/dialogs/settings_dialog.ui:200
@@ -314,14 +314,14 @@ msgid ""
 "The priority of a process is given by its niceness. A lower niceness value "
 "correspond to a higher priority."
 msgstr ""
-"Føreretten av ein prosess er gjeven av hyggjelegskapen sin. Ein lågare "
-"hyggjelegskapsverdi tilsvarar ein høgre førerett."
+"Prioriteten til ein prosess er gjeven av hyggjelegskapen. Ein lågare "
+"hyggjelegskapsverdi svarar til ein høgare prioritet."
 
 #: data/resources/ui/dialogs/process_options_dialog.ui:86
 #: data/resources/ui/dialogs/settings_dialog.ui:275
 #: src/ui/pages/processes/mod.rs:730
 msgid "Priority"
-msgstr "Førerett"
+msgstr "Prioritet"
 
 #: data/resources/ui/dialogs/process_options_dialog.ui:90
 msgctxt "process priority"
@@ -462,8 +462,8 @@ msgid ""
 "If enabled, the total usage of all cores will be divided by the amount of "
 "cores"
 msgstr ""
-"Det totale bruket av alle kjernar skal dividerast med talet kjernar dersom "
-"dette er aktivert"
+"Viss dette er slått på, vert det totale forbruket til alle kjernar dividert "
+"med talet på kjernar"
 
 #: data/resources/ui/dialogs/settings_dialog.ui:112
 #: data/resources/ui/window.ui:64 data/resources/ui/window.ui:71
@@ -486,10 +486,11 @@ msgstr "Samanfletta minne"
 #: data/resources/ui/window.ui:104 data/resources/ui/window.ui:111
 #: src/ui/pages/processes/mod.rs:182
 msgid "Processes"
-msgstr "Prosesser"
+msgstr "Prosessar"
 
 #: data/resources/ui/dialogs/settings_dialog.ui:186
-#: data/resources/ui/pages/cpu.ui:22 data/resources/ui/pages/processes.ui:56
+#: data/resources/ui/pages/cpu.ui:22 data/resources/ui/pages/memory.ui:31
+#: data/resources/ui/pages/processes.ui:56
 msgid "Options"
 msgstr "Innstillingar"
 
@@ -501,7 +502,7 @@ msgstr "Syn hyggjelegskapsverdiar"
 msgid ""
 "Display priorities as niceness to allow for more fine-grained adjustments"
 msgstr ""
-"Syn førerettar som hyggjelegskap for å kunne føretaka meir finkorna "
+"Syn prioritetar som hyggjelegskap for å kunne gjere meir finkorna "
 "justeringar"
 
 #: data/resources/ui/dialogs/settings_dialog.ui:300
@@ -526,13 +527,13 @@ msgstr "Syn virtuelle nettverksgrensesnitt"
 
 #: data/resources/ui/dialogs/settings_dialog.ui:318
 msgid "Virtual network interfaces are for example bridges or VPN tunnels"
-msgstr "Virtuelle nettverksgrensesnitt er t.d. bruer eller VPN-tunellar"
+msgstr "Virtuelle nettverksgrensesnitt er t.d. bruer eller VPN-tunnelar"
 
 #: data/resources/ui/pages/applications.ui:6
 #: data/resources/ui/pages/applications.ui:26
 #: src/ui/pages/applications/mod.rs:1014
 msgid "Kill App"
-msgstr "Død app"
+msgstr "Drep app"
 
 #: data/resources/ui/pages/applications.ui:10
 #: data/resources/ui/pages/applications.ui:30
@@ -544,7 +545,7 @@ msgstr "Stopp app"
 #: data/resources/ui/pages/applications.ui:34
 #: src/ui/pages/applications/mod.rs:1015
 msgid "Continue App"
-msgstr "Lat app halde fram"
+msgstr "La app halde fram"
 
 #: data/resources/ui/pages/applications.ui:22
 #: data/resources/ui/pages/applications.ui:101
@@ -559,7 +560,7 @@ msgstr "Opplysingar"
 
 #: data/resources/ui/pages/applications.ui:59
 msgid "Search applications"
-msgstr "Søk etter applikasjonar"
+msgstr "Søk etter appar"
 
 #: data/resources/ui/pages/battery.ui:36
 msgid "Battery Health"
@@ -629,13 +630,13 @@ msgstr "Arkitektur"
 
 #: data/resources/ui/pages/drive.ui:38
 msgid "Total Read"
-msgstr "Total lese"
+msgstr "Totalt lese"
 
 #: data/resources/ui/pages/drive.ui:47
 msgid "Total Written"
-msgstr "Total skrive"
+msgstr "Totalt skrive"
 
-#: data/resources/ui/pages/drive.ui:57 data/resources/ui/pages/memory.ui:72
+#: data/resources/ui/pages/drive.ui:57 data/resources/ui/pages/memory.ui:90
 msgid "Type"
 msgstr "Type"
 
@@ -677,7 +678,7 @@ msgstr "PCI-spor"
 #: data/resources/ui/pages/gpu.ui:99 data/resources/ui/pages/network.ui:67
 #: data/resources/ui/pages/npu.ui:102
 msgid "Driver Used"
-msgstr "Drivar brukt"
+msgstr "Drivar i bruk"
 
 #: data/resources/ui/pages/gpu.ui:108 data/resources/ui/pages/npu.ui:111
 msgid "Max Power Cap"
@@ -691,29 +692,37 @@ msgstr "Du lyt autentisere for å sjå minneeigenskapar"
 msgid "Authenticate"
 msgstr "Autentiser"
 
-#: data/resources/ui/pages/memory.ui:45
-msgid "Slots Used"
-msgstr "Spor brukt"
+#: data/resources/ui/pages/memory.ui:35
+msgid "Show Swap Devices"
+msgstr "Syn swapeiningar"
 
 #: data/resources/ui/pages/memory.ui:54
+msgid "Swap Devices"
+msgstr "Swapeiningar"
+
+#: data/resources/ui/pages/memory.ui:63
+msgid "Slots Used"
+msgstr "Spor i bruk"
+
+#: data/resources/ui/pages/memory.ui:72
 msgid "Speed"
 msgstr "Fart"
 
-#: data/resources/ui/pages/memory.ui:63
+#: data/resources/ui/pages/memory.ui:81
 msgid "Form Factor"
 msgstr "Formfaktor"
 
-#: data/resources/ui/pages/memory.ui:81
+#: data/resources/ui/pages/memory.ui:99
 msgid "Type Detail"
 msgstr "Typedetaljar"
 
 #: data/resources/ui/pages/network.ui:35
 msgid "Total Received"
-msgstr "Total motteke"
+msgstr "Totalt motteke"
 
 #: data/resources/ui/pages/network.ui:44
 msgid "Total Sent"
-msgstr "Total sendt"
+msgstr "Totalt sendt"
 
 #: data/resources/ui/pages/network.ui:76
 msgid "Interface"
@@ -746,7 +755,7 @@ msgstr "Minnefrekvens"
 #: data/resources/ui/pages/processes.ui:6
 #: data/resources/ui/pages/processes.ui:42 src/ui/pages/processes/mod.rs:1334
 msgid "Kill Process"
-msgstr "Død prosess"
+msgstr "Drep prosess"
 
 #: data/resources/ui/pages/processes.ui:10
 #: data/resources/ui/pages/processes.ui:46 src/ui/pages/processes/mod.rs:1333
@@ -756,12 +765,12 @@ msgstr "Stopp prosess"
 #: data/resources/ui/pages/processes.ui:14
 #: data/resources/ui/pages/processes.ui:50 src/ui/pages/processes/mod.rs:1335
 msgid "Continue Process"
-msgstr "Lat prosess halde fram"
+msgstr "La prosess halde fram"
 
 #: data/resources/ui/pages/processes.ui:22
 #: data/resources/ui/pages/processes.ui:74
 msgid "Kill Processes"
-msgstr "Døyd prosessar"
+msgstr "Drep prosessar"
 
 #: data/resources/ui/pages/processes.ui:26
 #: data/resources/ui/pages/processes.ui:78
@@ -771,7 +780,7 @@ msgstr "Stopp prosessar"
 #: data/resources/ui/pages/processes.ui:30
 #: data/resources/ui/pages/processes.ui:82
 msgid "Continue Processes"
-msgstr "Lat prosessar halde fram"
+msgstr "La prosessar halde fram"
 
 #: data/resources/ui/pages/processes.ui:38
 #: data/resources/ui/pages/processes.ui:162 src/ui/pages/processes/mod.rs:821
@@ -830,7 +839,7 @@ msgstr "Avslutt app/prosess"
 #: data/resources/ui/shortcuts.ui:50
 msgctxt "shortcut window"
 msgid "Kill App/Process"
-msgstr "Død app/prosess"
+msgstr "Drep app/prosess"
 
 #: data/resources/ui/shortcuts.ui:56
 msgctxt "shortcut window"
@@ -840,7 +849,7 @@ msgstr "Stopp app/prosess"
 #: data/resources/ui/shortcuts.ui:62
 msgctxt "shortcut window"
 msgid "Continue App/Process"
-msgstr "Lat app/prosess halde fram"
+msgstr "La app/prosess halde fram"
 
 #: data/resources/ui/shortcuts.ui:68
 msgctxt "shortcut window"
@@ -862,7 +871,7 @@ msgstr "_Tastatursnarvegar"
 
 #: data/resources/ui/window.ui:14
 msgid "_About Resources"
-msgstr "_Om ressursar"
+msgstr "_Om Resources"
 
 #: data/resources/ui/window.ui:44
 msgid "Main Menu"
@@ -884,7 +893,7 @@ msgstr ""
 "Sunniva Løvstad <resources@turtle.garden>\n"
 "Roy-Magne Mo <rmo@sunnmore.net>"
 
-#: src/devices/app.rs:247
+#: src/devices/app.rs:256
 msgid "System Processes"
 msgstr "Systemprosessar"
 
@@ -894,7 +903,7 @@ msgstr "Ladar"
 
 #: src/devices/battery.rs:93
 msgid "Discharging"
-msgstr "Avladar"
+msgstr "Utladar"
 
 #: src/devices/battery.rs:94
 msgid "Empty"
@@ -930,7 +939,7 @@ msgstr "Litium-ion"
 
 #: src/devices/battery.rs:147
 msgid "Lithium Iron Phosphate"
-msgstr "Litium-ion-fosfat"
+msgstr "Litiumjernfosfat"
 
 #: src/devices/battery.rs:148
 msgid "Lithium Polymer"
@@ -938,7 +947,7 @@ msgstr "Litiumpolymer"
 
 #: src/devices/battery.rs:149
 msgid "Rechargeable Alkaline Managanese"
-msgstr "Oppladbar alkalisk manganese"
+msgstr "Oppladbar alkalisk mangan"
 
 #: src/devices/battery.rs:150 src/devices/drive.rs:136
 #: src/devices/gpu/mod.rs:279 src/devices/gpu/mod.rs:289
@@ -957,10 +966,10 @@ msgstr "Oppladbar alkalisk manganese"
 #: src/ui/pages/cpu.rs:303 src/ui/pages/cpu.rs:306 src/ui/pages/cpu.rs:344
 #: src/ui/pages/drive.rs:375 src/ui/pages/gpu.rs:250 src/ui/pages/gpu.rs:257
 #: src/ui/pages/gpu.rs:318 src/ui/pages/gpu.rs:321 src/ui/pages/gpu.rs:332
-#: src/ui/pages/gpu.rs:346 src/ui/pages/memory.rs:227
-#: src/ui/pages/memory.rs:228 src/ui/pages/memory.rs:232
-#: src/ui/pages/memory.rs:233 src/ui/pages/memory.rs:237
-#: src/ui/pages/memory.rs:238 src/ui/pages/memory.rs:266
+#: src/ui/pages/gpu.rs:346 src/ui/pages/memory.rs:289
+#: src/ui/pages/memory.rs:290 src/ui/pages/memory.rs:294
+#: src/ui/pages/memory.rs:295 src/ui/pages/memory.rs:299
+#: src/ui/pages/memory.rs:300 src/ui/pages/memory.rs:328
 #: src/ui/pages/network.rs:253 src/ui/pages/network.rs:260
 #: src/ui/pages/network.rs:267 src/ui/pages/network.rs:273
 #: src/ui/pages/network.rs:276 src/ui/pages/network.rs:286
@@ -996,7 +1005,7 @@ msgstr "Flashlagring"
 
 #: src/devices/drive.rs:131 src/devices/drive.rs:208
 msgid "Floppy Drive"
-msgstr "Diskett"
+msgstr "Diskettstasjon"
 
 #: src/devices/drive.rs:132
 msgid "Hard Disk Drive"
@@ -1129,11 +1138,11 @@ msgstr "VM-nettverksbru"
 
 #: src/devices/network.rs:143
 msgid "VPN Tunnel"
-msgstr "VPN-tunell"
+msgstr "VPN-tunnel"
 
 #: src/devices/network.rs:144
 msgid "VPN Tunnel (WireGuard)"
-msgstr "VPN-tunell (WireGuard)"
+msgstr "VPN-tunnel (WireGuard)"
 
 #: src/devices/network.rs:145
 msgid "Wi-Fi Connection"
@@ -1205,12 +1214,12 @@ msgstr "Stopp {}?"
 #: src/ui/pages/applications/mod.rs:992 src/ui/pages/processes/mod.rs:1283
 #, rust-format
 msgid "Kill {}?"
-msgstr "Død {}?"
+msgstr "Drep {}?"
 
 #: src/ui/pages/applications/mod.rs:993 src/ui/pages/processes/mod.rs:1284
 #, rust-format
 msgid "Continue {}?"
-msgstr "Lat {} halde fram?"
+msgstr "La {} halde fram?"
 
 #: src/ui/pages/applications/mod.rs:999 src/ui/pages/processes/mod.rs:1319
 msgid "Unsaved work might be lost"
@@ -1229,7 +1238,7 @@ msgid ""
 "Killing an app can come with serious risks such as losing data and security "
 "implications. Use with caution."
 msgstr ""
-"Å døyde ein app kan medføre alvorlege risikoar som tap av data og "
+"Å drepe ein app kan medføre alvorlege risikoar som tap av data og "
 "tryggleikskonsekvensar. Bruk med omhug."
 
 #: src/ui/pages/battery.rs:213 src/ui/pages/battery.rs:259
@@ -1258,7 +1267,7 @@ msgstr "Lesefart"
 
 #: src/ui/pages/drive.rs:249 src/ui/pages/drive.rs:380
 msgid "Write Speed"
-msgstr "Skrivehfart"
+msgstr "Skrivefart"
 
 #: src/ui/pages/gpu.rs:225
 msgid "Video Encoder/Decoder Usage"
@@ -1276,21 +1285,26 @@ msgstr "Bruk av videoavkodaren"
 msgid "Video Memory Usage"
 msgstr "Bruk av videominne"
 
-#: src/ui/pages/memory.rs:262
+#: src/ui/pages/memory.rs:324
 #, rust-format
 msgid "{} of {}"
 msgstr "{} av {}"
 
-#: src/ui/pages/memory.rs:265
+#: src/ui/pages/memory.rs:327
 #, rust-format
 msgid "{} MT/s"
-msgstr "{} MT/s"
+msgstr "{} MT/s"
 
-#: src/ui/pages/memory.rs:329
+#: src/ui/pages/memory.rs:418
 msgid "Memory Usage"
 msgstr "Minnebruk"
 
-#: src/ui/pages/memory.rs:336
+#: src/ui/pages/memory.rs:484
+#, rust-format
+msgid "{} · {} · Priority: {}"
+msgstr "{} · {} · Prioritet: {}"
+
+#: src/ui/pages/memory.rs:505
 msgid "Swap Usage"
 msgstr "Swap-bruk"
 
@@ -1329,8 +1343,8 @@ msgstr[1] "Stopp {} prosessar?"
 #, rust-format
 msgid "Kill process?"
 msgid_plural "Kill {} processes?"
-msgstr[0] "Død prosess?"
-msgstr[1] "Død {} prosessar?"
+msgstr[0] "Drep prosess?"
+msgstr[1] "Drep {} prosessar?"
 
 #: src/ui/pages/processes/mod.rs:1321
 msgid ""
@@ -1345,7 +1359,7 @@ msgid ""
 "Killing a process can come with serious risks such as losing data and "
 "security implications. Use with caution."
 msgstr ""
-"Å døyde ein prosess kan medføre alvorlege risikoar som tap av data og "
+"Å drepe ein prosess kan medføre alvorlege risikoar som tap av data og "
 "tryggleikskonsekvensar. Bruk med omhug."
 
 #: src/ui/window.rs:471
@@ -1385,12 +1399,12 @@ msgstr "Stoppa {}"
 #: src/ui/window.rs:1285
 #, rust-format
 msgid "Successfully killed {}"
-msgstr "Døda {}"
+msgstr "Drap {}"
 
 #: src/ui/window.rs:1286
 #, rust-format
 msgid "Successfully continued {}"
-msgstr "Lét {} halde fram"
+msgstr "{} held fram"
 
 #: src/ui/window.rs:1293
 #, rust-format
@@ -1403,22 +1417,22 @@ msgstr[1] "Avslutta {} prosessar"
 #, rust-format
 msgid "Successfully halted the process"
 msgid_plural "Successfully halted {} processes"
-msgstr[0] "Stoppa {} prosess"
+msgstr[0] "Stoppa prosessen"
 msgstr[1] "Stoppa {} prosessar"
 
 #: src/ui/window.rs:1305
 #, rust-format
 msgid "Successfully killed the process"
 msgid_plural "Successfully killed {} processes"
-msgstr[0] "Døydde {} prosess"
-msgstr[1] "Døydde {} prosessar"
+msgstr[0] "Drap prosessen"
+msgstr[1] "Drap {} prosessar"
 
 #: src/ui/window.rs:1311
 #, rust-format
 msgid "Successfully continued the process"
 msgid_plural "Successfully continued {} processes"
-msgstr[0] "Lét prosessen halde fram"
-msgstr[1] "Lét {} prosessar halde fram"
+msgstr[0] "Prosessen held fram"
+msgstr[1] "{} prosessar held fram"
 
 #: src/ui/window.rs:1322
 #, rust-format
@@ -1438,15 +1452,15 @@ msgstr[1] "Eit problem oppstod med å stoppe {} prosessar"
 #, rust-format
 msgid "There was a problem killing a process"
 msgid_plural "There were problems killing {} processes"
-msgstr[0] "Eit problem oppstod med å døyde ein prosess"
-msgstr[1] "Eit problem oppstod med å døyde {} prosessar"
+msgstr[0] "Eit problem oppstod med å drepe ein prosess"
+msgstr[1] "Eit problem oppstod med å drepe {} prosessar"
 
 #: src/ui/window.rs:1340
 #, rust-format
 msgid "There was a problem continuing a process"
 msgid_plural "There were problems continuing {} processes"
-msgstr[0] "Eit problem oppstod med å lata ein prosess halde fram"
-msgstr[1] "Eit problem oppstod med å lata {} prosessar halde fram"
+msgstr[0] "Eit problem oppstod med å la ein prosess halde fram"
+msgstr[1] "Eit problem oppstod med å la {} prosessar halde fram"
 
 #: src/ui/window.rs:1350
 #, rust-format
@@ -1461,17 +1475,17 @@ msgstr "Eit problem oppstod med å stoppe {}"
 #: src/ui/window.rs:1352
 #, rust-format
 msgid "There was a problem killing {}"
-msgstr "Eit problem oppstod med å døyde {}"
+msgstr "Eit problem oppstod med å drepe {}"
 
 #: src/ui/window.rs:1353
 #, rust-format
 msgid "There was a problem continuing {}"
-msgstr "Eit problem oppstod med å lata {} halde fram"
+msgstr "Eit problem oppstod med å la {} halde fram"
 
 #: src/utils/units.rs:91
 #, rust-format
 msgid "{} K"
-msgstr "{} K"
+msgstr "{} K"
 
 #: src/utils/units.rs:93
 #, rust-format
