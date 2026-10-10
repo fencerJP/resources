@@ -243,7 +243,15 @@ impl ProcessData {
         trace!("Launcher of {pid} determined to be {launcher}");
         trace!("Cgroup of {pid} determined to be {cgroup:?}");
 
-        let environ = read_parsed::<String>(proc_path.join("environ"))
+        // Read up to 2048 bytes of environ instead of whole file to avoid stalling on massive memory/ROCm processes
+        let environ = std::fs::File::open(proc_path.join("environ"))
+            .ok()
+            .and_then(|mut f| {
+                use std::io::Read;
+                let mut buf = [0u8; 2048];
+                let n = f.read(&mut buf).ok()?;
+                String::from_utf8(buf[..n].to_vec()).ok()
+            })
             .unwrap_or_default()
             .split('\0')
             .filter_map(|e| e.split_once('='))

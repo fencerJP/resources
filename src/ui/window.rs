@@ -844,7 +844,7 @@ impl MainWindow {
 
         let logical_cpus = imp.cpu.imp().logical_cpus_amount.get();
 
-        let (tx_data, rx_data) = std::sync::mpsc::sync_channel(1);
+        let (tx_data, rx_data) = async_channel::bounded(1);
         let (tx_wait, rx_wait) = std::sync::mpsc::sync_channel(1);
 
         std::thread::spawn(move || {
@@ -852,11 +852,15 @@ impl MainWindow {
 
             loop {
                 let data = Self::gather_refresh_data(logical_cpus, &gpus, &npus);
-                tx_data.send(data).unwrap();
+                if tx_data.send_blocking(data).is_err() {
+                    break;
+                }
 
                 // Wait on delay so we don't gather data multiple times in a short time span
                 // Which usually just yields the same data and makes changes appear delayed by (up to) multiple refreshes
-                rx_wait.recv().unwrap();
+                if rx_wait.recv().is_err() {
+                    break;
+                }
             }
         });
 
@@ -865,8 +869,11 @@ impl MainWindow {
         trace!("Going into refresh loop");
 
         loop {
-            // gather_refresh_data()
-            let refresh_data = rx_data.recv().unwrap();
+            // Asynchronously receive telemetry data without blocking the GTK/GLib main event loop
+            let refresh_data = match rx_data.recv().await {
+                Ok(data) => data,
+                Err(_) => break,
+            };
 
             self.refresh_ui(refresh_data);
 
@@ -904,7 +911,7 @@ impl MainWindow {
             timeout_future(Duration::from_secs_f32(total_delay - gather_time)).await;
 
             // Tell other threads to start gathering data
-            tx_wait.send(()).unwrap();
+            let _ = tx_wait.send(());
 
             timeout_future(Duration::from_secs_f32(gather_time)).await;
         }
