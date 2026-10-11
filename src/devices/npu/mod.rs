@@ -244,7 +244,7 @@ impl Npu {
 
         let mut hwmon_vec: Vec<PathBuf> = Vec::new();
         for hwmon in glob(&format!(
-            "{}/hwmon/hwmon?",
+            "{}/hwmon/hwmon[0-9]*",
             sysfs_device_path
                 .to_str()
                 .context("error transforming PathBuf to str")?
