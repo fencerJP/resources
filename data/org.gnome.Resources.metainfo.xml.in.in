@@ -15,7 +15,7 @@
   </recommends>
   <description>
     <p>
-      Resources allows you to check the utilization of your system resources and control your running processes and apps. It’s designed to be user-friendly and feel right at home on a modern desktop by using GNOME’s libadwaita.
+      Resources allows you to check the utilization of your system resources and control your running processes and apps.
     </p>
     <p>
       Resources supports monitoring the following components:
