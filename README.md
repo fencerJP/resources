@@ -122,5 +122,5 @@ If you have an idea, bug report, question or something else, don’t hesitate to
 
 ## Code of Conduct
 
-Resources follows the [GNOME Code of Conduct](/CODE_OF_CONDUCT.md).
+Resources follows the [GNOME Code of Conduct](https://conduct.gnome.org/).
 All communications in project spaces are expected to follow it.
