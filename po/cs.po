@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: resources\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/Incubator/resources/issues/\n"
-"POT-Creation-Date: 2026-10-06 14:15+0000\n"
-"PO-Revision-Date: 2026-10-08 15:54+0200\n"
+"POT-Creation-Date: 2026-10-16 17:39+0000\n"
+"PO-Revision-Date: 2026-10-17 02:46+0200\n"
 "Last-Translator: Daniel Rusek <mail@asciiwolf.com>\n"
 "Language-Team: Czech <Czech>\n"
 "Language: cs\n"
@@ -37,12 +37,8 @@ msgid "System;Resources;Monitor;Processes;Usage;Task;Manager;CPU;RAM;Memory;GPU;
 msgstr "System;Systém;Resources;Zdroje;Sledovat;Monitorovat;Procesy;Využití;Úloha;Manažer;CPU;RAM;Paměť;GPU;Výkon;Napájení;Baterie;"
 
 #: data/org.gnome.Resources.metainfo.xml.in.in:17
-msgid ""
-"Resources allows you to check the utilization of your system resources and control your running processes and apps. It’s designed "
-"to be user-friendly and feel right at home on a modern desktop by using GNOME’s libadwaita."
-msgstr ""
-"Aplikace Zdroje umožňuje sledovat využití vašich systémových zdrojů a ovládat běžící procesy a aplikace. Je navržena tak, aby "
-"byla uživatelsky přívětivá a zapadala do moderního prostředí, s využitím libadwaita od GNOME."
+msgid "Resources allows you to check the utilization of your system resources and control your running processes and apps."
+msgstr "Aplikace Zdroje umožňuje sledovat využití vašich systémových zdrojů a ovládat běžící procesy a aplikace."
 
 #: data/org.gnome.Resources.metainfo.xml.in.in:20
 msgid "Resources supports monitoring the following components:"
