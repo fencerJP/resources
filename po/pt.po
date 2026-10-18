@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: resources main\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/Incubator/resources/issues/\n"
-"POT-Creation-Date: 2026-10-06 13:44+0000\n"
-"PO-Revision-Date: 2026-10-06 15:20+0100\n"
+"POT-Creation-Date: 2026-10-16 17:39+0000\n"
+"PO-Revision-Date: 2026-10-18 13:22+0100\n"
 "Last-Translator: Hugo Carvalho <hugokarvalho@hotmail.com>\n"
 "Language-Team: Portuguese <pt@li.org>\n"
 "Language: pt\n"
@@ -34,13 +34,10 @@ msgid "System;Resources;Monitor;Processes;Usage;Task;Manager;CPU;RAM;Memory;GPU;
 msgstr "Sistema;Resources;Recursos;Monitor;Processos;Utilização;Tarefas;Gestor;CPU;RAM;Memória;GPU;Desempenho;Energia;Bateria;"
 
 #: data/org.gnome.Resources.metainfo.xml.in.in:17
-msgid ""
-"Resources allows you to check the utilization of your system resources and control your running processes and apps. It’s "
-"designed to be user-friendly and feel right at home on a modern desktop by using GNOME’s libadwaita."
+msgid "Resources allows you to check the utilization of your system resources and control your running processes and apps."
 msgstr ""
 "A aplicação Recursos permite-lhe verificar a utilização dos recursos do sistema e controlar os processos e aplicações em "
-"execução. Foi concebida para ser intuitiva e integrar-se perfeitamente num ambiente de trabalho moderno, utilizando a "
-"biblioteca libadwaita do GNOME."
+"execução."
 
 #: data/org.gnome.Resources.metainfo.xml.in.in:20
 msgid "Resources supports monitoring the following components:"
@@ -806,7 +803,7 @@ msgstr "Mostrar/Ocultar campo de pesquisa"
 msgid "translator-credits"
 msgstr "Hugo Carvalho <hugokarvalho@hotmail.com>"
 
-#: src/devices/app.rs:247
+#: src/devices/app.rs:256
 msgid "System Processes"
 msgstr "Processos do sistema"
 
@@ -1723,36 +1720,3 @@ msgstr "{} QWh"
 #: src/utils/units.rs:347
 msgid "{} TOPs"
 msgstr "{} TOPs"
-
-#~ msgid "Show Usage Details in Sidebar"
-#~ msgstr "Mostrar detalhes de utilização na barra lateral"
-
-#~ msgid "If enabled, the usage along with other information will be displayed"
-#~ msgstr "Se ativado, a utilização, juntamente com outras informações, será apresentada"
-
-#~ msgid "Show Device Descriptions in Sidebar"
-#~ msgstr "Mostrar descrição do dispositivo na barra lateral"
-
-#~ msgid "If enabled, a device identifier like its name or device type will be displayed"
-#~ msgstr "Se ativado, será exibido um identificador do dispositivo, como o seu nome ou tipo de dispositivo"
-
-#~ msgid "R: {} · W: {}"
-#~ msgstr "L: {} · G: {}"
-
-#~ msgid "{} / {} · Swap: {} %"
-#~ msgstr "{} / {} · Swap: {} %"
-
-#~ msgid "R: {} · S: {}"
-#~ msgstr "R: {} · E: {}"
-
-#~ msgid "Select which processor cores the process is allowed to run on"
-#~ msgstr "Selecione os núcleos do processador nos quais o processo pode ser executado"
-
-#~ msgid "Show App Information"
-#~ msgstr "Mostrar informações da aplicação"
-
-#~ msgid "Show Process Options"
-#~ msgstr "Mostrar opções do processo"
-
-#~ msgid "Show Process Information"
-#~ msgstr "Mostrar informações do processo"
