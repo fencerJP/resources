@@ -5,8 +5,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: resources\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/Incubator/resources/issues/\n"
-"POT-Creation-Date: 2026-10-06 14:15+0000\n"
-"PO-Revision-Date: 2026-10-08 05:59+0200\n"
+"POT-Creation-Date: 2026-10-16 17:39+0000\n"
+"PO-Revision-Date: 2026-10-20 06:39+0200\n"
 "Last-Translator: Ekaterine Papava <papava.e@gtu.ge>\n"
 "Language-Team: Georgian <(nothing)>\n"
 "Language: ka\n"
@@ -14,7 +14,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.9\n"
+"X-Generator: Poedit 3.10\n"
 
 #: data/org.gnome.Resources.desktop.in.in:2 data/org.gnome.Resources.metainfo.xml.in.in:4 data/resources/ui/window.ui:22
 #: src/application.rs:284
@@ -33,12 +33,10 @@ msgstr "System;Resources;Monitor;Processes;Usage;Task;Manager;CPU;RAM;Memory;GPU
 
 #: data/org.gnome.Resources.metainfo.xml.in.in:17
 msgid ""
-"Resources allows you to check the utilization of your system resources and control your running processes and apps. "
-"It’s designed to be user-friendly and feel right at home on a modern desktop by using GNOME’s libadwaita."
+"Resources allows you to check the utilization of your system resources and control your running processes and apps."
 msgstr ""
 "Resources საშუალებას გაძლევთ, თვალყური ადევნოთ თქვენი სისტემური რესურსების დატვირთვას და აკონტროლოთ გაშვებული "
-"აპლიკაციები და პროცესები. ის შეიქმნა, რომ ჰქონდეს მეგობრული ინტერფესი და თავი მოხერხებულად იგრძნოთ. ის GNOME-ის "
-"libadwaita-ს იყენებს."
+"აპლიკაციები და პროცესები."
 
 #: data/org.gnome.Resources.metainfo.xml.in.in:20
 msgid "Resources supports monitoring the following components:"
