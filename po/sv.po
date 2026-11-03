@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: resources main\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/Incubator/resources/issues/\n"
-"POT-Creation-Date: 2026-09-14 12:29+0000\n"
-"PO-Revision-Date: 2026-09-17 22:54+0200\n"
+"POT-Creation-Date: 2026-10-16 17:39+0000\n"
+"PO-Revision-Date: 2026-11-03 21:49+0100\n"
 "Last-Translator: Anders Jonsson <anders.jonsson@norsjovallen.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
 "Language: sv\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.9\n"
+"X-Generator: Poedit 3.10\n"
 
 #: data/org.gnome.Resources.desktop.in.in:2 data/org.gnome.Resources.metainfo.xml.in.in:4 data/resources/ui/window.ui:22
 #: src/application.rs:284
@@ -34,12 +34,8 @@ msgid "System;Resources;Monitor;Processes;Usage;Task;Manager;CPU;RAM;Memory;GPU;
 msgstr "System;Resurser;Övervaka;Processer;Användning;Uppgift;Hanterare;CPU;Processor;RAM;Minne;GPU;Prestanda;Ström;Batteri;"
 
 #: data/org.gnome.Resources.metainfo.xml.in.in:17
-msgid ""
-"Resources allows you to check the utilization of your system resources and control your running processes and apps. It’s "
-"designed to be user-friendly and feel right at home on a modern desktop by using GNOME’s libadwaita."
-msgstr ""
-"Resurser låter dig kontrollera användandet av ditt system och styra dina körande processer och program. Det är designat "
-"för att vara användarvänligt och kännas som hemma på ett modernt skrivbord genom att använda GNOMEs libadwaita."
+msgid "Resources allows you to check the utilization of your system resources and control your running processes and apps."
+msgstr "Resurser låter dig kontrollera användandet av ditt system och styra dina körande processer och program."
 
 #: data/org.gnome.Resources.metainfo.xml.in.in:20
 msgid "Resources supports monitoring the following components:"
@@ -52,7 +48,7 @@ msgstr "Processor"
 #: data/org.gnome.Resources.metainfo.xml.in.in:25 data/resources/ui/dialogs/app_dialog.ui:82
 #: data/resources/ui/dialogs/process_dialog.ui:64 data/resources/ui/dialogs/settings_dialog.ui:118
 #: data/resources/ui/dialogs/settings_dialog.ui:210 data/resources/ui/window.ui:175 data/resources/ui/window.ui:182
-#: src/ui/pages/applications/mod.rs:427 src/ui/pages/memory.rs:106 src/ui/pages/memory.rs:192
+#: src/ui/pages/applications/mod.rs:427 src/ui/pages/memory.rs:166 src/ui/pages/memory.rs:252
 #: src/ui/pages/processes/mod.rs:532
 msgid "Memory"
 msgstr "Minne"
@@ -123,7 +119,7 @@ msgstr "Programinformation"
 
 #: data/resources/ui/dialogs/app_dialog.ui:70 data/resources/ui/dialogs/process_dialog.ui:48
 #: data/resources/ui/pages/battery.ui:22 data/resources/ui/pages/cpu.ui:37 data/resources/ui/pages/cpu.ui:50
-#: data/resources/ui/pages/drive.ui:22 data/resources/ui/pages/gpu.ui:22 data/resources/ui/pages/memory.ui:31
+#: data/resources/ui/pages/drive.ui:22 data/resources/ui/pages/gpu.ui:22 data/resources/ui/pages/memory.ui:43
 #: data/resources/ui/pages/network.ui:22 data/resources/ui/pages/npu.ui:22
 msgid "Usage"
 msgstr "Användning"
@@ -137,7 +133,7 @@ msgstr "Processor"
 
 #: data/resources/ui/dialogs/app_dialog.ui:91 data/resources/ui/dialogs/process_dialog.ui:73
 #: data/resources/ui/dialogs/settings_dialog.ui:168 data/resources/ui/dialogs/settings_dialog.ui:280
-#: src/ui/pages/applications/mod.rs:573 src/ui/pages/memory.rs:198 src/ui/pages/processes/mod.rs:756
+#: src/ui/pages/applications/mod.rs:573 src/ui/pages/memory.rs:258 src/ui/pages/processes/mod.rs:756
 msgid "Swap"
 msgstr "Växling"
 
@@ -185,7 +181,7 @@ msgstr "Videoavkodare"
 
 #: data/resources/ui/dialogs/app_dialog.ui:174 data/resources/ui/dialogs/process_dialog.ui:179
 #: data/resources/ui/pages/battery.ui:33 data/resources/ui/pages/cpu.ui:83 data/resources/ui/pages/drive.ui:54
-#: data/resources/ui/pages/gpu.ui:74 data/resources/ui/pages/memory.ui:42 data/resources/ui/pages/network.ui:51
+#: data/resources/ui/pages/gpu.ui:74 data/resources/ui/pages/memory.ui:60 data/resources/ui/pages/network.ui:51
 #: data/resources/ui/pages/npu.ui:77
 msgid "Properties"
 msgstr "Egenskaper"
@@ -424,7 +420,8 @@ msgstr "Kombinerat minne"
 msgid "Processes"
 msgstr "Processer"
 
-#: data/resources/ui/dialogs/settings_dialog.ui:186 data/resources/ui/pages/cpu.ui:22 data/resources/ui/pages/processes.ui:56
+#: data/resources/ui/dialogs/settings_dialog.ui:186 data/resources/ui/pages/cpu.ui:22 data/resources/ui/pages/memory.ui:31
+#: data/resources/ui/pages/processes.ui:56
 msgid "Options"
 msgstr "Alternativ"
 
@@ -560,7 +557,7 @@ msgstr "Totalt läst"
 msgid "Total Written"
 msgstr "Totalt skrivet"
 
-#: data/resources/ui/pages/drive.ui:57 data/resources/ui/pages/memory.ui:72
+#: data/resources/ui/pages/drive.ui:57 data/resources/ui/pages/memory.ui:90
 msgid "Type"
 msgstr "Typ"
 
@@ -615,19 +612,27 @@ msgstr "Du måste autentisera dig för att se minnesegenskaper"
 msgid "Authenticate"
 msgstr "Autentisera"
 
-#: data/resources/ui/pages/memory.ui:45
+#: data/resources/ui/pages/memory.ui:35
+msgid "Show Swap Devices"
+msgstr "Visa växlingsenheter"
+
+#: data/resources/ui/pages/memory.ui:54
+msgid "Swap Devices"
+msgstr "Växlingsenheter"
+
+#: data/resources/ui/pages/memory.ui:63
 msgid "Slots Used"
 msgstr "Fack som används"
 
-#: data/resources/ui/pages/memory.ui:54
+#: data/resources/ui/pages/memory.ui:72
 msgid "Speed"
 msgstr "Hastighet"
 
-#: data/resources/ui/pages/memory.ui:63
+#: data/resources/ui/pages/memory.ui:81
 msgid "Form Factor"
 msgstr "Formfaktor"
 
-#: data/resources/ui/pages/memory.ui:81
+#: data/resources/ui/pages/memory.ui:99
 msgid "Type Detail"
 msgstr "Typdetaljer"
 
@@ -803,7 +808,7 @@ msgstr ""
 "Skicka synpunkter på översättningen till\n"
 "<tp-sv@listor.tp-sv.se>."
 
-#: src/devices/app.rs:247
+#: src/devices/app.rs:256
 msgid "System Processes"
 msgstr "Systemprocesser"
 
@@ -869,8 +874,8 @@ msgstr "Uppladdningsbar alkalisk mangan"
 #: src/ui/pages/cpu.rs:246 src/ui/pages/cpu.rs:261 src/ui/pages/cpu.rs:281 src/ui/pages/cpu.rs:287 src/ui/pages/cpu.rs:293
 #: src/ui/pages/cpu.rs:299 src/ui/pages/cpu.rs:303 src/ui/pages/cpu.rs:306 src/ui/pages/cpu.rs:344 src/ui/pages/drive.rs:375
 #: src/ui/pages/gpu.rs:250 src/ui/pages/gpu.rs:257 src/ui/pages/gpu.rs:318 src/ui/pages/gpu.rs:321 src/ui/pages/gpu.rs:332
-#: src/ui/pages/gpu.rs:346 src/ui/pages/memory.rs:227 src/ui/pages/memory.rs:228 src/ui/pages/memory.rs:232
-#: src/ui/pages/memory.rs:233 src/ui/pages/memory.rs:237 src/ui/pages/memory.rs:238 src/ui/pages/memory.rs:266
+#: src/ui/pages/gpu.rs:346 src/ui/pages/memory.rs:289 src/ui/pages/memory.rs:290 src/ui/pages/memory.rs:294
+#: src/ui/pages/memory.rs:295 src/ui/pages/memory.rs:299 src/ui/pages/memory.rs:300 src/ui/pages/memory.rs:328
 #: src/ui/pages/network.rs:253 src/ui/pages/network.rs:260 src/ui/pages/network.rs:267 src/ui/pages/network.rs:273
 #: src/ui/pages/network.rs:276 src/ui/pages/network.rs:286 src/ui/pages/network.rs:295 src/ui/pages/network.rs:304
 #: src/ui/pages/network.rs:383 src/ui/pages/network.rs:397 src/ui/pages/processes/mod.rs:574
@@ -1170,21 +1175,26 @@ msgstr "Användning av videoavkodare"
 msgid "Video Memory Usage"
 msgstr "Videominnesanvändning"
 
-#: src/ui/pages/memory.rs:262
+#: src/ui/pages/memory.rs:324
 #, rust-format
 msgid "{} of {}"
 msgstr "{} av {}"
 
-#: src/ui/pages/memory.rs:265
+#: src/ui/pages/memory.rs:327
 #, rust-format
 msgid "{} MT/s"
 msgstr "{} MT/s"
 
-#: src/ui/pages/memory.rs:329
+#: src/ui/pages/memory.rs:418
 msgid "Memory Usage"
 msgstr "Minnesanvändning"
 
-#: src/ui/pages/memory.rs:336
+#: src/ui/pages/memory.rs:484
+#, rust-format
+msgid "{} · {} · Priority: {}"
+msgstr "{} · {} · Prioritet: {}"
+
+#: src/ui/pages/memory.rs:505
 msgid "Swap Usage"
 msgstr "Växlingsminnesanvändning"
 
