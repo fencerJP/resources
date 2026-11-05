@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: resources main\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/Incubator/resources/issues/\n"
 "POT-Creation-Date: 2026-10-16 17:39+0000\n"
-"PO-Revision-Date: 2026-11-01 23:58+0400\n"
+"PO-Revision-Date: 2026-11-05 13:07+0400\n"
 "Last-Translator: \n"
 "Language-Team: Azerbaijani <Azerbaijani>\n"
 "Language: az\n"
@@ -31,7 +31,7 @@ msgstr "Sistem resurslarını nəzarətdə saxla"
 #. Translators: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
 #: data/org.gnome.Resources.desktop.in.in:9
 msgid "System;Resources;Monitor;Processes;Usage;Task;Manager;CPU;RAM;Memory;GPU;Performance;Power;Battery;"
-msgstr ""
+msgstr "Sistem;Resurslar;Monitorinq;Proseslər;İstifadə;Tapşırıq;İdarəçi;CPU;RAM;Yadaş;GPU;Performans;Enerji;Batareya;System;Resources;Monitor;Processes;Usage;Task;Manager;CPU;RAM;Memory;GPU;Performance;Power;Battery;"
 
 #: data/org.gnome.Resources.metainfo.xml.in.in:17
 msgid ""
@@ -68,7 +68,7 @@ msgstr "Şəbəkə interfeysləri"
 
 #: data/org.gnome.Resources.metainfo.xml.in.in:28
 msgid "Storage Devices"
-msgstr "Saxlanc qurğuları"
+msgstr "Saxlanc cihazları"
 
 #: data/org.gnome.Resources.metainfo.xml.in.in:29
 msgid "Batteries"
@@ -80,7 +80,7 @@ msgstr ""
 
 #: data/org.gnome.Resources.metainfo.xml.in.in:57
 msgid "Processes page in dark theme"
-msgstr ""
+msgstr "Proseslər səhifəsi qaranlıq üslubda"
 
 #: data/org.gnome.Resources.metainfo.xml.in.in:61
 msgid "Processor page in light theme"
@@ -88,7 +88,7 @@ msgstr ""
 
 #: data/org.gnome.Resources.metainfo.xml.in.in:65
 msgid "Memory page in dark theme"
-msgstr ""
+msgstr "Yaddaş səhifəsi qaranlıq mövzuda"
 
 #: data/org.gnome.Resources.metainfo.xml.in.in:69
 msgid "GPU page in light theme"
@@ -100,7 +100,7 @@ msgstr ""
 
 #: data/org.gnome.Resources.metainfo.xml.in.in:77
 msgid "Network Interface page in light theme"
-msgstr ""
+msgstr "Şəbəkə araüzü səhifəsi açıq üslubda"
 
 #: data/org.gnome.Resources.metainfo.xml.in.in:81
 msgid "Battery page in dark theme"
@@ -108,7 +108,7 @@ msgstr ""
 
 #: data/org.gnome.Resources.policy.in.in:9
 msgid "Control Process"
-msgstr ""
+msgstr "Prosesi idarə et"
 
 #: data/org.gnome.Resources.policy.in.in:10
 msgid "Authentication is required to control superuser’s or other users’ processes"
@@ -196,11 +196,11 @@ msgstr ""
 
 #: data/resources/ui/dialogs/app_dialog.ui:190 data/resources/ui/dialogs/process_dialog.ui:195
 msgid "Running Since"
-msgstr ""
+msgstr "Bu tarixdən bəri çalışır"
 
 #: data/resources/ui/dialogs/app_dialog.ui:198
 msgid "Running Processes"
-msgstr ""
+msgstr "Çalışan proseslər"
 
 #: data/resources/ui/dialogs/app_dialog.ui:207 data/resources/ui/dialogs/process_dialog.ui:231
 msgid "Containerized"
@@ -209,27 +209,27 @@ msgstr ""
 #: data/resources/ui/dialogs/process_dialog.ui:7 data/resources/ui/pages/processes.ui:151
 #: data/resources/ui/pages/processes.ui:153
 msgid "Process Information"
-msgstr ""
+msgstr "Proses məlumatları"
 
 #: data/resources/ui/dialogs/process_dialog.ui:154 data/resources/ui/dialogs/settings_dialog.ui:260
 #: src/ui/pages/processes/mod.rs:688
 msgid "Total CPU Time"
-msgstr ""
+msgstr "Ümumi mərkəzi prosessor vaxtı"
 
 #: data/resources/ui/dialogs/process_dialog.ui:163 data/resources/ui/dialogs/settings_dialog.ui:265
 #: src/ui/pages/processes/mod.rs:702
 msgid "User CPU Time"
-msgstr ""
+msgstr "İstifadəçinin mərkəzi prosessor (CPU) vaxtı"
 
 #: data/resources/ui/dialogs/process_dialog.ui:172 data/resources/ui/dialogs/settings_dialog.ui:270
 #: src/ui/pages/processes/mod.rs:716
 msgid "System CPU Time"
-msgstr ""
+msgstr "Sistemin mərkəzi prosessor (CPU) vaxtı"
 
 #: data/resources/ui/dialogs/process_dialog.ui:186 data/resources/ui/dialogs/settings_dialog.ui:200
 #: src/ui/pages/processes/mod.rs:504
 msgid "Process ID"
-msgstr ""
+msgstr "Proses ID nömrəsi"
 
 #: data/resources/ui/dialogs/process_dialog.ui:204 data/resources/ui/dialogs/settings_dialog.ui:290
 #: src/ui/pages/processes/mod.rs:786
@@ -243,12 +243,12 @@ msgstr "İstifadəçi"
 
 #: data/resources/ui/dialogs/process_dialog.ui:222
 msgid "Control Group"
-msgstr ""
+msgstr "Qrupu idarə et"
 
 #: data/resources/ui/dialogs/process_options_dialog.ui:7 data/resources/ui/pages/processes.ui:138
 #: data/resources/ui/pages/processes.ui:140
 msgid "Process Options"
-msgstr ""
+msgstr "Proses seçimləri"
 
 #: data/resources/ui/dialogs/process_options_dialog.ui:29
 msgid "Apply"
@@ -267,7 +267,7 @@ msgstr ""
 #: data/resources/ui/dialogs/process_options_dialog.ui:86 data/resources/ui/dialogs/settings_dialog.ui:275
 #: src/ui/pages/processes/mod.rs:730
 msgid "Priority"
-msgstr ""
+msgstr "Prioritet"
 
 #: data/resources/ui/dialogs/process_options_dialog.ui:90
 msgctxt "process priority"
@@ -300,7 +300,7 @@ msgstr ""
 
 #: data/resources/ui/dialogs/process_options_dialog.ui:110
 msgid "Toggle All"
-msgstr ""
+msgstr "Hamısını aç-bağla"
 
 #: data/resources/ui/dialogs/settings_dialog.ui:7
 msgid "General"
@@ -308,7 +308,7 @@ msgstr "Ümumi"
 
 #: data/resources/ui/dialogs/settings_dialog.ui:10
 msgid "Units"
-msgstr ""
+msgstr "Vahidlər"
 
 #: data/resources/ui/dialogs/settings_dialog.ui:13
 msgid "Data Unit Prefix"
@@ -320,15 +320,15 @@ msgstr ""
 
 #: data/resources/ui/dialogs/settings_dialog.ui:18
 msgid "Binary"
-msgstr ""
+msgstr "İkili"
 
 #: data/resources/ui/dialogs/settings_dialog.ui:26
 msgid "Show Network Speeds in Bits per Second"
-msgstr ""
+msgstr "Şəbəkə sürətini saniyədə bitlə göstər"
 
 #: data/resources/ui/dialogs/settings_dialog.ui:31
 msgid "Temperature Unit"
-msgstr ""
+msgstr "Temperatur vahidi"
 
 #: data/resources/ui/dialogs/settings_dialog.ui:35
 msgid "Celsius"
@@ -348,7 +348,7 @@ msgstr "İstifadəçi araüzü"
 
 #: data/resources/ui/dialogs/settings_dialog.ui:50
 msgid "Refresh Speed"
-msgstr ""
+msgstr "Yenilənmə sürəti"
 
 #: data/resources/ui/dialogs/settings_dialog.ui:51
 msgid "Higher refresh speeds can lead to higher processor usage"
@@ -424,7 +424,7 @@ msgstr ""
 #: data/resources/ui/dialogs/settings_dialog.ui:183 data/resources/ui/window.ui:104
 #: data/resources/ui/window.ui:111 src/ui/pages/processes/mod.rs:182
 msgid "Processes"
-msgstr ""
+msgstr "Proseslər"
 
 #: data/resources/ui/dialogs/settings_dialog.ui:186 data/resources/ui/pages/cpu.ui:22
 #: data/resources/ui/pages/memory.ui:31 data/resources/ui/pages/processes.ui:56
@@ -441,15 +441,15 @@ msgstr ""
 
 #: data/resources/ui/dialogs/settings_dialog.ui:300
 msgid "Devices"
-msgstr ""
+msgstr "Cihazlar"
 
 #: data/resources/ui/dialogs/settings_dialog.ui:303
 msgid "Drives"
-msgstr ""
+msgstr "Sürücülər"
 
 #: data/resources/ui/dialogs/settings_dialog.ui:306
 msgid "Show Virtual Drives"
-msgstr ""
+msgstr "Virtual sürücüləri göstər"
 
 #: data/resources/ui/dialogs/settings_dialog.ui:307
 msgid "Virtual drives are for example ZFS volumes or mapped devices"
@@ -457,7 +457,7 @@ msgstr ""
 
 #: data/resources/ui/dialogs/settings_dialog.ui:317
 msgid "Show Virtual Network Interfaces"
-msgstr ""
+msgstr "Virtual şəbəkə araüzlərini göstər"
 
 #: data/resources/ui/dialogs/settings_dialog.ui:318
 msgid "Virtual network interfaces are for example bridges or VPN tunnels"
@@ -476,12 +476,12 @@ msgstr ""
 #: data/resources/ui/pages/applications.ui:14 data/resources/ui/pages/applications.ui:34
 #: src/ui/pages/applications/mod.rs:1015
 msgid "Continue App"
-msgstr ""
+msgstr "Tətbiqi davam etdi"
 
 #: data/resources/ui/pages/applications.ui:22 data/resources/ui/pages/applications.ui:101
 #: src/ui/pages/applications/mod.rs:1012
 msgid "End App"
-msgstr ""
+msgstr "Tətbiqi sonlandır"
 
 #: data/resources/ui/pages/applications.ui:40 data/resources/ui/pages/processes.ui:62
 msgid "Information"
@@ -489,11 +489,11 @@ msgstr "Məlumat"
 
 #: data/resources/ui/pages/applications.ui:59
 msgid "Search applications"
-msgstr ""
+msgstr "Tətbiq axtar"
 
 #: data/resources/ui/pages/battery.ui:36
 msgid "Battery Health"
-msgstr ""
+msgstr "Batareya sağlamlığı"
 
 #: data/resources/ui/pages/battery.ui:45
 msgid "Design Capacity"
@@ -501,24 +501,24 @@ msgstr ""
 
 #: data/resources/ui/pages/battery.ui:54
 msgid "Charge Cycles"
-msgstr ""
+msgstr "Doldurma dövrləri"
 
 #: data/resources/ui/pages/battery.ui:63
 msgid "Technology"
-msgstr ""
+msgstr "Texnologiya"
 
 #: data/resources/ui/pages/battery.ui:72 data/resources/ui/pages/gpu.ui:81
 #: data/resources/ui/pages/network.ui:58 data/resources/ui/pages/npu.ui:84
 msgid "Manufacturer"
-msgstr ""
+msgstr "İstehsalçı"
 
 #: data/resources/ui/pages/battery.ui:81
 msgid "Model Name"
-msgstr ""
+msgstr "Model adı"
 
 #: data/resources/ui/pages/battery.ui:90 data/resources/ui/pages/drive.ui:66
 msgid "Device"
-msgstr "Qurğu"
+msgstr "Cihaz"
 
 #: data/resources/ui/pages/cpu.ui:26
 msgid "Show Usages of Logical CPUs"
@@ -538,7 +538,7 @@ msgstr ""
 
 #: data/resources/ui/pages/cpu.ui:108
 msgid "Physical Cores"
-msgstr ""
+msgstr "Fiziki nüvələr"
 
 #: data/resources/ui/pages/cpu.ui:117
 msgid "Sockets"
@@ -554,15 +554,15 @@ msgstr ""
 
 #: data/resources/ui/pages/cpu.ui:144
 msgid "Architecture"
-msgstr ""
+msgstr "Arxitektura"
 
 #: data/resources/ui/pages/drive.ui:38
 msgid "Total Read"
-msgstr ""
+msgstr "Ümumi oxunan"
 
 #: data/resources/ui/pages/drive.ui:47
 msgid "Total Written"
-msgstr ""
+msgstr "Ümumi yazılan"
 
 #: data/resources/ui/pages/drive.ui:57 data/resources/ui/pages/memory.ui:90
 msgid "Type"
@@ -618,7 +618,7 @@ msgstr ""
 
 #: data/resources/ui/pages/memory.ui:10
 msgid "Authenticate"
-msgstr ""
+msgstr "Kimliyi doğrula"
 
 #: data/resources/ui/pages/memory.ui:35
 msgid "Show Swap Devices"
@@ -646,15 +646,15 @@ msgstr ""
 
 #: data/resources/ui/pages/network.ui:35
 msgid "Total Received"
-msgstr ""
+msgstr "Ümumi qəbul edilən"
 
 #: data/resources/ui/pages/network.ui:44
 msgid "Total Sent"
-msgstr ""
+msgstr "Ümumi göndərilən"
 
 #: data/resources/ui/pages/network.ui:76
 msgid "Interface"
-msgstr ""
+msgstr "Araüz"
 
 #: data/resources/ui/pages/network.ui:85
 msgid "Hardware Address"
@@ -662,11 +662,11 @@ msgstr ""
 
 #: data/resources/ui/pages/network.ui:94
 msgid "Network Name"
-msgstr ""
+msgstr "Şəbəkə adı"
 
 #: data/resources/ui/pages/network.ui:112
 msgid "Link Speed"
-msgstr ""
+msgstr "Keçid sürəti"
 
 #: data/resources/ui/pages/npu.ui:31
 msgid "NPU Frequency"
@@ -674,11 +674,11 @@ msgstr ""
 
 #: data/resources/ui/pages/npu.ui:40
 msgid "Performance"
-msgstr ""
+msgstr "Performans"
 
 #: data/resources/ui/pages/npu.ui:53
 msgid "Memory Frequency"
-msgstr ""
+msgstr "Yaddaş tezliyi"
 
 #: data/resources/ui/pages/processes.ui:6 data/resources/ui/pages/processes.ui:42
 #: src/ui/pages/processes/mod.rs:1334
@@ -693,7 +693,7 @@ msgstr ""
 #: data/resources/ui/pages/processes.ui:14 data/resources/ui/pages/processes.ui:50
 #: src/ui/pages/processes/mod.rs:1335
 msgid "Continue Process"
-msgstr ""
+msgstr "Prosesi davam etdir"
 
 #: data/resources/ui/pages/processes.ui:22 data/resources/ui/pages/processes.ui:74
 msgid "Kill Processes"
@@ -705,20 +705,20 @@ msgstr ""
 
 #: data/resources/ui/pages/processes.ui:30 data/resources/ui/pages/processes.ui:82
 msgid "Continue Processes"
-msgstr ""
+msgstr "Prosesləri davam etdir"
 
 #: data/resources/ui/pages/processes.ui:38 data/resources/ui/pages/processes.ui:162
 #: src/ui/pages/processes/mod.rs:821 src/ui/pages/processes/mod.rs:1332
 msgid "End Process"
-msgstr ""
+msgstr "Prosesi sonlandır"
 
 #: data/resources/ui/pages/processes.ui:70 src/ui/pages/processes/mod.rs:825
 msgid "End Processes"
-msgstr ""
+msgstr "Prosesi sonlandır"
 
 #: data/resources/ui/pages/processes.ui:107
 msgid "Search processes"
-msgstr ""
+msgstr "Proses axtar"
 
 #: data/resources/ui/shortcuts.ui:6
 msgctxt "shortcut window"
@@ -773,17 +773,17 @@ msgstr ""
 #: data/resources/ui/shortcuts.ui:62
 msgctxt "shortcut window"
 msgid "Continue App/Process"
-msgstr ""
+msgstr "Tətbiqi/prosesi davam etdir"
 
 #: data/resources/ui/shortcuts.ui:68
 msgctxt "shortcut window"
 msgid "Show Information for App/Process"
-msgstr ""
+msgstr "Tətbiq/proses məlumatlarını göstər"
 
 #: data/resources/ui/shortcuts.ui:74
 msgctxt "shortcut window"
 msgid "Show Process Options"
-msgstr ""
+msgstr "Proses seçimlərini göstər"
 
 #: data/resources/ui/window.ui:6
 msgid "_Preferences"
@@ -821,7 +821,7 @@ msgstr "Sistem prosesləri"
 
 #: src/devices/battery.rs:92
 msgid "Charging"
-msgstr ""
+msgstr "Doldurulur"
 
 #: src/devices/battery.rs:93
 msgid "Discharging"
@@ -841,15 +841,15 @@ msgstr "Naməlum"
 
 #: src/devices/battery.rs:142
 msgid "Nickel-Metal Hydride"
-msgstr ""
+msgstr "Nikel-Metal Hidrid"
 
 #: src/devices/battery.rs:143
 msgid "Nickel-Cadmium"
-msgstr ""
+msgstr "Nikel-Kadmium"
 
 #: src/devices/battery.rs:144
 msgid "Nickel-Zinc"
-msgstr ""
+msgstr "Nikel-sink"
 
 #: src/devices/battery.rs:145
 msgid "Lead-Acid"
@@ -857,15 +857,15 @@ msgstr ""
 
 #: src/devices/battery.rs:146
 msgid "Lithium-Ion"
-msgstr ""
+msgstr "Litium-ion"
 
 #: src/devices/battery.rs:147
 msgid "Lithium Iron Phosphate"
-msgstr ""
+msgstr "Litium Dəmir Fosfat"
 
 #: src/devices/battery.rs:148
 msgid "Lithium Polymer"
-msgstr ""
+msgstr "Litium Polimer"
 
 #: src/devices/battery.rs:149
 msgid "Rechargeable Alkaline Managanese"
@@ -902,11 +902,11 @@ msgstr "Batareya"
 #: src/devices/battery.rs:255
 #, rust-format
 msgid "{} Battery"
-msgstr ""
+msgstr "{} batareya"
 
 #: src/devices/drive.rs:128 src/devices/drive.rs:207
 msgid "CD/DVD/Blu-ray Drive"
-msgstr ""
+msgstr "CD/DVD/Blu-ray sürücüsü"
 
 #: src/devices/drive.rs:129
 msgid "eMMC Storage"
@@ -922,7 +922,7 @@ msgstr ""
 
 #: src/devices/drive.rs:132
 msgid "Hard Disk Drive"
-msgstr ""
+msgstr "Sərt disk sürücüsü"
 
 #: src/devices/drive.rs:133
 msgid "Loop Device"
@@ -934,7 +934,7 @@ msgstr ""
 
 #: src/devices/drive.rs:135
 msgid "NVMe Drive"
-msgstr ""
+msgstr "NVMe sürücüsü"
 
 #: src/devices/drive.rs:137
 msgid "Software Raid"
@@ -942,11 +942,11 @@ msgstr ""
 
 #: src/devices/drive.rs:138
 msgid "RAM Disk"
-msgstr ""
+msgstr "RAM diski"
 
 #: src/devices/drive.rs:139
 msgid "Solid State Drive"
-msgstr ""
+msgstr "Bərkcismli yaddaş qurğusu"
 
 #: src/devices/drive.rs:140
 msgid "ZFS Volume"
@@ -984,30 +984,30 @@ msgstr ""
 #: src/devices/drive.rs:214
 #, rust-format
 msgid "{} ZFS Volume"
-msgstr ""
+msgstr "{} ZFS həcmi"
 
 #: src/devices/drive.rs:215
 #, rust-format
 msgid "{} Drive"
-msgstr ""
+msgstr "{} sürücü"
 
 #: src/devices/link/wifi.rs:156
 #, rust-format
 msgid "Receive: {}"
-msgstr ""
+msgstr "Qəbul: {}"
 
 #: src/devices/link/wifi.rs:157
 #, rust-format
 msgid "Send: {}"
-msgstr ""
+msgstr "Göndər: {}"
 
 #: src/devices/network.rs:131
 msgid "Bluetooth Tether"
-msgstr ""
+msgstr "Bluetooth Tether"
 
 #: src/devices/network.rs:132
 msgid "Network Bridge"
-msgstr ""
+msgstr "Şəbəkə körpüsü"
 
 #: src/devices/network.rs:133
 msgid "Ethernet Connection"
@@ -1027,11 +1027,11 @@ msgstr ""
 
 #: src/devices/network.rs:137
 msgid "LXC Bridge"
-msgstr ""
+msgstr "LXC körpüsü"
 
 #: src/devices/network.rs:138
 msgid "LXD Bridge"
-msgstr ""
+msgstr "LXD körpüsü"
 
 #: src/devices/network.rs:139
 msgid "Serial Line IP Connection"
@@ -1051,19 +1051,19 @@ msgstr ""
 
 #: src/devices/network.rs:143
 msgid "VPN Tunnel"
-msgstr ""
+msgstr "VPN tuneli"
 
 #: src/devices/network.rs:144
 msgid "VPN Tunnel (WireGuard)"
-msgstr ""
+msgstr "VPN tuneli (WireGuard)"
 
 #: src/devices/network.rs:145
 msgid "Wi-Fi Connection"
-msgstr ""
+msgstr "Wi-Fi bağlantısı"
 
 #: src/devices/network.rs:146
 msgid "WWAN Connection"
-msgstr ""
+msgstr "WWAN bağlantısı"
 
 #: src/devices/network.rs:147 src/ui/pages/network.rs:128
 msgid "Network Interface"
@@ -1081,25 +1081,25 @@ msgstr "Yox"
 
 #: src/ui/pages/applications/application_entry.rs:189 src/ui/pages/processes/process_entry.rs:212
 msgid "Yes (AppImage)"
-msgstr ""
+msgstr "Hə (AppImage)"
 
 #: src/ui/pages/applications/application_entry.rs:190 src/ui/pages/processes/process_entry.rs:213
 msgid "Yes (Flatpak)"
-msgstr ""
+msgstr "Hə (Flatpak)"
 
 #. Translators: "Portable" is the name of the containerization method used, please keep it as is
 #: src/ui/pages/applications/application_entry.rs:192 src/ui/pages/processes/process_entry.rs:215
 msgid "Yes (Portable)"
-msgstr ""
+msgstr "Hə (Portable)"
 
 #: src/ui/pages/applications/application_entry.rs:193 src/ui/pages/processes/process_entry.rs:216
 msgid "Yes (Snap)"
-msgstr ""
+msgstr "Hə (Snap)"
 
 #: src/ui/pages/applications/mod.rs:848
 #, rust-format
 msgid "Running Apps: {}"
-msgstr ""
+msgstr "Çalışan tətbiqlər: {}"
 
 #: src/ui/pages/applications/mod.rs:888 src/ui/pages/processes/mod.rs:1172
 msgid "Cancel"
@@ -1112,7 +1112,7 @@ msgstr "Tətbiq"
 #: src/ui/pages/applications/mod.rs:990 src/ui/pages/processes/mod.rs:1281
 #, rust-format
 msgid "End {}?"
-msgstr ""
+msgstr "{} sonlandırılsın?"
 
 #: src/ui/pages/applications/mod.rs:991 src/ui/pages/processes/mod.rs:1282
 #, rust-format
@@ -1127,7 +1127,7 @@ msgstr ""
 #: src/ui/pages/applications/mod.rs:993 src/ui/pages/processes/mod.rs:1284
 #, rust-format
 msgid "Continue {}?"
-msgstr ""
+msgstr "{} davam etdirilsin?"
 
 #: src/ui/pages/applications/mod.rs:999 src/ui/pages/processes/mod.rs:1319
 msgid "Unsaved work might be lost"
@@ -1147,7 +1147,7 @@ msgstr ""
 
 #: src/ui/pages/battery.rs:213 src/ui/pages/battery.rs:259
 msgid "Battery Charge"
-msgstr ""
+msgstr "Batareya doldurması"
 
 #: src/ui/pages/cpu.rs:245 src/ui/pages/gpu.rs:217
 msgid "Total Usage"
@@ -1187,7 +1187,7 @@ msgstr ""
 
 #: src/ui/pages/gpu.rs:241
 msgid "Video Memory Usage"
-msgstr ""
+msgstr "Video yaddaş istifadəsi"
 
 #: src/ui/pages/memory.rs:324
 #, rust-format
@@ -1206,7 +1206,7 @@ msgstr "Yaddaş istifadəsi"
 #: src/ui/pages/memory.rs:484
 #, rust-format
 msgid "{} · {} · Priority: {}"
-msgstr ""
+msgstr "{} · {} · Prioritet: {}"
 
 #: src/ui/pages/memory.rs:505
 msgid "Swap Usage"
@@ -1223,18 +1223,18 @@ msgstr "Göndərilir"
 #: src/ui/pages/processes/mod.rs:1123
 #, rust-format
 msgid "Running Processes: {}"
-msgstr ""
+msgstr "Çalışan proseslər: {}"
 
 #: src/ui/pages/processes/mod.rs:1221
 msgid "Process"
-msgstr ""
+msgstr "Proses"
 
 #: src/ui/pages/processes/mod.rs:1291
 #, rust-format
 msgid "End process?"
 msgid_plural "End {} processes?"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Proses sonlandırılsın?"
+msgstr[1] "{} proses sonlandırılsın?"
 
 #: src/ui/pages/processes/mod.rs:1297
 #, rust-format
@@ -1425,7 +1425,7 @@ msgstr "{} TB"
 #: src/utils/units.rs:127 src/utils/units.rs:141
 #, rust-format
 msgid "{} PB"
-msgstr ""
+msgstr "{} PB"
 
 #: src/utils/units.rs:128 src/utils/units.rs:142
 #, rust-format
@@ -1455,47 +1455,47 @@ msgstr "{} QB"
 #: src/utils/units.rs:157 src/utils/units.rs:171
 #, rust-format
 msgid "{} KiB"
-msgstr ""
+msgstr "{} KiB"
 
 #: src/utils/units.rs:158 src/utils/units.rs:172
 #, rust-format
 msgid "{} MiB"
-msgstr ""
+msgstr "{} MiB"
 
 #: src/utils/units.rs:159 src/utils/units.rs:173
 #, rust-format
 msgid "{} GiB"
-msgstr ""
+msgstr "{} GiB"
 
 #: src/utils/units.rs:160 src/utils/units.rs:174
 #, rust-format
 msgid "{} TiB"
-msgstr ""
+msgstr "{} TiB"
 
 #: src/utils/units.rs:161 src/utils/units.rs:175
 #, rust-format
 msgid "{} PiB"
-msgstr ""
+msgstr "{} PiB"
 
 #: src/utils/units.rs:162 src/utils/units.rs:176
 #, rust-format
 msgid "{} EiB"
-msgstr ""
+msgstr "{} EiB"
 
 #: src/utils/units.rs:163 src/utils/units.rs:177
 #, rust-format
 msgid "{} ZiB"
-msgstr ""
+msgstr "{} ZiB"
 
 #: src/utils/units.rs:164 src/utils/units.rs:178
 #, rust-format
 msgid "{} YiB"
-msgstr ""
+msgstr "{} YiB"
 
 #: src/utils/units.rs:165 src/utils/units.rs:179
 #, rust-format
 msgid "{} RiB"
-msgstr ""
+msgstr "{} RiB"
 
 #: src/utils/units.rs:166 src/utils/units.rs:180
 #, rust-format
@@ -1505,52 +1505,52 @@ msgstr ""
 #: src/utils/units.rs:206 src/utils/units.rs:223
 #, rust-format
 msgid "{} B/s"
-msgstr ""
+msgstr "{} B/san"
 
 #: src/utils/units.rs:207
 #, rust-format
 msgid "{} kB/s"
-msgstr ""
+msgstr "{} kB/san"
 
 #: src/utils/units.rs:208
 #, rust-format
 msgid "{} MB/s"
-msgstr ""
+msgstr "{} MB/san"
 
 #: src/utils/units.rs:209
 #, rust-format
 msgid "{} GB/s"
-msgstr ""
+msgstr "{} GB/san"
 
 #: src/utils/units.rs:210
 #, rust-format
 msgid "{} TB/s"
-msgstr ""
+msgstr "{} TB/san"
 
 #: src/utils/units.rs:211
 #, rust-format
 msgid "{} PB/s"
-msgstr ""
+msgstr "{} PB/san"
 
 #: src/utils/units.rs:212
 #, rust-format
 msgid "{} EB/s"
-msgstr ""
+msgstr "{} EB/san"
 
 #: src/utils/units.rs:213
 #, rust-format
 msgid "{} ZB/s"
-msgstr ""
+msgstr "{} ZB/san"
 
 #: src/utils/units.rs:214
 #, rust-format
 msgid "{} YB/s"
-msgstr ""
+msgstr "{} YB/san"
 
 #: src/utils/units.rs:215
 #, rust-format
 msgid "{} RB/s"
-msgstr ""
+msgstr "{} RB/san"
 
 #: src/utils/units.rs:216
 #, rust-format
@@ -1560,47 +1560,47 @@ msgstr ""
 #: src/utils/units.rs:224
 #, rust-format
 msgid "{} KiB/s"
-msgstr ""
+msgstr "{} KiB/san"
 
 #: src/utils/units.rs:225
 #, rust-format
 msgid "{} MiB/s"
-msgstr ""
+msgstr "{} MiB/san"
 
 #: src/utils/units.rs:226
 #, rust-format
 msgid "{} GiB/s"
-msgstr ""
+msgstr "{} GiB/san"
 
 #: src/utils/units.rs:227
 #, rust-format
 msgid "{} TiB/s"
-msgstr ""
+msgstr "{} TiB/san"
 
 #: src/utils/units.rs:228
 #, rust-format
 msgid "{} PiB/s"
-msgstr ""
+msgstr "{} PiB/san"
 
 #: src/utils/units.rs:229
 #, rust-format
 msgid "{} EiB/s"
-msgstr ""
+msgstr "{} EiB/san"
 
 #: src/utils/units.rs:230
 #, rust-format
 msgid "{} ZiB/s"
-msgstr ""
+msgstr "{} ZiB/san"
 
 #: src/utils/units.rs:231
 #, rust-format
 msgid "{} YiB/s"
-msgstr ""
+msgstr "{} YiB/san"
 
 #: src/utils/units.rs:232
 #, rust-format
 msgid "{} RiB/s"
-msgstr ""
+msgstr "{} RiB/san"
 
 #: src/utils/units.rs:233
 #, rust-format
@@ -1640,22 +1640,22 @@ msgstr "{} Pb/san"
 #: src/utils/units.rs:253
 #, rust-format
 msgid "{} Eb/s"
-msgstr ""
+msgstr "{} Eb/san"
 
 #: src/utils/units.rs:254
 #, rust-format
 msgid "{} Zb/s"
-msgstr ""
+msgstr "{} Zb/san"
 
 #: src/utils/units.rs:255
 #, rust-format
 msgid "{} Yb/s"
-msgstr ""
+msgstr "{} Yb/san"
 
 #: src/utils/units.rs:256
 #, rust-format
 msgid "{} Rb/s"
-msgstr ""
+msgstr "{} Rb/san"
 
 #: src/utils/units.rs:257
 #, rust-format
@@ -1665,47 +1665,47 @@ msgstr ""
 #: src/utils/units.rs:265
 #, rust-format
 msgid "{} Kib/s"
-msgstr ""
+msgstr "{} Kib/san"
 
 #: src/utils/units.rs:266
 #, rust-format
 msgid "{} Mib/s"
-msgstr ""
+msgstr "{} Mib/san"
 
 #: src/utils/units.rs:267
 #, rust-format
 msgid "{} Gib/s"
-msgstr ""
+msgstr "{} Gib/san"
 
 #: src/utils/units.rs:268
 #, rust-format
 msgid "{} Tib/s"
-msgstr ""
+msgstr "{} Tib/san"
 
 #: src/utils/units.rs:269
 #, rust-format
 msgid "{} Pib/s"
-msgstr ""
+msgstr "{} Pib/san"
 
 #: src/utils/units.rs:270
 #, rust-format
 msgid "{} Eib/s"
-msgstr ""
+msgstr "{} Eib/san"
 
 #: src/utils/units.rs:271
 #, rust-format
 msgid "{} Zib/s"
-msgstr ""
+msgstr "{} Zib/san"
 
 #: src/utils/units.rs:272
 #, rust-format
 msgid "{} Yib/s"
-msgstr ""
+msgstr "{} Yib/san"
 
 #: src/utils/units.rs:273
 #, rust-format
 msgid "{} Rib/s"
-msgstr ""
+msgstr "{} Rib/san"
 
 #: src/utils/units.rs:274
 #, rust-format
