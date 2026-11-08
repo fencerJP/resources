@@ -33,20 +33,17 @@ const DESKTOP_EXEC_BLOCKLIST: &[&str] = &["bash", "zsh", "fish", "sh", "ksh", "f
 // This contains IDs of desktop files that shouldn't be counted as applications for whatever reason
 static APP_ID_BLOCKLIST: LazyLock<HashMap<&'static str, &'static str>> = LazyLock::new(|| {
     HashMap::from([
+        // GNOME Desktop Environment
         (
             "org.gnome.Terminal.Preferences",
             "Prevents the actual Terminal app \"org.gnome.Terminal\" from being shown",
         ),
-        (
-            "org.freedesktop.IBus.Panel.Extension.Gtk3",
-            "Technical application",
-        ),
+        ("org.gnome.goa-daemon", "Technical application"),
         ("org.gnome.RemoteDesktop.Handover", "Technical application"),
         (
             "gnome-software-local-file-packagekit",
             "Technical application",
         ),
-        ("snap-handle-link", "Technical application"),
         ("gnome-about-panel", "Technical application"),
         ("gnome-applications-panel", "Technical application"),
         ("gnome-background-panel", "Technical application"),
@@ -73,7 +70,19 @@ static APP_ID_BLOCKLIST: LazyLock<HashMap<&'static str, &'static str>> = LazyLoc
         ("gnome-wacom-panel", "Technical application"),
         ("gnome-wifi-panel", "Technical application"),
         ("gnome-wwan-panel", "Technical application"),
-        ("org.freedesktop.Xwayland", "Technical application"),
+        // Linux Mobile
+        ("org.freedesktop.cbd", "Technical application"),
+        // Linux Mobile - Phosh Desktop Environment
+        ("mobi.phosh.Shell", "Technical application"),
+        ("mobi.phosh.Phoc", "Technical application"),
+        ("mobi.phosh.Phrog", "Technical application"),
+        ("mobi.phosh.OsUpdater", "Technical application"),
+        // Various
+        (
+            "org.freedesktop.IBus.Panel.Extension.Gtk3",
+            "Technical application",
+        ),
+        ("snap-handle-link", "Technical application"),
     ])
 });
 

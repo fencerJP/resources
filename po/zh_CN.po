@@ -10,8 +10,8 @@ msgstr ""
 "Project-Id-Version: resources-main\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/Incubator/resources/"
 "issues/\n"
-"POT-Creation-Date: 2026-07-25 12:34+0000\n"
-"PO-Revision-Date: 2026-07-26 08:20+0800\n"
+"POT-Creation-Date: 2026-10-16 17:39+0000\n"
+"PO-Revision-Date: 2026-10-19 08:07+0800\n"
 "Last-Translator: lumingzh <lumingzh@qq.com>\n"
 "Language-Team: Chinese (China) <i18n-zh@googlegroups.com>\n"
 "Language: zh_CN\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Gtranslator 50.0\n"
+"X-Generator: Gtranslator 51.0\n"
 
 #: data/org.gnome.Resources.desktop.in.in:2
 #: data/org.gnome.Resources.metainfo.xml.in.in:4 data/resources/ui/window.ui:22
@@ -44,11 +44,8 @@ msgstr ""
 #: data/org.gnome.Resources.metainfo.xml.in.in:17
 msgid ""
 "Resources allows you to check the utilization of your system resources and "
-"control your running processes and apps. It’s designed to be user-friendly "
-"and feel right at home on a modern desktop by using GNOME’s libadwaita."
-msgstr ""
-"资源可让您查看系统资源的使用情况，并控制正在运行的应用与进程。其通过使用 "
-"GNOME 的 libadwaita 使其设计为用户友好且易于在现代桌面上使用。"
+"control your running processes and apps."
+msgstr "资源可让您查看系统资源的使用情况，并控制正在运行的应用与进程。"
 
 #: data/org.gnome.Resources.metainfo.xml.in.in:20
 msgid "Resources supports monitoring the following components:"
@@ -64,8 +61,8 @@ msgstr "处理器"
 #: data/resources/ui/dialogs/settings_dialog.ui:118
 #: data/resources/ui/dialogs/settings_dialog.ui:210
 #: data/resources/ui/window.ui:175 data/resources/ui/window.ui:182
-#: src/ui/pages/applications/mod.rs:427 src/ui/pages/memory.rs:106
-#: src/ui/pages/memory.rs:192 src/ui/pages/processes/mod.rs:532
+#: src/ui/pages/applications/mod.rs:427 src/ui/pages/memory.rs:166
+#: src/ui/pages/memory.rs:252 src/ui/pages/processes/mod.rs:532
 msgid "Memory"
 msgstr "内存"
 
@@ -143,7 +140,7 @@ msgstr "应用信息"
 #: data/resources/ui/dialogs/process_dialog.ui:48
 #: data/resources/ui/pages/battery.ui:22 data/resources/ui/pages/cpu.ui:37
 #: data/resources/ui/pages/cpu.ui:50 data/resources/ui/pages/drive.ui:22
-#: data/resources/ui/pages/gpu.ui:22 data/resources/ui/pages/memory.ui:31
+#: data/resources/ui/pages/gpu.ui:22 data/resources/ui/pages/memory.ui:43
 #: data/resources/ui/pages/network.ui:22 data/resources/ui/pages/npu.ui:22
 msgid "Usage"
 msgstr "占用"
@@ -162,7 +159,7 @@ msgstr "处理器"
 #: data/resources/ui/dialogs/process_dialog.ui:73
 #: data/resources/ui/dialogs/settings_dialog.ui:168
 #: data/resources/ui/dialogs/settings_dialog.ui:280
-#: src/ui/pages/applications/mod.rs:573 src/ui/pages/memory.rs:198
+#: src/ui/pages/applications/mod.rs:573 src/ui/pages/memory.rs:258
 #: src/ui/pages/processes/mod.rs:756
 msgid "Swap"
 msgstr "交换空间"
@@ -227,7 +224,7 @@ msgstr "视频解码器"
 #: data/resources/ui/dialogs/process_dialog.ui:179
 #: data/resources/ui/pages/battery.ui:33 data/resources/ui/pages/cpu.ui:83
 #: data/resources/ui/pages/drive.ui:54 data/resources/ui/pages/gpu.ui:74
-#: data/resources/ui/pages/memory.ui:42 data/resources/ui/pages/network.ui:51
+#: data/resources/ui/pages/memory.ui:60 data/resources/ui/pages/network.ui:51
 #: data/resources/ui/pages/npu.ui:77
 msgid "Properties"
 msgstr "属性"
@@ -486,7 +483,8 @@ msgid "Processes"
 msgstr "进程"
 
 #: data/resources/ui/dialogs/settings_dialog.ui:186
-#: data/resources/ui/pages/cpu.ui:22 data/resources/ui/pages/processes.ui:56
+#: data/resources/ui/pages/cpu.ui:22 data/resources/ui/pages/memory.ui:31
+#: data/resources/ui/pages/processes.ui:56
 msgid "Options"
 msgstr "选项"
 
@@ -630,7 +628,7 @@ msgstr "总读取量"
 msgid "Total Written"
 msgstr "总写入量"
 
-#: data/resources/ui/pages/drive.ui:57 data/resources/ui/pages/memory.ui:72
+#: data/resources/ui/pages/drive.ui:57 data/resources/ui/pages/memory.ui:90
 msgid "Type"
 msgstr "类型"
 
@@ -686,19 +684,27 @@ msgstr "您需要认证以查看内存属性"
 msgid "Authenticate"
 msgstr "认证"
 
-#: data/resources/ui/pages/memory.ui:45
+#: data/resources/ui/pages/memory.ui:35
+msgid "Show Swap Devices"
+msgstr "显示交换设备"
+
+#: data/resources/ui/pages/memory.ui:54
+msgid "Swap Devices"
+msgstr "交换设备"
+
+#: data/resources/ui/pages/memory.ui:63
 msgid "Slots Used"
 msgstr "已使用插槽"
 
-#: data/resources/ui/pages/memory.ui:54
+#: data/resources/ui/pages/memory.ui:72
 msgid "Speed"
 msgstr "速度"
 
-#: data/resources/ui/pages/memory.ui:63
+#: data/resources/ui/pages/memory.ui:81
 msgid "Form Factor"
 msgstr "规格参数"
 
-#: data/resources/ui/pages/memory.ui:81
+#: data/resources/ui/pages/memory.ui:99
 msgid "Type Detail"
 msgstr "类型详情"
 
@@ -880,7 +886,7 @@ msgstr ""
 "nicolasyang <bill.lee.y@gmail.com>, 2024.\n"
 "lumingzh <lumingzh@qq.com>, 2025-2026."
 
-#: src/devices/app.rs:247
+#: src/devices/app.rs:256
 msgid "System Processes"
 msgstr "系统进程"
 
@@ -953,10 +959,10 @@ msgstr "可充电碱性"
 #: src/ui/pages/cpu.rs:303 src/ui/pages/cpu.rs:306 src/ui/pages/cpu.rs:344
 #: src/ui/pages/drive.rs:375 src/ui/pages/gpu.rs:250 src/ui/pages/gpu.rs:257
 #: src/ui/pages/gpu.rs:318 src/ui/pages/gpu.rs:321 src/ui/pages/gpu.rs:332
-#: src/ui/pages/gpu.rs:346 src/ui/pages/memory.rs:227
-#: src/ui/pages/memory.rs:228 src/ui/pages/memory.rs:232
-#: src/ui/pages/memory.rs:233 src/ui/pages/memory.rs:237
-#: src/ui/pages/memory.rs:238 src/ui/pages/memory.rs:266
+#: src/ui/pages/gpu.rs:346 src/ui/pages/memory.rs:289
+#: src/ui/pages/memory.rs:290 src/ui/pages/memory.rs:294
+#: src/ui/pages/memory.rs:295 src/ui/pages/memory.rs:299
+#: src/ui/pages/memory.rs:300 src/ui/pages/memory.rs:328
 #: src/ui/pages/network.rs:253 src/ui/pages/network.rs:260
 #: src/ui/pages/network.rs:267 src/ui/pages/network.rs:273
 #: src/ui/pages/network.rs:276 src/ui/pages/network.rs:286
@@ -1268,21 +1274,26 @@ msgstr "视频解码器占用"
 msgid "Video Memory Usage"
 msgstr "显存占用"
 
-#: src/ui/pages/memory.rs:262
+#: src/ui/pages/memory.rs:324
 #, rust-format
 msgid "{} of {}"
 msgstr "{} 共 {}"
 
-#: src/ui/pages/memory.rs:265
+#: src/ui/pages/memory.rs:327
 #, rust-format
 msgid "{} MT/s"
 msgstr "{} MT/s"
 
-#: src/ui/pages/memory.rs:329
+#: src/ui/pages/memory.rs:418
 msgid "Memory Usage"
 msgstr "内存占用"
 
-#: src/ui/pages/memory.rs:336
+#: src/ui/pages/memory.rs:484
+#, rust-format
+msgid "{} · {} · Priority: {}"
+msgstr "{} · {} · 优先级：{}"
+
+#: src/ui/pages/memory.rs:505
 msgid "Swap Usage"
 msgstr "交换空间占用"
 

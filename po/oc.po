@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: resources main\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/Incubator/resources/issues/\n"
-"POT-Creation-Date: 2026-07-25 12:34+0000\n"
-"PO-Revision-Date: 2026-07-26 12:03+0200\n"
+"POT-Creation-Date: 2026-10-16 17:39+0000\n"
+"PO-Revision-Date: 2026-10-19 00:51+0200\n"
 "Last-Translator: Quentin PAGÈS\n"
 "Language-Team: Occitan <Occitan>\n"
 "Language: oc\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Poedit 3.9\n"
+"X-Generator: Poedit 3.10\n"
 
 #: data/org.gnome.Resources.desktop.in.in:2 data/org.gnome.Resources.metainfo.xml.in.in:4 data/resources/ui/window.ui:22 src/application.rs:284
 msgid "Resources"
@@ -30,15 +30,11 @@ msgstr "Gardar un uèlh sus las ressorsas del sistèma"
 #. Translators: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
 #: data/org.gnome.Resources.desktop.in.in:9
 msgid "System;Resources;Monitor;Processes;Usage;Task;Manager;CPU;RAM;Memory;GPU;Performance;Power;Battery;"
-msgstr "sistèma;ressorsas;resorças;monitor;susvelhar;procèssus;processús;usatge;utilizacion;prètzfach;prètzfait;gerir;gestion;gestionari;CPU;RAM;memòria;GPU;grafica;carta;processor;performanças;performàncias;batariá;"
+msgstr "sistèma;ressorsas;ressorças;monitor;susvelhar;procèssus;processús;usatge;utilizacion;prètzfach;prètzfait;gerir;gestion;gestionari;CPU;RAM;memòria;GPU;grafica;carta;processor;performanças;performàncias;batariá;"
 
 #: data/org.gnome.Resources.metainfo.xml.in.in:17
-msgid ""
-"Resources allows you to check the utilization of your system resources and control your running processes and apps. It’s designed to be user-friendly and feel right at home on a modern desktop by using GNOME’s "
-"libadwaita."
-msgstr ""
-"Resorsas vos permet de verificar l'utilizacion de las resorsas de vòstre sistèma e de contrarotlar vòstres processus e aplicacions en cors. Es concebut per èsser convivial e per s'integrar naturalament a un burèu "
-"modèrne en utilizant libadwaita de GNOME."
+msgid "Resources allows you to check the utilization of your system resources and control your running processes and apps."
+msgstr "Ressorsas vos permet de verificar l'utilizacion de las ressorsas de vòstre sistèma e de contrarotlar vòstres processus e aplicacions."
 
 #: data/org.gnome.Resources.metainfo.xml.in.in:20
 msgid "Resources supports monitoring the following components:"
@@ -49,7 +45,7 @@ msgid "CPU"
 msgstr "CPU"
 
 #: data/org.gnome.Resources.metainfo.xml.in.in:25 data/resources/ui/dialogs/app_dialog.ui:82 data/resources/ui/dialogs/process_dialog.ui:64 data/resources/ui/dialogs/settings_dialog.ui:118
-#: data/resources/ui/dialogs/settings_dialog.ui:210 data/resources/ui/window.ui:175 data/resources/ui/window.ui:182 src/ui/pages/applications/mod.rs:427 src/ui/pages/memory.rs:106 src/ui/pages/memory.rs:192
+#: data/resources/ui/dialogs/settings_dialog.ui:210 data/resources/ui/window.ui:175 data/resources/ui/window.ui:182 src/ui/pages/applications/mod.rs:427 src/ui/pages/memory.rs:166 src/ui/pages/memory.rs:252
 #: src/ui/pages/processes/mod.rs:532
 msgid "Memory"
 msgstr "Memòria"
@@ -116,7 +112,7 @@ msgid "App Information"
 msgstr "Informacions de l’aplicacion"
 
 #: data/resources/ui/dialogs/app_dialog.ui:70 data/resources/ui/dialogs/process_dialog.ui:48 data/resources/ui/pages/battery.ui:22 data/resources/ui/pages/cpu.ui:37 data/resources/ui/pages/cpu.ui:50
-#: data/resources/ui/pages/drive.ui:22 data/resources/ui/pages/gpu.ui:22 data/resources/ui/pages/memory.ui:31 data/resources/ui/pages/network.ui:22 data/resources/ui/pages/npu.ui:22
+#: data/resources/ui/pages/drive.ui:22 data/resources/ui/pages/gpu.ui:22 data/resources/ui/pages/memory.ui:43 data/resources/ui/pages/network.ui:22 data/resources/ui/pages/npu.ui:22
 msgid "Usage"
 msgstr "Utilizacion"
 
@@ -126,7 +122,7 @@ msgid "Processor"
 msgstr "Processor"
 
 #: data/resources/ui/dialogs/app_dialog.ui:91 data/resources/ui/dialogs/process_dialog.ui:73 data/resources/ui/dialogs/settings_dialog.ui:168 data/resources/ui/dialogs/settings_dialog.ui:280
-#: src/ui/pages/applications/mod.rs:573 src/ui/pages/memory.rs:198 src/ui/pages/processes/mod.rs:756
+#: src/ui/pages/applications/mod.rs:573 src/ui/pages/memory.rs:258 src/ui/pages/processes/mod.rs:756
 msgid "Swap"
 msgstr "Memòria d'escambi"
 
@@ -166,7 +162,7 @@ msgid "Video Decoder"
 msgstr "Desencodador vidèo"
 
 #: data/resources/ui/dialogs/app_dialog.ui:174 data/resources/ui/dialogs/process_dialog.ui:179 data/resources/ui/pages/battery.ui:33 data/resources/ui/pages/cpu.ui:83 data/resources/ui/pages/drive.ui:54
-#: data/resources/ui/pages/gpu.ui:74 data/resources/ui/pages/memory.ui:42 data/resources/ui/pages/network.ui:51 data/resources/ui/pages/npu.ui:77
+#: data/resources/ui/pages/gpu.ui:74 data/resources/ui/pages/memory.ui:60 data/resources/ui/pages/network.ui:51 data/resources/ui/pages/npu.ui:77
 msgid "Properties"
 msgstr "Proprietats"
 
@@ -392,7 +388,7 @@ msgstr "Memòria combinada"
 msgid "Processes"
 msgstr "Procèssus"
 
-#: data/resources/ui/dialogs/settings_dialog.ui:186 data/resources/ui/pages/cpu.ui:22 data/resources/ui/pages/processes.ui:56
+#: data/resources/ui/dialogs/settings_dialog.ui:186 data/resources/ui/pages/cpu.ui:22 data/resources/ui/pages/memory.ui:31 data/resources/ui/pages/processes.ui:56
 msgid "Options"
 msgstr "Opcions"
 
@@ -524,7 +520,7 @@ msgstr "Total legit"
 msgid "Total Written"
 msgstr "Total escrich"
 
-#: data/resources/ui/pages/drive.ui:57 data/resources/ui/pages/memory.ui:72
+#: data/resources/ui/pages/drive.ui:57 data/resources/ui/pages/memory.ui:90
 msgid "Type"
 msgstr "Tipe"
 
@@ -577,19 +573,27 @@ msgstr "Vos devètz autentificar per veire las proprietats de memòrias"
 msgid "Authenticate"
 msgstr "Autentificacion"
 
-#: data/resources/ui/pages/memory.ui:45
+#: data/resources/ui/pages/memory.ui:35
+msgid "Show Swap Devices"
+msgstr "Mostrar los periferics d’escambi"
+
+#: data/resources/ui/pages/memory.ui:54
+msgid "Swap Devices"
+msgstr "Periferics d’escambi"
+
+#: data/resources/ui/pages/memory.ui:63
 msgid "Slots Used"
 msgstr "Emplaçament utilizat"
 
-#: data/resources/ui/pages/memory.ui:54
+#: data/resources/ui/pages/memory.ui:72
 msgid "Speed"
 msgstr "Velocitat"
 
-#: data/resources/ui/pages/memory.ui:63
+#: data/resources/ui/pages/memory.ui:81
 msgid "Form Factor"
 msgstr "Factor de fòrma"
 
-#: data/resources/ui/pages/memory.ui:81
+#: data/resources/ui/pages/memory.ui:99
 msgid "Type Detail"
 msgstr "Detalh del tipe"
 
@@ -760,7 +764,7 @@ msgstr "Mostrar/Amagar camp de recèrca"
 msgid "translator-credits"
 msgstr "Quentin PAGÈS"
 
-#: src/devices/app.rs:247
+#: src/devices/app.rs:256
 msgid "System Processes"
 msgstr "Procèssus sistèma"
 
@@ -821,8 +825,8 @@ msgstr "Batariá alcalina recargabla"
 #: src/ui/dialogs/process_dialog.rs:171 src/ui/dialogs/process_dialog.rs:178 src/ui/dialogs/process_dialog.rs:185 src/ui/dialogs/process_dialog.rs:192 src/ui/pages/applications/mod.rs:466
 #: src/ui/pages/applications/mod.rs:494 src/ui/pages/battery.rs:208 src/ui/pages/battery.rs:228 src/ui/pages/battery.rs:234 src/ui/pages/battery.rs:237 src/ui/pages/battery.rs:272 src/ui/pages/cpu.rs:246
 #: src/ui/pages/cpu.rs:261 src/ui/pages/cpu.rs:281 src/ui/pages/cpu.rs:287 src/ui/pages/cpu.rs:293 src/ui/pages/cpu.rs:299 src/ui/pages/cpu.rs:303 src/ui/pages/cpu.rs:306 src/ui/pages/cpu.rs:344
-#: src/ui/pages/drive.rs:375 src/ui/pages/gpu.rs:250 src/ui/pages/gpu.rs:257 src/ui/pages/gpu.rs:318 src/ui/pages/gpu.rs:321 src/ui/pages/gpu.rs:332 src/ui/pages/gpu.rs:346 src/ui/pages/memory.rs:227
-#: src/ui/pages/memory.rs:228 src/ui/pages/memory.rs:232 src/ui/pages/memory.rs:233 src/ui/pages/memory.rs:237 src/ui/pages/memory.rs:238 src/ui/pages/memory.rs:266 src/ui/pages/network.rs:253
+#: src/ui/pages/drive.rs:375 src/ui/pages/gpu.rs:250 src/ui/pages/gpu.rs:257 src/ui/pages/gpu.rs:318 src/ui/pages/gpu.rs:321 src/ui/pages/gpu.rs:332 src/ui/pages/gpu.rs:346 src/ui/pages/memory.rs:289
+#: src/ui/pages/memory.rs:290 src/ui/pages/memory.rs:294 src/ui/pages/memory.rs:295 src/ui/pages/memory.rs:299 src/ui/pages/memory.rs:300 src/ui/pages/memory.rs:328 src/ui/pages/network.rs:253
 #: src/ui/pages/network.rs:260 src/ui/pages/network.rs:267 src/ui/pages/network.rs:273 src/ui/pages/network.rs:276 src/ui/pages/network.rs:286 src/ui/pages/network.rs:295 src/ui/pages/network.rs:304
 #: src/ui/pages/network.rs:383 src/ui/pages/network.rs:397 src/ui/pages/processes/mod.rs:574 src/ui/pages/processes/mod.rs:589 src/ui/pages/processes/mod.rs:604 src/ui/pages/processes/mod.rs:619
 #: src/ui/pages/processes/mod.rs:743 src/ui/pages/processes/mod.rs:745 src/utils/units.rs:354
@@ -1118,21 +1122,26 @@ msgstr "Utilizacion desencodador vidèo"
 msgid "Video Memory Usage"
 msgstr "Utilizacion memòria vidèo"
 
-#: src/ui/pages/memory.rs:262
+#: src/ui/pages/memory.rs:324
 #, rust-format
 msgid "{} of {}"
 msgstr "{} de {}"
 
-#: src/ui/pages/memory.rs:265
+#: src/ui/pages/memory.rs:327
 #, rust-format
 msgid "{} MT/s"
 msgstr "{} MT/s"
 
-#: src/ui/pages/memory.rs:329
+#: src/ui/pages/memory.rs:418
 msgid "Memory Usage"
 msgstr "Utilizacion de la memòria"
 
-#: src/ui/pages/memory.rs:336
+#: src/ui/pages/memory.rs:484
+#, rust-format
+msgid "{} · {} · Priority: {}"
+msgstr "{} · {} · Prioritat : {}"
+
+#: src/ui/pages/memory.rs:505
 msgid "Swap Usage"
 msgstr "Utilizacion de la memòria d’escambi"
 

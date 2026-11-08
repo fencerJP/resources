@@ -15,7 +15,7 @@
   </recommends>
   <description>
     <p>
-      Resources allows you to check the utilization of your system resources and control your running processes and apps. It’s designed to be user-friendly and feel right at home on a modern desktop by using GNOME’s libadwaita.
+      Resources allows you to check the utilization of your system resources and control your running processes and apps.
     </p>
     <p>
       Resources supports monitoring the following components:
@@ -48,40 +48,48 @@
     <color type="primary" scheme_preference="dark">#2d5e9a</color>
   </branding>
   <screenshots>
-    <screenshot type="default">
+    <screenshot type="default" environment="gnome">
       <image>https://gitlab.gnome.org/GNOME/Incubator/resources/-/raw/main/data/resources/screenshots/1.png</image>
       <caption>Apps page in light theme</caption>
     </screenshot>
-    <screenshot>
+    <screenshot environment="gnome:dark">
       <image>https://gitlab.gnome.org/GNOME/Incubator/resources/-/raw/main/data/resources/screenshots/2.png</image>
       <caption>Processes page in dark theme</caption>
     </screenshot>
-    <screenshot>
+    <screenshot environment="gnome">
       <image>https://gitlab.gnome.org/GNOME/Incubator/resources/-/raw/main/data/resources/screenshots/3.png</image>
       <caption>Processor page in light theme</caption>
     </screenshot>
-    <screenshot>
+    <screenshot environment="gnome:dark">
       <image>https://gitlab.gnome.org/GNOME/Incubator/resources/-/raw/main/data/resources/screenshots/4.png</image>
       <caption>Memory page in dark theme</caption>
     </screenshot>
-    <screenshot>
+    <screenshot environment="gnome">
       <image>https://gitlab.gnome.org/GNOME/Incubator/resources/-/raw/main/data/resources/screenshots/5.png</image>
       <caption>GPU page in light theme</caption>
     </screenshot>
-    <screenshot>
+    <screenshot environment="gnome:dark">
       <image>https://gitlab.gnome.org/GNOME/Incubator/resources/-/raw/main/data/resources/screenshots/6.png</image>
       <caption>Drive page in dark theme</caption>
     </screenshot>
-    <screenshot>
+    <screenshot environment="gnome">
       <image>https://gitlab.gnome.org/GNOME/Incubator/resources/-/raw/main/data/resources/screenshots/7.png</image>
       <caption>Network Interface page in light theme</caption>
     </screenshot>
-    <screenshot>
+    <screenshot environment="gnome:dark">
       <image>https://gitlab.gnome.org/GNOME/Incubator/resources/-/raw/main/data/resources/screenshots/8.png</image>
       <caption>Battery page in dark theme</caption>
     </screenshot>
   </screenshots>
   <releases>
+    <release version="51.0" date="2026-09-12">
+      <url type="details">https://gitlab.gnome.org/GNOME/Incubator/resources/-/releases/51.0</url>
+      <description translate="no">
+        <ul>
+          <li>Updated translations</li>
+        </ul>
+      </description>
+    </release>
     <release version="51~beta" date="2026-07-30">
       <url type="details">https://gitlab.gnome.org/GNOME/Incubator/resources/-/releases/51.beta</url>
       <description translate="no">

@@ -56,6 +56,33 @@ pub static IS_FLATPAK: LazyLock<bool> = LazyLock::new(|| {
     is_flatpak
 });
 
+pub static FLATPAK_RUNTIME_PATH: LazyLock<Option<String>> = LazyLock::new(|| {
+    trace!("Determining Flatpak runtime path…");
+    let runtime_path = std::fs::read_to_string("/.flatpak-info")
+        .ok()
+        .and_then(|contents| {
+            contents
+                .lines()
+                .find_map(|line| line.strip_prefix("runtime-path="))
+                .map(str::to_owned)
+        });
+    match &runtime_path {
+        Some(path) => debug!("Flatpak runtime path: {path}"),
+        None => debug!("Could not determine Flatpak runtime path"),
+    }
+    runtime_path
+});
+
+#[cfg(target_arch = "x86_64")]
+pub const LD_LINUX_RELATIVE: &str = "lib/x86_64-linux-gnu/ld-linux-x86-64.so.2";
+#[cfg(target_arch = "x86_64")]
+pub const MULTIARCH_DIR: &str = "lib/x86_64-linux-gnu";
+
+#[cfg(target_arch = "aarch64")]
+pub const LD_LINUX_RELATIVE: &str = "lib/aarch64-linux-gnu/ld-linux-aarch64.so.1";
+#[cfg(target_arch = "aarch64")]
+pub const MULTIARCH_DIR: &str = "lib/aarch64-linux-gnu";
+
 // Adapted from Mission Center: https://gitlab.com/mission-center-devs/mission-center/
 pub fn flatpak_app_path() -> Result<String> {
     let ini = Ini::load_from_file("/.flatpak-info").context("unable to find ./flatpak-info")?;
